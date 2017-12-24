@@ -11,6 +11,7 @@ class phraseViewController: UIViewController {
     var englishPhrase: String?
     var quizAnswer: String?
     var quizPair: Phrases?
+    var savedMemory: [Phrases?] = []
     
     @IBOutlet weak var correctMessage: UILabel!
     @IBOutlet weak var currentMode: UILabel!
@@ -38,12 +39,12 @@ class phraseViewController: UIViewController {
         if compareAnswer(quizAnswer: quizAnswer, userAnswer: userAnswer, quizPair: quizPair) == true {
             print("true")
             showCorrectMessage()
-            quizPair = getQuizPair()
+            getQuizPair()
         }
     }
     
     @IBAction func newQuiz() {
-        quizPair = getQuizPair()
+        getQuizPair()
         if let quiz = quizPair {
             displayQuiz(quiz)
         }
@@ -55,7 +56,8 @@ class phraseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         correctMessage.text = " "
-        quizPair = getQuizPair()
+        getMemoryStore()
+        getQuizPair()
         
         if let quiz = quizPair {
             displayQuiz(quiz)
@@ -74,25 +76,30 @@ class phraseViewController: UIViewController {
     }
 
 //Active Functions
-    func getQuizPair() -> Phrases? {
+    
+    func getMemoryStore() {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Phrases")
         var results = [Phrases]()
         
-        guard results.count >= 0 else {
         do {
             results = try managedObjectContext.fetch(request) as! [Phrases]
-            
-        } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
-        }
-        let randomIndex = Int(arc4random_uniform(UInt32(results.count)))
-        let currentPhrase = results[randomIndex]
+            } catch let error as NSError {
+                print("Could not fetch \(error), \(error.userInfo)")
+            }
+        savedMemory = results
+    }
     
-        print("The current quiz pair is \(currentPhrase.french ?? "empty") and \(currentPhrase.english ?? "empty")")
-        return currentPhrase
+    func getQuizPair() {
+        if savedMemory.count >= 0 {
+            let randomIndex = Int(arc4random_uniform(UInt32(savedMemory.count)))
+            
+            if let currentPhrase = savedMemory[randomIndex]{
+                print("The current quiz pair is \(currentPhrase.french ?? "empty") and \(currentPhrase.english ?? "empty")")
+            
+            }
         }
         
-        return nil
+        
     }
 
     func displayQuiz(_ currentPhrase: Phrases) {
