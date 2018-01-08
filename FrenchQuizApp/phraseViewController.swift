@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class phraseViewController: UIViewController {
+class phraseViewController: UIViewController, UITextFieldDelegate {
  
     //Start Class Properties
     var userAnswer: String?
@@ -52,14 +52,25 @@ class phraseViewController: UIViewController {
         
     }
     
-//Starter Functions and Core Data Manegment
+    
+    @IBAction func textFieldPrimaryActionTriggered(_ sender: Any) {
+        userAnswer = getUserAnswer()
+        if compareAnswer(quizAnswer: quizAnswer, userAnswer: userAnswer, quizPair: quizPair) == true {
+            print("true")
+            showCorrectMessage()
+            getQuizPair()
+        }
+    }
+    
+    //Starter Functions and Core Data Manegment
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         correctMessage.text = " "
         getMemoryStore()
         getQuizPair()
         if let quiz = quizPair {
-            print("inside the if let")
             displayQuiz(quiz)
         }
         
@@ -74,6 +85,8 @@ class phraseViewController: UIViewController {
             return appDelegate.persistentContainer.viewContext
         }
     }
+    
+
 
 //Active Functions
     
