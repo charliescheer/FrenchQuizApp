@@ -91,9 +91,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Correct Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9h-jH-l2u">
-                                <rect key="frame" x="105" y="349" width="174" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9h-jH-l2u">
+                                <rect key="frame" x="121.5" y="350" width="131.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -114,7 +113,9 @@
                             <constraint firstItem="C80-Zf-O1k" firstAttribute="leading" secondItem="NpK-Sa-zeS" secondAttribute="leading" constant="16" id="YrC-Eb-Ihr"/>
                             <constraint firstItem="NpK-Sa-zeS" firstAttribute="trailing" secondItem="C80-Zf-O1k" secondAttribute="trailing" constant="16" id="caM-LG-Kvv"/>
                             <constraint firstItem="NpK-Sa-zeS" firstAttribute="bottom" secondItem="J9o-WC-H0w" secondAttribute="bottom" constant="453.5" id="rjs-qr-OEU"/>
+                            <constraint firstItem="p9h-jH-l2u" firstAttribute="top" secondItem="ZPR-Cf-l3o" secondAttribute="bottom" constant="32.5" id="uJd-nD-qHf"/>
                             <constraint firstItem="NpK-Sa-zeS" firstAttribute="trailing" secondItem="ZPR-Cf-l3o" secondAttribute="trailing" constant="16" id="vG4-OJ-rZa"/>
+                            <constraint firstItem="p9h-jH-l2u" firstAttribute="centerX" secondItem="NpK-Sa-zeS" secondAttribute="centerX" id="zFJ-yA-zyz"/>
                             <constraint firstItem="NpK-Sa-zeS" firstAttribute="bottom" secondItem="hvf-lA-ix6" secondAttribute="bottom" constant="489" id="zaD-Kn-bEh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="NpK-Sa-zeS"/>
@@ -288,6 +289,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="qa2-gU-nBr"/>
+        <segue reference="wfI-XT-3gZ"/>
     </inferredMetricsTieBreakers>
 </document>

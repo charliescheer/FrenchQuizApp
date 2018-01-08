@@ -11,7 +11,7 @@ class phraseViewController: UIViewController {
     var englishPhrase: String?
     var quizAnswer: String?
     var quizPair: Phrases?
-    var savedMemory: [Phrases?] = []
+    var savedMemory: [Phrases]? = []
     
     @IBOutlet weak var correctMessage: UILabel!
     @IBOutlet weak var currentMode: UILabel!
@@ -58,8 +58,8 @@ class phraseViewController: UIViewController {
         correctMessage.text = " "
         getMemoryStore()
         getQuizPair()
-        
         if let quiz = quizPair {
+            print("inside the if let")
             displayQuiz(quiz)
         }
         
@@ -90,26 +90,26 @@ class phraseViewController: UIViewController {
     }
     
     func getQuizPair() {
-        if savedMemory.count >= 0 {
-            let randomIndex = Int(arc4random_uniform(UInt32(savedMemory.count)))
-            
-            if let currentPhrase = savedMemory[randomIndex]{
-                print("The current quiz pair is \(currentPhrase.french ?? "empty") and \(currentPhrase.english ?? "empty")")
-            
+        if let memory = savedMemory {
+            if memory.count >= 0 {
+                let randomIndex = Int(arc4random_uniform(UInt32(memory.count)))
+                let newQuizPair = memory[randomIndex]
+                
+                print("The pair is \(String(describing: newQuizPair.french)) and \(String(describing: newQuizPair.english))")
+                quizPair = newQuizPair
+                displayQuiz(newQuizPair)
             }
         }
-        
-        
     }
 
     func displayQuiz(_ currentPhrase: Phrases) {
         //Displays the current quiz question
         
-        if let currentPhrase = quizPair {
             frenchPhrase = currentPhrase.french
             englishPhrase = currentPhrase.english
             
             let randomNumber = Int(arc4random_uniform(UInt32(1)))
+            print("the random number was \(randomNumber)")
             
             switch randomNumber {
             case 0:
@@ -123,7 +123,6 @@ class phraseViewController: UIViewController {
             }
             
         }
-    }
     
     func getUserAnswer() -> String {
         //needs some work.  Should add some error catching insteadof the current solution.
@@ -151,6 +150,8 @@ class phraseViewController: UIViewController {
                 showCorrectMessage()
                 print("The answers are the same")
                 correct = true
+                answer.text = ""
+                getQuizPair()
             } else {
                 if let pair = quizPair {
                     pair.resetCount()
