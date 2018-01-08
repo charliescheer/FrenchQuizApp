@@ -45,9 +45,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func newQuiz() {
         getQuizPair()
-        if let quiz = quizPair {
-            displayQuiz(quiz)
-        }
+
         correctMessage.text = " "
         
     }
@@ -70,10 +68,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         correctMessage.text = " "
         getMemoryStore()
         getQuizPair()
-        if let quiz = quizPair {
-            displayQuiz(quiz)
-        }
-        
+
         mode = "Review"
         currentMode.text = mode
     }
@@ -123,18 +118,16 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
             frenchPhrase = currentPhrase.french
             englishPhrase = currentPhrase.english
             
-            let randomNumber = Int(arc4random_uniform(UInt32(1)))
+            let randomNumber = Int(arc4random_uniform(2))
             print("the random number was \(randomNumber)")
             
             switch randomNumber {
             case 0:
                 currentQuiz.text = frenchPhrase
                 quizAnswer = englishPhrase
-                print("the random number was \(randomNumber)")
             default:
                 currentQuiz.text = englishPhrase
                 quizAnswer = frenchPhrase
-                print("the random number was \(randomNumber)")
             }
             
         }
