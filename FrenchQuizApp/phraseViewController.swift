@@ -95,6 +95,8 @@ class phraseViewController: UIViewController {
                 let randomIndex = Int(arc4random_uniform(UInt32(memory.count)))
                 let newQuizPair = memory[randomIndex]
                 
+                newQuizPair.french = newQuizPair.french?.lowercased()
+                newQuizPair.english = newQuizPair.english?.lowercased()
                 print("The pair is \(String(describing: newQuizPair.french)) and \(String(describing: newQuizPair.english))")
                 quizPair = newQuizPair
                 displayQuiz(newQuizPair)
@@ -131,7 +133,7 @@ class phraseViewController: UIViewController {
         
         setAnswer = answer.text
         
-        if let a = setAnswer {
+        if let a = setAnswer?.lowercased() {
             return a
         } else {return "No ANSWER"}
     }
@@ -141,9 +143,8 @@ class phraseViewController: UIViewController {
         var correct: Bool = false
         
         if let currentQuiz = quizAnswer {
-            if let currentAnswer = answer.text {
         
-            if currentAnswer == currentQuiz{
+            if userAnswer == currentQuiz{
                 if let pair = quizPair {
                     pair.addPoint()
                 }
@@ -161,7 +162,7 @@ class phraseViewController: UIViewController {
                 print("The answers are not the same")
                 
             }
-            }
+            
         }
         return correct
     }
