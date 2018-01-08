@@ -88,5 +88,19 @@ class PhraseListViewController : UITableViewController {
             tableView.endUpdates()
         }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        if segue.identifier == "ShowPhrase" {
+            let phraseVC = segue.destination as? phraseEditView
+            
+            guard let phraseCell = sender as? UITableViewCell,
+                let indexPath = tableView.indexPath(for: phraseCell) else {
+                    return
+            }
+        
+            if let phrase = resultsController.object(at: indexPath) as? Phrases {
+                phraseVC?.phrase = phrase
+            }
+        }
+    }
 }
 
