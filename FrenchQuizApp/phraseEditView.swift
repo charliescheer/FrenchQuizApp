@@ -26,24 +26,16 @@ class phraseEditView: UIViewController {
         
     }
     
-    @IBAction func resetCounts() {
-        
-        phrase?.timesCorrect = 0
-        phrase?.timesIncorrect = 0
-        phrase?.correctInARow = 0
-        phrase?.learned = false
-        
-         if let currentPhrase = phrase {
-            correctLabel?.text = String(currentPhrase.timesCorrect)
-            incorrectLabel?.text = String(currentPhrase.timesIncorrect)
-            inRowLabel?.text = String(currentPhrase.correctInARow)
-        
-            if currentPhrase.learned == true {
-                learned?.text = "Learned!!"
-            } else {
-                learned?.text = "Not Learned"
-            }
+    @IBAction func resetAllCounts() {
+       
+        if phrase != nil{
+            phrase?.timesCorrect = 0
+            phrase?.timesIncorrect = 0
+            phrase?.correctInARow = 0
+            phrase?.learned = false
         }
+        
+        displayPhrase()
     }
     
     override func viewDidLoad() {

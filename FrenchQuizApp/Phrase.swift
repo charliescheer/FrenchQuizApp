@@ -11,6 +11,9 @@ extension Phrases {
     
     func resetCount() {
         self.correctInARow = 0
+    }
+    
+    func takePoint() {
         self.timesIncorrect += 1
     }
     
