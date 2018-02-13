@@ -12,17 +12,33 @@ class phraseEditView: UIViewController {
     @IBOutlet weak var learned: UILabel?
     @IBOutlet weak var englishPhrase: UITextField?
     @IBOutlet weak var frenchPhrase: UITextField?
+    @IBOutlet weak var modeLabel: UIBarButtonItem?
+    @IBOutlet weak var deleteSaveButton: UIBarButtonItem?
     
     @IBAction func editPhrase() {
         if mode == "View" {
-            mode = "Edit"
-            unlockPhrase()
-            
+            enterEdit()
+
         } else if mode == "Edit" {
-            lockPhrase()
+            updatePhrase()
+            enterView()
+
         } else {
             print("The mode is not correct")
         }
+    }
+    
+    @IBAction func saveDeleteButtonAction() {
+        if mode == "View" {
+            deletePhrase()
+        } else if mode == "Edit" {
+            updatePhrase()
+            enterView()
+        } else {
+            print("Error: The mode is not correct")
+        }
+    
+        
         
     }
     
@@ -38,12 +54,28 @@ class phraseEditView: UIViewController {
         displayPhrase()
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        lockPhrase()
         displayPhrase()
         
         
+        if mode == "View"{
+            modeLabel?.title = "Edit"
+            deleteSaveButton?.title = "Delete"
+            englishPhrase?.isUserInteractionEnabled = false
+            frenchPhrase?.isUserInteractionEnabled = false
+        } else if mode == "Edit" {
+            modeLabel?.title = "View"
+            deleteSaveButton?.title = "Save"
+            englishPhrase?.isUserInteractionEnabled = true
+            frenchPhrase?.isUserInteractionEnabled = true
+        } else {
+            print("Error: Mode is out of range")
+        }
+        
+        englishPhrase?.isUserInteractionEnabled = false
+        frenchPhrase?.isUserInteractionEnabled = false
     }
     
     func displayPhrase() {
@@ -64,14 +96,54 @@ class phraseEditView: UIViewController {
         }
     }
     
-    func lockPhrase() {
+    
+    func updatePhrase() {
+        if phrase != nil {
+            phrase?.english = englishPhrase?.text
+            phrase?.french = frenchPhrase?.text
+            
+            
+        }
+    }
+    
+    func enterView() {
+        mode = "View"
+        modeLabel?.title = "Edit"
+        deleteSaveButton?.title = "Delete"
+        
+        
         englishPhrase?.isUserInteractionEnabled = false
         frenchPhrase?.isUserInteractionEnabled = false
     }
     
-    func unlockPhrase() {
+    func enterEdit() {
+        mode = "Edit"
+        modeLabel?.title = "View"
+        deleteSaveButton?.title = "Save"
+        
+        
         englishPhrase?.isUserInteractionEnabled = true
         frenchPhrase?.isUserInteractionEnabled = true
+    }
+    
+    func deletePhrase() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let context = appDelegate.persistentContainer.viewContext
+
+        if let currentPhrase = phrase {
+            context.delete(currentPhrase)
+        
+            do {
+                try context.save()
+            } catch {
+                fatalError("failure")
+                }
+        }
+
+        
     }
 }
 

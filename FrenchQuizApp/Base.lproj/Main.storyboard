@@ -377,12 +377,12 @@
                                     </barButtonItem>
                                     <barButtonItem title="Reset" id="tkr-Kl-rfb">
                                         <connections>
-                                            <action selector="resetCounts" destination="pxV-7A-Q0c" id="o3y-g5-HUh"/>
+                                            <action selector="resetAllCounts" destination="pxV-7A-Q0c" id="Ok2-Hh-2td"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Delete/Save" id="vOP-Gx-ac4">
                                         <connections>
-                                            <action selector="resetCounts" destination="pxV-7A-Q0c" id="ZnC-mQ-zhC"/>
+                                            <action selector="saveDeleteButtonAction" destination="pxV-7A-Q0c" id="0EG-CT-NIq"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -443,11 +443,13 @@
                     </view>
                     <connections>
                         <outlet property="correctLabel" destination="5ma-fM-1MM" id="FZ6-uv-mUF"/>
+                        <outlet property="deleteSaveButton" destination="vOP-Gx-ac4" id="Yo2-vj-wWg"/>
                         <outlet property="englishPhrase" destination="QBv-Tp-FrN" id="MgU-4X-pGa"/>
                         <outlet property="frenchPhrase" destination="LcP-Kj-zon" id="yvz-MO-7gg"/>
                         <outlet property="inRowLabel" destination="Amk-aH-Cxs" id="KLP-gp-yOW"/>
                         <outlet property="incorrectLabel" destination="jbP-zG-Q7J" id="FKB-Rp-81H"/>
                         <outlet property="learned" destination="zse-Hw-7YE" id="E8C-fQ-3ZR"/>
+                        <outlet property="modeLabel" destination="qBg-Sr-1gL" id="9SO-UF-qZQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wkW-bj-10x" userLabel="First Responder" sceneMemberID="firstResponder"/>
