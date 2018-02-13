@@ -99,12 +99,24 @@ class phraseEditView: UIViewController {
     
     func updatePhrase() {
         if phrase != nil {
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                return
+            }
+            
+            let context = appDelegate.persistentContainer.viewContext
+            
+
             phrase?.english = englishPhrase?.text
             phrase?.french = frenchPhrase?.text
             
-            
+            do {
+                try context.save()
+            } catch {
+                fatalError("failure")
+            }
         }
     }
+
     
     func enterView() {
         mode = "View"
@@ -134,7 +146,7 @@ class phraseEditView: UIViewController {
         let context = appDelegate.persistentContainer.viewContext
 
         if let currentPhrase = phrase {
-            context.delete(currentPhrase)
+        context.delete(currentPhrase)
         
             do {
                 try context.save()
@@ -142,8 +154,6 @@ class phraseEditView: UIViewController {
                 fatalError("failure")
                 }
         }
-
-        
     }
 }
 

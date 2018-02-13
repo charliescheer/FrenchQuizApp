@@ -274,6 +274,7 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="englishLabel" destination="ytb-RU-KmO" id="Bqr-FZ-rRK"/>
                                     <outlet property="frenchLabel" destination="vzA-Vr-KBh" id="CL7-4o-2NQ"/>
