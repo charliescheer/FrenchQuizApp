@@ -6,6 +6,9 @@ class phraseEditView: UIViewController {
     var phrase: Phrases?
     var mode = "View"
     
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    
+    
     @IBOutlet weak var correctLabel: UILabel?
     @IBOutlet weak var incorrectLabel: UILabel?
     @IBOutlet weak var inRowLabel: UILabel?
@@ -59,7 +62,6 @@ class phraseEditView: UIViewController {
         super.viewDidLoad()
         displayPhrase()
         
-        
         if mode == "View"{
             modeLabel?.title = "Edit"
             deleteSaveButton?.title = "Delete"
@@ -92,30 +94,19 @@ class phraseEditView: UIViewController {
             } else {
                 learned?.text = "Not Learned"
             }
-            
         }
     }
     
     
     func updatePhrase() {
         if phrase != nil {
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                return
-            }
-            
-            let context = appDelegate.persistentContainer.viewContext
-            
-
             phrase?.english = englishPhrase?.text
             phrase?.french = frenchPhrase?.text
             
-            do {
-                try context.save()
-            } catch {
-                fatalError("failure")
-            }
+            appDelegate?.saveContext()
         }
     }
+    
 
     
     func enterView() {
@@ -139,21 +130,15 @@ class phraseEditView: UIViewController {
     }
     
     func deletePhrase() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
-        let context = appDelegate.persistentContainer.viewContext
+        let context = appDelegate?.persistentContainer.viewContext
 
         if let currentPhrase = phrase {
-        context.delete(currentPhrase)
-        
-            do {
-                try context.save()
-            } catch {
-                fatalError("failure")
-                }
+            if let currentContext = context {
+                currentContext.delete(currentPhrase)
+                appDelegate?.saveContext()
+            }
         }
     }
+
 }
 
