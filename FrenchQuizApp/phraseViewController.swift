@@ -12,6 +12,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     var quizAnswer: String?
     var quizPair: Phrases?
     var savedMemory: [Phrases]? = []
+    var quizCount = 0
     
     @IBOutlet weak var correctMessage: UILabel!
     @IBOutlet weak var currentMode: UILabel!
@@ -168,28 +169,37 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         switch mode {
         case "Review":
             if compareAnswer(quizAnswer: quizAnswer, userAnswer: userAnswer, quizPair: quizPair) == true {
-                print("true")
                 showCorrectMessage()
                 getQuizPair()
             }
         case "Learn":
             if compareAnswer(quizAnswer: quizAnswer, userAnswer: userAnswer, quizPair: quizPair) == true {
-                print("true")
                 showCorrectMessage()
                 getQuizPair()
             }
         case "Quiz":
             if compareAnswer(quizAnswer: quizAnswer, userAnswer: userAnswer, quizPair: quizPair) == true {
-                print("true")
-                print("quiz")
                 showCorrectMessage()
                 quizPair!.addPoint()
                 print(quizPair!.timesCorrect)
                 getQuizPair()
+                quizCount = 0
                 
             } else {
+                if quizCount <= 4 {
+                    message = "Incorrect :/"
+                    quizCount += 1
+                    correctMessage.text = "Incorrect :/ \(quizCount)"
+                    print(quizCount)
+                } else {
                     quizPair?.resetCount()
+                    quizPair?.takePoint()
                     print("Count reset")
+                    correctMessage.text = "Incorrect, the answer was \(quizAnswer))"
+                    getQuizPair()
+                    quizCount = 0
+                }
+                
             }
         default:
             print("error: mode out of range")
