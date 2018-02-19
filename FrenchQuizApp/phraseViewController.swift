@@ -22,25 +22,24 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     @IBAction func reviewMode() {
         mode = "Review"
         currentMode.text = mode
+        print(mode)
     }
     
     @IBAction func learnMode() {
         mode = "Learn"
         currentMode.text = mode
+        print(mode)
     }
     
     @IBAction func quizMode() {
         mode = "Quiz"
         currentMode.text = mode
+        print(mode)
     }
     
     @IBAction func answerQuiz() {
         userAnswer = getUserAnswer()
-        if compareAnswer(quizAnswer: quizAnswer, userAnswer: userAnswer, quizPair: quizPair) == true {
-            print("true")
-            showCorrectMessage()
-            getQuizPair()
-        }
+        doTest()
     }
     
     @IBAction func newQuiz() {
@@ -53,11 +52,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func textFieldPrimaryActionTriggered(_ sender: Any) {
         userAnswer = getUserAnswer()
-        if compareAnswer(quizAnswer: quizAnswer, userAnswer: userAnswer, quizPair: quizPair) == true {
-            print("true")
-            showCorrectMessage()
-            getQuizPair()
-        }
+        doTest()
     }
     
     //Starter Functions and Core Data Manegment
@@ -151,22 +146,12 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         if let currentQuiz = quizAnswer {
         
             if userAnswer == currentQuiz{
-                if let pair = quizPair {
-                    pair.addPoint()
-                }
-                showCorrectMessage()
                 print("The answers are the same")
                 correct = true
                 answer.text = ""
-                getQuizPair()
             } else {
-                if let pair = quizPair {
-                    pair.resetCount()
-                }
-                
                 message = "Incorrect :/"
                 print("The answers are not the same")
-                
             }
             
         }
@@ -176,6 +161,39 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     func showCorrectMessage() {
         message = "Correct!!"
         correctMessage.text = message
+    }
+    
+    func doTest() {
+        userAnswer = getUserAnswer()
+        switch mode {
+        case "Review":
+            if compareAnswer(quizAnswer: quizAnswer, userAnswer: userAnswer, quizPair: quizPair) == true {
+                print("true")
+                showCorrectMessage()
+                getQuizPair()
+            }
+        case "Learn":
+            if compareAnswer(quizAnswer: quizAnswer, userAnswer: userAnswer, quizPair: quizPair) == true {
+                print("true")
+                showCorrectMessage()
+                getQuizPair()
+            }
+        case "Quiz":
+            if compareAnswer(quizAnswer: quizAnswer, userAnswer: userAnswer, quizPair: quizPair) == true {
+                print("true")
+                print("quiz")
+                showCorrectMessage()
+                quizPair!.addPoint()
+                print(quizPair!.timesCorrect)
+                getQuizPair()
+                
+            } else {
+                    quizPair?.resetCount()
+                    print("Count reset")
+            }
+        default:
+            print("error: mode out of range")
+        }
     }
     
 }
