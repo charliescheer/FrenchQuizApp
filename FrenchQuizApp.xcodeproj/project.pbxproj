@@ -20,6 +20,7 @@
 		BA3E7E5D1FE46D1400C606AC /* PhraseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E5C1FE46D1400C606AC /* PhraseListViewController.swift */; };
 		BA3E7E601FE476D300C606AC /* FrenchQuizApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E5E1FE476D300C606AC /* FrenchQuizApp.xcdatamodeld */; };
 		BA603E1C200415DC00A97490 /* phraseEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA603E1B200415DC00A97490 /* phraseEditView.swift */; };
+		BAD1504E20437CA400965719 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD1504D20437CA400965719 /* Tools.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		BA3E7E5C1FE46D1400C606AC /* PhraseListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhraseListViewController.swift; sourceTree = "<group>"; };
 		BA3E7E5F1FE476D300C606AC /* FrenchQuizApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FrenchQuizApp.xcdatamodel; sourceTree = "<group>"; };
 		BA603E1B200415DC00A97490 /* phraseEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = phraseEditView.swift; sourceTree = "<group>"; };
+		BAD1504D20437CA400965719 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			children = (
 				BA3E7E201FE46C2700C606AC /* AppDelegate.swift */,
 				BA3E7E561FE46D0200C606AC /* phraseViewController.swift */,
+				BAD1504D20437CA400965719 /* Tools.swift */,
 				BA3E7E541FE46CFA00C606AC /* Phrase.swift */,
 				BA3E7E581FE46D0800C606AC /* phraseCell.swift */,
 				BA3E7E5A1FE46D0E00C606AC /* addPhraseViewController.swift */,
@@ -283,6 +286,7 @@
 				BA603E1C200415DC00A97490 /* phraseEditView.swift in Sources */,
 				BA3E7E211FE46C2700C606AC /* AppDelegate.swift in Sources */,
 				BA3E7E5B1FE46D0E00C606AC /* addPhraseViewController.swift in Sources */,
+				BAD1504E20437CA400965719 /* Tools.swift in Sources */,
 				BA3E7E571FE46D0200C606AC /* phraseViewController.swift in Sources */,
 				BA3E7E5D1FE46D1400C606AC /* PhraseListViewController.swift in Sources */,
 			);

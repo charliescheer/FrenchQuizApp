@@ -53,7 +53,10 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func textFieldPrimaryActionTriggered(_ sender: Any) {
         userAnswer = getUserAnswer()
+        let percent = percentageCompare() * 100
+        print("the percentage difference is \(percent)%")
         doTest()
+        
     }
     
     //Starter Functions and Core Data Manegment
@@ -206,4 +209,29 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func LDCompare() -> Int {
+        var result: Int = 0
+        if let answer = quizAnswer {
+            if let user = userAnswer {
+                result = Tools.levenshtein(aStr: answer, bStr: user)
+                print(answer)
+                print(user)
+                print("LD distance number \(result)")
+            }
+        }
+        
+        return result
+    }
+    
+    func percentageCompare () -> Double {
+        var result: Double = 0.00
+        let ldDisatance = Double(LDCompare())
+        if let answer = quizAnswer {
+            let answerLength = Double(answer.count)
+            result = (answerLength - ldDisatance) / answerLength
+            print("percent result \(result)")
+        }
+        return result
+    }
+ 
 }
