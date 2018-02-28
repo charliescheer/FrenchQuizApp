@@ -53,8 +53,6 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func textFieldPrimaryActionTriggered(_ sender: Any) {
         userAnswer = getUserAnswer()
-        let percent = percentageCompare() * 100
-        print("the percentage difference is \(percent)%")
         doTest()
         
     }
@@ -143,73 +141,114 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         } else {return "No ANSWER"}
     }
     
-    func compareAnswer (quizAnswer: String?, userAnswer: String?, quizPair: Phrases?) -> Bool {
-        //gets the clues for the current quiz and compares them to the user answer
-        var correct: Bool = false
-        
-        if let currentQuiz = quizAnswer {
-        
-            if userAnswer == currentQuiz{
-                print("The answers are the same")
-                correct = true
-                answer.text = ""
-            } else {
-                message = "Incorrect :/"
-                print("The answers are not the same")
-            }
-            
-        }
-        return correct
-    }
-    
     func showCorrectMessage() {
         message = "Correct!!"
         correctMessage.text = message
     }
     
     func doTest() {
-        userAnswer = getUserAnswer()
         switch mode {
         case "Review":
-            if compareAnswer(quizAnswer: quizAnswer, userAnswer: userAnswer, quizPair: quizPair) == true {
-                showCorrectMessage()
-                getQuizPair()
-            }
-        case "Learn":
-            if compareAnswer(quizAnswer: quizAnswer, userAnswer: userAnswer, quizPair: quizPair) == true {
-                showCorrectMessage()
-                getQuizPair()
-            }
+            doReview()
         case "Quiz":
-            if compareAnswer(quizAnswer: quizAnswer, userAnswer: userAnswer, quizPair: quizPair) == true {
-                showCorrectMessage()
-                quizPair!.addPoint()
-                print(quizPair!.timesCorrect)
-                getQuizPair()
-                quizCount = 0
-                
-            } else {
-                if quizCount <= 4 {
-                    message = "Incorrect :/"
-                    quizCount += 1
-                    correctMessage.text = "Incorrect :/ \(quizCount)"
-                    print(quizCount)
-                } else {
-                    quizPair?.resetCount()
-                    quizPair?.takePoint()
-                    print("Count reset")
-                    correctMessage.text = "Incorrect, the answer was \(quizAnswer))"
-                    getQuizPair()
-                    quizCount = 0
-                }
-                
-            }
+            doQuiz()
         default:
-            print("error: mode out of range")
+            print("The mode is out of range")
         }
     }
     
-    func LDCompare() -> Int {
+    func doQuiz () {
+        //get user answer
+        userAnswer = getUserAnswer()
+        
+        //compare user answer and quiz answer to return a percent correct
+        let percentCorrect = percentageCompare(quizAnswer: quizAnswer, userAnswer: userAnswer)
+        
+        //respond to the percentage correct
+        //if 100% correct
+        if percentCorrect ==  1 {
+            showCorrectMessage()
+            quizPair!.addPoint()
+            print(quizPair!.timesCorrect)
+            getQuizPair()
+            quizCount = 0
+            //if 85% or more
+        } else if percentCorrect > 0.85 {
+            if quizCount < 4 {
+                quizCount += 1
+                correctMessage.text = "Almost, Try again! Try # \(quizCount)"
+                print(quizCount)
+            } else {
+                correctMessage.text = "So close! The answer was: \(quizAnswer!)"
+                getQuizPair()
+                quizCount = 0
+            }
+            //if less then 85% correct
+        } else {
+            if quizCount < 4 {
+                message = "Incorrect :/"
+                quizCount += 1
+                correctMessage.text = "Incorrect :/ Try # \(quizCount)"
+                print(quizCount)
+            } else {
+                quizPair?.resetCount()
+                quizPair?.takePoint()
+                print("Count reset")
+                correctMessage.text = "Incorrect, the answer was: \(quizAnswer!)"
+                getQuizPair()
+                quizCount = 0
+            }
+            
+            
+        }
+    }
+    
+    func doReview () {
+        //get user answer
+        userAnswer = getUserAnswer()
+        
+        //compare user answer and quiz answer to return a percent correct
+        let percentCorrect = percentageCompare(quizAnswer: quizAnswer, userAnswer: userAnswer)
+        
+        //respond to the percentage correct
+        //if 100% correct
+        if percentCorrect ==  1 {
+            showCorrectMessage()
+            quizPair!.addPoint()
+            print(quizPair!.timesCorrect)
+            getQuizPair()
+            quizCount = 0
+            //if 85% or more
+        } else if percentCorrect > 0.85 {
+            if quizCount < 4 {
+                quizCount += 1
+                correctMessage.text = "Almost, Try again! Try # \(quizCount)"
+                print(quizCount)
+            } else {
+                correctMessage.text = "So close! The answer was: \(quizAnswer!)"
+                getQuizPair()
+                quizCount = 0
+            }
+            //if less then 85% correct
+        } else {
+            if quizCount < 4 {
+                message = "Incorrect :/"
+                quizCount += 1
+                correctMessage.text = "Incorrect :/ Try # \(quizCount)"
+                print(quizCount)
+            } else {
+                print("Count reset")
+                correctMessage.text = "Incorrect, the answer was: \(quizAnswer!)"
+                getQuizPair()
+                quizCount = 0
+            }
+            
+            
+        }
+    }
+    
+    
+    func LDCompare(quizAnswer: String?, userAnswer: String?) -> Int {
         var result: Int = 0
         if let answer = quizAnswer {
             if let user = userAnswer {
@@ -223,15 +262,17 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         return result
     }
     
-    func percentageCompare () -> Double {
+    func percentageCompare (quizAnswer: String?, userAnswer: String?) -> Double {
         var result: Double = 0.00
-        let ldDisatance = Double(LDCompare())
         if let answer = quizAnswer {
-            let answerLength = Double(answer.count)
-            result = (answerLength - ldDisatance) / answerLength
-            print("percent result \(result)")
-        }
+            if let user = userAnswer {
+                let ldDisatance = Double(LDCompare(quizAnswer: answer, userAnswer: user))
+                let answerLength = Double(answer.count)
+                result = (answerLength - ldDisatance) / answerLength
+                print("percent result \(result)")
+            }}
         return result
     }
- 
+    
+
 }
