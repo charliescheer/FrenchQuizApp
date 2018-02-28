@@ -26,6 +26,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         print(mode)
     }
     
+ //learn mode has been removed from scope, function and button on GUI need to be removed
     @IBAction func learnMode() {
         mode = "Learn"
         currentMode.text = mode
@@ -37,12 +38,13 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         currentMode.text = mode
         print(mode)
     }
-    
+
+//trigger compare user answer and quiz answer from button on screen
     @IBAction func answerQuiz() {
-        userAnswer = getUserAnswer()
         doTest()
     }
-    
+
+//get new quiz pair
     @IBAction func newQuiz() {
         getQuizPair()
 
@@ -50,14 +52,13 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    
+//trigger compare user answer and quiz from enter button
     @IBAction func textFieldPrimaryActionTriggered(_ sender: Any) {
-        userAnswer = getUserAnswer()
         doTest()
         
     }
     
-    //Starter Functions and Core Data Manegment
+//Starter Functions and Core Data Manegment
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -70,17 +71,13 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         currentMode.text = mode
     }
 
-    
+//get data from core data
     var managedObjectContext: NSManagedObjectContext {
         get {
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             return appDelegate.persistentContainer.viewContext
         }
     }
-    
-
-
-//Active Functions
     
     func getMemoryStore() {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Phrases")
@@ -94,21 +91,32 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         savedMemory = results
     }
     
+//active functions
+    
+//choose a random pair of words from the memory store
     func getQuizPair() {
         if let memory = savedMemory {
             if memory.count >= 0 {
                 let randomIndex = Int(arc4random_uniform(UInt32(memory.count)))
                 let newQuizPair = memory[randomIndex]
                 
+                //commented out for now, causes crash when all words are learned
+                //if newQuizPair.learned == false {
                 newQuizPair.french = newQuizPair.french?.lowercased()
                 newQuizPair.english = newQuizPair.english?.lowercased()
                 print("The pair is \(String(describing: newQuizPair.french)) and \(String(describing: newQuizPair.english))")
                 quizPair = newQuizPair
                 displayQuiz(newQuizPair)
+                
+//commented out for now, causes crash when all words are marked as learned
+//                } else {
+//                    self.getQuizPair()
+//                }
             }
         }
     }
 
+//display the currently selected quiz pair on screen
     func displayQuiz(_ currentPhrase: Phrases) {
         //Displays the current quiz question
         
@@ -128,7 +136,8 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
             }
             
         }
-    
+
+//Get user answer from text field
     func getUserAnswer() -> String {
         //needs some work.  Should add some error catching insteadof the current solution.
         
@@ -141,11 +150,13 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         } else {return "No ANSWER"}
     }
     
+//Feedback to user for answering a message correctly.
     func showCorrectMessage() {
         message = "Correct!!"
         correctMessage.text = message
     }
     
+//Trigger the correct test depending on the mode the app is in
     func doTest() {
         switch mode {
         case "Review":
@@ -157,6 +168,8 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+//compare the user answer to the quiz
+//in quiz mode a correct or incorrect answer will trigger gaining and losing points towards marking a word as learned
     func doQuiz () {
         //get user answer
         userAnswer = getUserAnswer()
@@ -198,11 +211,12 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
                 getQuizPair()
                 quizCount = 0
             }
-            
-            
         }
     }
     
+    
+//compare the user answer to the quiz
+//in review mode a correct or incorrect answer will NOT trigger gaining and losing points towards marking a word as learned
     func doReview () {
         //get user answer
         userAnswer = getUserAnswer()
@@ -248,6 +262,8 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     }
     
     
+//Levenshein distance comparing the user answer and quiz
+//Returns an int of the number of steps to make one string the same as the other
     func LDCompare(quizAnswer: String?, userAnswer: String?) -> Int {
         var result: Int = 0
         if let answer = quizAnswer {
@@ -262,6 +278,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         return result
     }
     
+//uses the results from the LDcompare to create a percentage difference between the user and quiz answers
     func percentageCompare (quizAnswer: String?, userAnswer: String?) -> Double {
         var result: Double = 0.00
         if let answer = quizAnswer {

@@ -112,12 +112,12 @@
 			isa = PBXGroup;
 			children = (
 				BA3E7E201FE46C2700C606AC /* AppDelegate.swift */,
-				BA3E7E561FE46D0200C606AC /* phraseViewController.swift */,
 				BAD1504D20437CA400965719 /* Tools.swift */,
 				BA3E7E541FE46CFA00C606AC /* Phrase.swift */,
-				BA3E7E581FE46D0800C606AC /* phraseCell.swift */,
-				BA3E7E5A1FE46D0E00C606AC /* addPhraseViewController.swift */,
+				BA3E7E561FE46D0200C606AC /* phraseViewController.swift */,
 				BA3E7E5C1FE46D1400C606AC /* PhraseListViewController.swift */,
+				BA3E7E5A1FE46D0E00C606AC /* addPhraseViewController.swift */,
+				BA3E7E581FE46D0800C606AC /* phraseCell.swift */,
 				BA603E1B200415DC00A97490 /* phraseEditView.swift */,
 				BA3E7E241FE46C2700C606AC /* Main.storyboard */,
 				BA3E7E2A1FE46C2700C606AC /* Assets.xcassets */,
