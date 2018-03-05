@@ -98,20 +98,13 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     func getQuizPair() {
         if let memory = savedMemory {
             if memory.count >= 0 {
-                var pairsAreAvailable: Bool = false
                 let randomIndex = Int(arc4random_uniform(UInt32(memory.count)))
                 let newQuizPair = memory[randomIndex]
-                
-                //checks the available pairs to see if any of them are not learned
-                for pair in memory {
-                    if pair.learned == false {
-                        pairsAreAvailable = true
-                        break
-                    }
-                }
+                let available = arePairsAvailable()
+
                 
                 //if there are available pairs, looks for a random one marked as unlearned and returns it to the view
-                if pairsAreAvailable == true {
+                if available == true {
                     if newQuizPair.learned == false {
                         newQuizPair.french = newQuizPair.french?.lowercased()
                         newQuizPair.english = newQuizPair.english?.lowercased()
@@ -130,6 +123,23 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
                 }
             }
         }
+    }
+    
+    func arePairsAvailable() -> Bool {
+        var pairsAreAvailable: Bool = false
+        
+        if let memory = savedMemory {
+            if memory.count >= 0 {
+                
+                for pair in memory {
+                    if pair.learned == false {
+                        pairsAreAvailable = true
+                        break
+                    }
+                }
+            }
+        }
+        return pairsAreAvailable
     }
 
 //display the currently selected quiz pair on screen
@@ -199,6 +209,13 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
             showCorrectMessage()
             quizPair!.addPoint()
             print(quizPair!.timesCorrect)
+        
+            if quizPair!.learned == true && quizPair!.correctInARow == 10 {
+                let alert = UIAlertController(title: "Learned!", message: "You've gotten \(quizPair!.english ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+                self.present(alert, animated: true)
+            }
+            
             getQuizPair()
             quizCount = 0
             //if 85% or more
@@ -244,8 +261,6 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         //if 100% correct
         if percentCorrect ==  1 {
             showCorrectMessage()
-            quizPair!.addPoint()
-            print(quizPair!.timesCorrect)
             getQuizPair()
             quizCount = 0
             //if 85% or more

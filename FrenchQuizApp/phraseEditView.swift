@@ -48,15 +48,28 @@ class phraseEditView: UIViewController {
     @IBAction func resetAllCounts() {
        
         if phrase != nil{
-            phrase?.timesCorrect = 0
-            phrase?.timesIncorrect = 0
-            phrase?.correctInARow = 0
-            phrase?.learned = false
+            if let currentPhrase = phrase {
+                let alert = UIAlertController(title: "Reset Counts", message: "This will set the counts for '\(currentPhrase.english ?? "No Phrase Selected")' back to 0, are you sure?", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.resetCounts()}))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                
+                
+                self.present(alert, animated: true)
+            }
         }
+        
+        
+    }
+    
+    func resetCounts() {
+        phrase?.timesCorrect = 0
+        phrase?.timesIncorrect = 0
+        phrase?.correctInARow = 0
+        phrase?.learned = false
         
         displayPhrase()
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

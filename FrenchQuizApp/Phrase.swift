@@ -19,7 +19,7 @@ extension Phrases {
     
     func checkIfLearned() {
         if correctInARow == 10 {
-        self.learned = true
+            self.learned = true
         }
     }
 }
