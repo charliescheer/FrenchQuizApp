@@ -93,25 +93,41 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     
 //active functions
     
-//choose a random pair of words from the memory store
+//choose a random pair of words from the memory store, make sure that pair is not already marked as learned.
+//also confirms that there are currently available unlearned pairs to check, if not displays an alert
     func getQuizPair() {
         if let memory = savedMemory {
             if memory.count >= 0 {
+                var pairsAreAvailable: Bool = false
                 let randomIndex = Int(arc4random_uniform(UInt32(memory.count)))
                 let newQuizPair = memory[randomIndex]
                 
-                //commented out for now, causes crash when all words are learned
-                //if newQuizPair.learned == false {
-                newQuizPair.french = newQuizPair.french?.lowercased()
-                newQuizPair.english = newQuizPair.english?.lowercased()
-                print("The pair is \(String(describing: newQuizPair.french)) and \(String(describing: newQuizPair.english))")
-                quizPair = newQuizPair
-                displayQuiz(newQuizPair)
+                //checks the available pairs to see if any of them are not learned
+                for pair in memory {
+                    if pair.learned == false {
+                        pairsAreAvailable = true
+                        break
+                    }
+                }
                 
-//commented out for now, causes crash when all words are marked as learned
-//                } else {
-//                    self.getQuizPair()
-//                }
+                //if there are available pairs, looks for a random one marked as unlearned and returns it to the view
+                if pairsAreAvailable == true {
+                    if newQuizPair.learned == false {
+                        newQuizPair.french = newQuizPair.french?.lowercased()
+                        newQuizPair.english = newQuizPair.english?.lowercased()
+                        print("The pair is \(String(describing: newQuizPair.french)) and \(String(describing: newQuizPair.english))")
+                        quizPair = newQuizPair
+                        displayQuiz(newQuizPair)
+                    } else {
+                        self.getQuizPair()
+                    }
+                } else {
+                    let alert = UIAlertController(title: "There are no available phrase pairs", message: "Please add more phrases to learn!", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                    
+                    self.present(alert, animated: true)
+                }
             }
         }
     }
