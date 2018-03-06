@@ -13,8 +13,8 @@ class phraseEditView: UIViewController {
     @IBOutlet weak var incorrectLabel: UILabel?
     @IBOutlet weak var inRowLabel: UILabel?
     @IBOutlet weak var learned: UILabel?
-    @IBOutlet weak var englishPhrase: UITextField?
-    @IBOutlet weak var frenchPhrase: UITextField?
+    @IBOutlet weak var primaryPhrase: UITextField?
+    @IBOutlet weak var learningPhrase: UITextField?
     @IBOutlet weak var modeLabel: UIBarButtonItem?
     @IBOutlet weak var deleteSaveButton: UIBarButtonItem?
     
@@ -49,7 +49,7 @@ class phraseEditView: UIViewController {
        
         if phrase != nil{
             if let currentPhrase = phrase {
-                let alert = UIAlertController(title: "Reset Counts", message: "This will set the counts for '\(currentPhrase.english ?? "No Phrase Selected")' back to 0, are you sure?", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Reset Counts", message: "This will set the counts for '\(currentPhrase.primaryLanguage ?? "No Phrase Selected")' back to 0, are you sure?", preferredStyle: .alert)
                 
                 alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.resetCounts()}))
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -78,25 +78,25 @@ class phraseEditView: UIViewController {
         if mode == "View"{
             modeLabel?.title = "Edit"
             deleteSaveButton?.title = "Delete"
-            englishPhrase?.isUserInteractionEnabled = false
-            frenchPhrase?.isUserInteractionEnabled = false
+            primaryPhrase?.isUserInteractionEnabled = false
+            learningPhrase?.isUserInteractionEnabled = false
         } else if mode == "Edit" {
             modeLabel?.title = "View"
             deleteSaveButton?.title = "Save"
-            englishPhrase?.isUserInteractionEnabled = true
-            frenchPhrase?.isUserInteractionEnabled = true
+            primaryPhrase?.isUserInteractionEnabled = true
+            learningPhrase?.isUserInteractionEnabled = true
         } else {
             print("Error: Mode is out of range")
         }
         
-        englishPhrase?.isUserInteractionEnabled = false
-        frenchPhrase?.isUserInteractionEnabled = false
+        primaryPhrase?.isUserInteractionEnabled = false
+        learningPhrase?.isUserInteractionEnabled = false
     }
     
     func displayPhrase() {
         if let currentPhrase = phrase {
-            englishPhrase?.text = currentPhrase.english
-            frenchPhrase?.text = currentPhrase.french
+            primaryPhrase?.text = currentPhrase.primaryLanguage
+            learningPhrase?.text = currentPhrase.learningLanguage
             
             correctLabel?.text = String(currentPhrase.timesCorrect)
             incorrectLabel?.text = String(currentPhrase.timesIncorrect)
@@ -113,8 +113,8 @@ class phraseEditView: UIViewController {
     
     func updatePhrase() {
         if phrase != nil {
-            phrase?.english = englishPhrase?.text
-            phrase?.french = frenchPhrase?.text
+            phrase?.primaryLanguage = primaryPhrase?.text
+            phrase?.learningLanguage = learningPhrase?.text
             
             appDelegate?.saveContext()
         }
@@ -128,8 +128,8 @@ class phraseEditView: UIViewController {
         deleteSaveButton?.title = "Delete"
         
         
-        englishPhrase?.isUserInteractionEnabled = false
-        frenchPhrase?.isUserInteractionEnabled = false
+        primaryPhrase?.isUserInteractionEnabled = false
+        learningPhrase?.isUserInteractionEnabled = false
     }
     
     func enterEdit() {
@@ -138,8 +138,8 @@ class phraseEditView: UIViewController {
         deleteSaveButton?.title = "Save"
         
         
-        englishPhrase?.isUserInteractionEnabled = true
-        frenchPhrase?.isUserInteractionEnabled = true
+        primaryPhrase?.isUserInteractionEnabled = true
+        learningPhrase?.isUserInteractionEnabled = true
     }
     
     func deletePhrase() {

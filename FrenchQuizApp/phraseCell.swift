@@ -1,8 +1,8 @@
 import UIKit
 
 class phraseCell: UITableViewCell {
-    @IBOutlet var englishLabel: UILabel?
-    @IBOutlet var frenchLabel: UILabel?
+    @IBOutlet var primaryLabel: UILabel?
+    @IBOutlet var learningLabel: UILabel?
     
 }
 

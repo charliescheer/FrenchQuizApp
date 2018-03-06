@@ -160,25 +160,25 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WW4-1u-XHa">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Primary Language" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WW4-1u-XHa">
                                 <rect key="frame" x="16" y="60" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MFK-Of-CLe">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MFK-Of-CLe" userLabel="New Primary Phrase">
                                 <rect key="frame" x="16" y="110" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="French" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yqw-qK-6tV">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Learning Language" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yqw-qK-6tV">
                                 <rect key="frame" x="16" y="193" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q1j-oK-g6Y">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q1j-oK-g6Y" userLabel="New Learning Phrase">
                                 <rect key="frame" x="16" y="244" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -221,8 +221,8 @@
                     </view>
                     <connections>
                         <outlet property="addedAlert" destination="TZw-8S-NPy" id="IMe-lh-U28"/>
-                        <outlet property="newEnglishPhrase" destination="MFK-Of-CLe" id="2KG-tC-GJM"/>
-                        <outlet property="newFrenchPhrase" destination="q1j-oK-g6Y" id="lvp-F4-RZD"/>
+                        <outlet property="newLearningPhrase" destination="q1j-oK-g6Y" id="A9U-Fz-S7n"/>
+                        <outlet property="newPrimaryPhrase" destination="MFK-Of-CLe" id="qoP-D1-Bjp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jFB-xM-D6Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -258,14 +258,14 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="English" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytb-RU-KmO">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Primary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytb-RU-KmO" userLabel="Primary Language Label">
                                             <rect key="frame" x="10" y="11" width="179" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="French" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzA-Vr-KBh">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Learning" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzA-Vr-KBh" userLabel="Learning Language Label">
                                             <rect key="frame" x="197" y="10" width="164" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -276,8 +276,8 @@
                                 </tableViewCellContentView>
                                 <gestureRecognizers/>
                                 <connections>
-                                    <outlet property="englishLabel" destination="ytb-RU-KmO" id="Bqr-FZ-rRK"/>
-                                    <outlet property="frenchLabel" destination="vzA-Vr-KBh" id="CL7-4o-2NQ"/>
+                                    <outlet property="learningLabel" destination="vzA-Vr-KBh" id="mrs-eW-w23"/>
+                                    <outlet property="primaryLabel" destination="ytb-RU-KmO" id="GbJ-7T-cTS"/>
                                     <segue destination="pxV-7A-Q0c" kind="show" identifier="ShowPhrase" id="fK2-kZ-roq"/>
                                 </connections>
                             </tableViewCell>
@@ -313,14 +313,14 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RM6-FV-x7o">
-                                <rect key="frame" x="159" y="100" width="56" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Primary Language" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RM6-FV-x7o">
+                                <rect key="frame" x="118" y="100" width="139" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="French" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BvF-xe-Hje">
-                                <rect key="frame" x="161" y="196" width="53" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Learning Language" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BvF-xe-Hje">
+                                <rect key="frame" x="114" y="196" width="147" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -388,13 +388,13 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Phrase English" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QBv-Tp-FrN">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Primary Language" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QBv-Tp-FrN" userLabel="Primary Phrase">
                                 <rect key="frame" x="16" y="129" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Phrase French" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LcP-Kj-zon">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Learning Language" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LcP-Kj-zon" userLabel="Learning Phrase">
                                 <rect key="frame" x="16" y="225" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -445,21 +445,21 @@
                     <connections>
                         <outlet property="correctLabel" destination="5ma-fM-1MM" id="FZ6-uv-mUF"/>
                         <outlet property="deleteSaveButton" destination="vOP-Gx-ac4" id="Yo2-vj-wWg"/>
-                        <outlet property="englishPhrase" destination="QBv-Tp-FrN" id="MgU-4X-pGa"/>
-                        <outlet property="frenchPhrase" destination="LcP-Kj-zon" id="yvz-MO-7gg"/>
                         <outlet property="inRowLabel" destination="Amk-aH-Cxs" id="KLP-gp-yOW"/>
                         <outlet property="incorrectLabel" destination="jbP-zG-Q7J" id="FKB-Rp-81H"/>
                         <outlet property="learned" destination="zse-Hw-7YE" id="E8C-fQ-3ZR"/>
+                        <outlet property="learningPhrase" destination="LcP-Kj-zon" id="Ihl-dH-sau"/>
                         <outlet property="modeLabel" destination="qBg-Sr-1gL" id="9SO-UF-qZQ"/>
+                        <outlet property="primaryPhrase" destination="QBv-Tp-FrN" id="0xk-EH-YiJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wkW-bj-10x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2296.5" y="-3.5"/>
+            <point key="canvasLocation" x="2295.1999999999998" y="-4.0479760119940034"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="I0h-aB-qk2"/>
-        <segue reference="wfI-XT-3gZ"/>
+        <segue reference="qa2-gU-nBr"/>
     </inferredMetricsTieBreakers>
 </document>

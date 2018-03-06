@@ -7,8 +7,8 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     var userAnswer: String?
     var mode: String = "Review"
     var message: String = " "
-    var frenchPhrase: String?
-    var englishPhrase: String?
+    var learningPhrase: String?
+    var primaryPhrase: String?
     var quizAnswer: String?
     var quizPair: Phrases?
     var savedMemory: [Phrases]? = []
@@ -106,9 +106,9 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
                 //if there are available pairs, looks for a random one marked as unlearned and returns it to the view
                 if available == true {
                     if newQuizPair.learned == false {
-                        newQuizPair.french = newQuizPair.french?.lowercased()
-                        newQuizPair.english = newQuizPair.english?.lowercased()
-                        print("The pair is \(String(describing: newQuizPair.french)) and \(String(describing: newQuizPair.english))")
+                        newQuizPair.learningLanguage = newQuizPair.learningLanguage?.lowercased()
+                        newQuizPair.primaryLanguage = newQuizPair.primaryLanguage?.lowercased()
+                        print("The pair is \(String(describing: newQuizPair.learningLanguage)) and \(String(describing: newQuizPair.primaryLanguage))")
                         quizPair = newQuizPair
                         displayQuiz(newQuizPair)
                     } else {
@@ -146,19 +146,19 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     func displayQuiz(_ currentPhrase: Phrases) {
         //Displays the current quiz question
         
-            frenchPhrase = currentPhrase.french
-            englishPhrase = currentPhrase.english
+            learningPhrase = currentPhrase.learningLanguage
+            primaryPhrase = currentPhrase.primaryLanguage
             
             let randomNumber = Int(arc4random_uniform(2))
             print("the random number was \(randomNumber)")
             
             switch randomNumber {
             case 0:
-                currentQuiz.text = frenchPhrase
-                quizAnswer = englishPhrase
+                currentQuiz.text = learningPhrase
+                quizAnswer = primaryPhrase
             default:
-                currentQuiz.text = englishPhrase
-                quizAnswer = frenchPhrase
+                currentQuiz.text = primaryPhrase
+                quizAnswer = learningPhrase
             }
             
         }
@@ -211,7 +211,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
             print(quizPair!.timesCorrect)
         
             if quizPair!.learned == true && quizPair!.correctInARow == 10 {
-                let alert = UIAlertController(title: "Learned!", message: "You've gotten \(quizPair!.english ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Learned!", message: "You've gotten \(quizPair!.primaryLanguage ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
                 self.present(alert, animated: true)
             }

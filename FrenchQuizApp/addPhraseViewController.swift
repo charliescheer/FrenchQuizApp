@@ -12,17 +12,17 @@ import CoreData
 
 class addPhraseViewController: UIViewController {
 
-    var englishPhrase: String?
-    var frenchPhrase: String?
+    var primaryPhrase: String?
+    var learningPhrase: String?
     var addAlert: String = "Added"
     
-    @IBOutlet weak var newEnglishPhrase: UITextField!
-    @IBOutlet weak var newFrenchPhrase: UITextField!
+    @IBOutlet weak var newPrimaryPhrase: UITextField!
+    @IBOutlet weak var newLearningPhrase: UITextField!
     @IBOutlet weak var addedAlert: UILabel!
     
     @IBAction func submitNewPhrase() {
-        englishPhrase = newEnglishPhrase.text!
-        frenchPhrase = newFrenchPhrase.text!
+        primaryPhrase = newPrimaryPhrase.text!
+        learningPhrase = newLearningPhrase.text!
         
         addedAlert.text = addAlert
         
@@ -34,8 +34,8 @@ class addPhraseViewController: UIViewController {
         
         if let phrase = NSEntityDescription.insertNewObject(forEntityName: "Phrases",
                                                            into: context) as? Phrases {
-            phrase.english = englishPhrase
-            phrase.french = frenchPhrase
+            phrase.primaryLanguage = primaryPhrase
+            phrase.learningLanguage = learningPhrase
             
             
             appDelegate.saveContext()

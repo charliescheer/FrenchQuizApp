@@ -5,7 +5,7 @@ class PhraseListViewController : UITableViewController {
 
         lazy var resultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Phrases")
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "english", ascending: true)]
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "primaryLanguage", ascending: true)]
             let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                         managedObjectContext: self.managedObjectContext,
                                                         sectionNameKeyPath: nil, cacheName: nil)
@@ -33,8 +33,8 @@ class PhraseListViewController : UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PhraseCell", for: indexPath) as! phraseCell
             // Set up the cell
             if let phrase = resultsController.object(at: indexPath) as? Phrases {
-                cell.englishLabel?.text = phrase.english
-                cell.frenchLabel?.text = phrase.french
+                cell.primaryLabel?.text = phrase.primaryLanguage
+                cell.learningLabel?.text = phrase.learningLanguage
             }
             //Populate the cell from the object
             return cell
