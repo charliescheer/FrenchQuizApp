@@ -5,7 +5,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
  
     //Start Class Properties
     var userAnswer: String?
-    var mode: String = "Review"
+    var mode: String = "Quiz"
     var message: String = " "
     var learningPhrase: String?
     var primaryPhrase: String?
@@ -20,11 +20,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var answer: UITextField!
     
     //Start View Controller Buttons
-    @IBAction func reviewMode() {
-        mode = "Review"
-        currentMode.text = mode
-        print(mode)
-    }
+
     
  //learn mode has been removed from scope, function and button on GUI need to be removed
     @IBAction func learnMode() {
@@ -67,7 +63,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         getMemoryStore()
         getQuizPair()
 
-        mode = "Review"
+        mode = "Quiz"
         currentMode.text = mode
     }
 
@@ -111,6 +107,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
                         print("The pair is \(String(describing: newQuizPair.learningLanguage)) and \(String(describing: newQuizPair.primaryLanguage))")
                         quizPair = newQuizPair
                         displayQuiz(newQuizPair)
+                        answer.text = ""
                     } else {
                         self.getQuizPair()
                     }
@@ -170,6 +167,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         var setAnswer: String?
         
         setAnswer = answer.text
+        setAnswer = setAnswer?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         
         if let a = setAnswer?.lowercased() {
             return a
@@ -185,7 +183,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
 //Trigger the correct test depending on the mode the app is in
     func doTest() {
         switch mode {
-        case "Review":
+        case "Learn":
             doReview()
         case "Quiz":
             doQuiz()

@@ -27,8 +27,6 @@ class PhraseListViewController : UITableViewController {
             }
         }
 
-
-
         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PhraseCell", for: indexPath) as! phraseCell
             // Set up the cell

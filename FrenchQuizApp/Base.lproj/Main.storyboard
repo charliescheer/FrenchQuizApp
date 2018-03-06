@@ -26,11 +26,6 @@
                                             <action selector="learnMode" destination="nui-Vb-IXU" id="1CV-8D-dTH"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Review" id="Kkb-d0-d49">
-                                        <connections>
-                                            <action selector="reviewMode" destination="nui-Vb-IXU" id="vmR-wK-nnV"/>
-                                        </connections>
-                                    </barButtonItem>
                                     <barButtonItem title="Quiz" id="VA3-a7-d0R">
                                         <connections>
                                             <action selector="quizMode" destination="nui-Vb-IXU" id="w8b-mg-dkQ"/>
@@ -460,6 +455,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="I0h-aB-qk2"/>
-        <segue reference="qa2-gU-nBr"/>
+        <segue reference="wfI-XT-3gZ"/>
     </inferredMetricsTieBreakers>
 </document>

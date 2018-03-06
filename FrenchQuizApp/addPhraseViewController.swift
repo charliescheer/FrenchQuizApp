@@ -21,27 +21,36 @@ class addPhraseViewController: UIViewController {
     @IBOutlet weak var addedAlert: UILabel!
     
     @IBAction func submitNewPhrase() {
-        primaryPhrase = newPrimaryPhrase.text!
-        learningPhrase = newLearningPhrase.text!
         
-        addedAlert.text = addAlert
-        
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
-        let context = appDelegate.persistentContainer.viewContext
-        
-        if let phrase = NSEntityDescription.insertNewObject(forEntityName: "Phrases",
-                                                           into: context) as? Phrases {
-            phrase.primaryLanguage = primaryPhrase
-            phrase.learningLanguage = learningPhrase
+        if newPrimaryPhrase.text == "" || newLearningPhrase.text == "" {
+            let alert = UIAlertController(title: "Enter Phrase", message: "Please enter a phrase for both fields", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+            self.present(alert, animated: true)
+        } else {
+            primaryPhrase = newPrimaryPhrase.text!
+            learningPhrase = newLearningPhrase.text!
             
+            primaryPhrase = primaryPhrase?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            learningPhrase = learningPhrase?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             
-            appDelegate.saveContext()
+            addedAlert.text = addAlert
+            
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                return
+            }
+            
+            let context = appDelegate.persistentContainer.viewContext
+            
+            if let phrase = NSEntityDescription.insertNewObject(forEntityName: "Phrases",
+                                                               into: context) as? Phrases {
+                phrase.primaryLanguage = primaryPhrase
+                phrase.learningLanguage = learningPhrase
+                
+                
+                appDelegate.saveContext()
+            }
+        
         }
-        
-        
         
     }
     
