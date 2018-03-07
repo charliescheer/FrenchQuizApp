@@ -180,8 +180,11 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pob-K6-CwT">
-                                <rect key="frame" x="164.5" y="357" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="148" y="357" width="79" height="30"/>
+                                <color key="backgroundColor" white="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Add Phrase">
+                                    <color key="titleShadowColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                </state>
                                 <connections>
                                     <action selector="submitNewPhrase" destination="X8l-h3-x58" eventType="touchDown" id="uXh-7p-8VM"/>
                                 </connections>
@@ -273,6 +276,7 @@
                                 <connections>
                                     <outlet property="learningLabel" destination="vzA-Vr-KBh" id="mrs-eW-w23"/>
                                     <outlet property="primaryLabel" destination="ytb-RU-KmO" id="GbJ-7T-cTS"/>
+                                    <outletCollection property="gestureRecognizers" destination="nqP-qQ-wiM" appends="YES" id="Rc5-wV-M6u"/>
                                     <segue destination="pxV-7A-Q0c" kind="show" identifier="ShowPhrase" id="fK2-kZ-roq"/>
                                 </connections>
                             </tableViewCell>
@@ -284,6 +288,7 @@
                     </tableView>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EPD-Kh-YmV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="nqP-qQ-wiM"/>
             </objects>
             <point key="canvasLocation" x="1325.5999999999999" y="-3.1484257871064472"/>
         </scene>
@@ -454,7 +459,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="I0h-aB-qk2"/>
-        <segue reference="wfI-XT-3gZ"/>
+        <segue reference="g1p-x2-Tpf"/>
+        <segue reference="qa2-gU-nBr"/>
     </inferredMetricsTieBreakers>
 </document>

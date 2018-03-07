@@ -2,7 +2,7 @@ import UIKit
 import CoreData
 
 class PhraseListViewController : UITableViewController {
-
+    
         lazy var resultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Phrases")
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "primaryLanguage", ascending: true)]

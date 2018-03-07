@@ -149,9 +149,13 @@ class phraseEditView: UIViewController {
             if let currentContext = context {
                 currentContext.delete(currentPhrase)
                 appDelegate?.saveContext()
+                
+          
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let controller = storyboard.instantiateViewController(withIdentifier: "PhraseListViewController")
+                self.present(controller, animated: true, completion: nil)
             }
         }
     }
-
 }
 

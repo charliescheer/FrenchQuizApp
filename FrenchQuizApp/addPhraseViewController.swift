@@ -14,11 +14,15 @@ class addPhraseViewController: UIViewController {
 
     var primaryPhrase: String?
     var learningPhrase: String?
-    var addAlert: String = "Added"
+    var addAlert: String = "Added!"
     
     @IBOutlet weak var newPrimaryPhrase: UITextField!
     @IBOutlet weak var newLearningPhrase: UITextField!
     @IBOutlet weak var addedAlert: UILabel!
+    
+    override func viewDidLoad() {
+        addedAlert.text = ""
+    }
     
     @IBAction func submitNewPhrase() {
         
@@ -33,7 +37,11 @@ class addPhraseViewController: UIViewController {
             primaryPhrase = primaryPhrase?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             learningPhrase = learningPhrase?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             
-            addedAlert.text = addAlert
+            //addedAlert.text = addAlert
+            
+            newLearningPhrase.text! = ""
+            newPrimaryPhrase.text! = ""
+            
             
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                 return
