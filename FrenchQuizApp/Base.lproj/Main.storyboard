@@ -276,7 +276,6 @@
                                 <connections>
                                     <outlet property="learningLabel" destination="vzA-Vr-KBh" id="mrs-eW-w23"/>
                                     <outlet property="primaryLabel" destination="ytb-RU-KmO" id="GbJ-7T-cTS"/>
-                                    <outletCollection property="gestureRecognizers" destination="nqP-qQ-wiM" appends="YES" id="Rc5-wV-M6u"/>
                                     <segue destination="pxV-7A-Q0c" kind="show" identifier="ShowPhrase" id="fK2-kZ-roq"/>
                                 </connections>
                             </tableViewCell>
@@ -288,7 +287,6 @@
                     </tableView>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EPD-Kh-YmV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="left" id="nqP-qQ-wiM"/>
             </objects>
             <point key="canvasLocation" x="1325.5999999999999" y="-3.1484257871064472"/>
         </scene>
