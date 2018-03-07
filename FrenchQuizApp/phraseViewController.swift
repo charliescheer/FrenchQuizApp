@@ -13,6 +13,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     var quizPair: Phrases?
     var savedMemory: [Phrases]? = []
     var quizCount = 0
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     @IBOutlet weak var correctMessage: UILabel!
     @IBOutlet weak var currentMode: UILabel!
@@ -65,6 +66,10 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
 
         mode = "Quiz"
         currentMode.text = mode
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        appDelegate?.saveContext()
     }
 
 //get data from core data

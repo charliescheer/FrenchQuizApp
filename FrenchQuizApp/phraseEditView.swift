@@ -93,6 +93,10 @@ class phraseEditView: UIViewController {
         learningPhrase?.isUserInteractionEnabled = false
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        appDelegate?.saveContext()
+    }
+    
     func displayPhrase() {
         if let currentPhrase = phrase {
             primaryPhrase?.text = currentPhrase.primaryLanguage

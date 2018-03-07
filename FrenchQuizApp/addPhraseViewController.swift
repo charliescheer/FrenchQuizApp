@@ -15,6 +15,7 @@ class addPhraseViewController: UIViewController {
     var primaryPhrase: String?
     var learningPhrase: String?
     var addAlert: String = "Added!"
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     @IBOutlet weak var newPrimaryPhrase: UITextField!
     @IBOutlet weak var newLearningPhrase: UITextField!
@@ -22,6 +23,10 @@ class addPhraseViewController: UIViewController {
     
     override func viewDidLoad() {
         addedAlert.text = ""
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        appDelegate?.saveContext()
     }
     
     @IBAction func submitNewPhrase() {

@@ -2,6 +2,7 @@ import UIKit
 import CoreData
 
 class PhraseListViewController : UITableViewController {
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
         lazy var resultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Phrases")
@@ -85,6 +86,10 @@ class PhraseListViewController : UITableViewController {
         func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
             tableView.endUpdates()
         }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        appDelegate?.saveContext()
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "ShowPhrase" {
