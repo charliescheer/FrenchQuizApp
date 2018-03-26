@@ -62,8 +62,13 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         
         correctMessage.text = " "
         getMemoryStore()
-        getQuizPair()
-
+        if savedMemory!.count > 0 {
+            getQuizPair()
+        } else {
+            currentQuiz.text = " "
+            answer.isUserInteractionEnabled = false
+        }
+            
         mode = "Quiz"
         currentMode.text = mode
     }
@@ -98,7 +103,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
 //also confirms that there are currently available unlearned pairs to check, if not displays an alert
     func getQuizPair() {
         if let memory = savedMemory {
-            if memory.count >= 0 {
+            if memory.count > 0 {
                 let randomIndex = Int(arc4random_uniform(UInt32(memory.count)))
                 let newQuizPair = memory[randomIndex]
                 let available = arePairsAvailable()
@@ -131,7 +136,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         var pairsAreAvailable: Bool = false
         
         if let memory = savedMemory {
-            if memory.count >= 0 {
+            if memory.count > 0 {
                 
                 for pair in memory {
                     if pair.learned == false {
