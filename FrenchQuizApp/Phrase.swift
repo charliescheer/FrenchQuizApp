@@ -22,4 +22,28 @@ extension Phrases {
             self.learned = true
         }
     }
+    
+    func LDCompare(userAnswer: String?, quizState: Int) -> Int {
+        var result: Int = 0
+        let state = quizState
+        
+        if state == 0 {
+            if let answer = userAnswer {
+                if let quiz = self.learningLanguage {
+                    result = Tools.levenshtein(aStr: quiz, bStr: answer)
+                }
+            }
+        
+        } else {
+            if let answer = userAnswer {
+                if let quiz = self.primaryLanguage {
+                    result = Tools.levenshtein(aStr: quiz, bStr: answer)
+                }
+            }
+        }
+        
+        return result
+    }
+    
+    
 }

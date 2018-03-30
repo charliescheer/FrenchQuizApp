@@ -7,12 +7,13 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     var userAnswer: String?
     var mode: String = "Quiz"
     var message: String = " "
-    var learningPhrase: String?
-    var primaryPhrase: String?
-    var quizAnswer: String?
+//    var learningPhrase: String?
+//    var primaryPhrase: String?
+//    var quizAnswer: String?
     var quizPair: Phrases?
     var savedMemory: [Phrases]? = []
     var quizCount = 0
+    var quizState: Int = 0
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     @IBOutlet weak var correctMessage: UILabel!
@@ -153,19 +154,21 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     func displayQuiz(_ currentPhrase: Phrases) {
         //Displays the current quiz question
         
-            learningPhrase = currentPhrase.learningLanguage
-            primaryPhrase = currentPhrase.primaryLanguage
+//            learningPhrase = currentPhrase.learningLanguage
+//            primaryPhrase = currentPhrase.primaryLanguage
+//
+        
             
             let randomNumber = Int(arc4random_uniform(2))
             print("the random number was \(randomNumber)")
             
             switch randomNumber {
             case 0:
-                currentQuiz.text = learningPhrase
-                quizAnswer = primaryPhrase
+                currentQuiz.text = currentPhrase.learningLanguage
+                quizState = 0
             default:
-                currentQuiz.text = primaryPhrase
-                quizAnswer = learningPhrase
+                currentQuiz.text = currentPhrase.primaryLanguage
+                quizState = 1
             }
             
         }
@@ -207,9 +210,16 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     func doQuiz () {
         //get user answer
         userAnswer = getUserAnswer()
+        if let quiz = quizPair {
+            if quizState == 0 {
+                let answer = quiz.learningLanguage
+            } else {
+                let answer = quiz.primaryLanguage
+            }
+        }
         
         //compare user answer and quiz answer to return a percent correct
-        let percentCorrect = percentageCompare(quizAnswer: quizAnswer, userAnswer: userAnswer)
+        let percentCorrect = percentageCompare(userAnswer: userAnswer)
         
         //respond to the percentage correct
         //if 100% correct
@@ -233,7 +243,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
                 correctMessage.text = "Almost, Try again! Try # \(quizCount)"
                 print(quizCount)
             } else {
-                correctMessage.text = "So close! The answer was: \(quizAnswer!)"
+                correctMessage.text = "So close! The answer was: \(answer!)"
                 getQuizPair()
                 quizCount = 0
             }
@@ -248,7 +258,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
                 quizPair?.resetCount()
                 quizPair?.takePoint()
                 print("Count reset")
-                correctMessage.text = "Incorrect, the answer was: \(quizAnswer!)"
+                correctMessage.text = "Incorrect, the answer was: \(answer!)"
                 getQuizPair()
                 quizCount = 0
             }
@@ -263,7 +273,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         userAnswer = getUserAnswer()
         
         //compare user answer and quiz answer to return a percent correct
-        let percentCorrect = percentageCompare(quizAnswer: quizAnswer, userAnswer: userAnswer)
+        let percentCorrect = percentageCompare(userAnswer: userAnswer)
         
         //respond to the percentage correct
         //if 100% correct
@@ -303,27 +313,27 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     
 //Levenshein distance comparing the user answer and quiz
 //Returns an int of the number of steps to make one string the same as the other
-    func LDCompare(quizAnswer: String?, userAnswer: String?) -> Int {
-        var result: Int = 0
-        if let answer = quizAnswer {
-            if let user = userAnswer {
-                result = Tools.levenshtein(aStr: answer, bStr: user)
-                print(answer)
-                print(user)
-                print("LD distance number \(result)")
-            }
-        }
-        
-        return result
-    }
-    
+//    func LDCompare(quizAnswer: String?, userAnswer: String?) -> Int {
+//        var result: Int = 0
+//        if let answer = quizAnswer {
+//            if let user = userAnswer {
+//                result = Tools.levenshtein(aStr: answer, bStr: user)
+//                print(answer)
+//                print(user)
+//                print("LD distance number \(result)")
+//            }
+//        }
+//
+//        return result
+//    }
+//
 //uses the results from the LDcompare to create a percentage difference between the user and quiz answers
-    func percentageCompare (quizAnswer: String?, userAnswer: String?) -> Double {
+    func percentageCompare (userAnswer: String?) -> Double {
         var result: Double = 0.00
-        if let answer = quizAnswer {
+        if let quiz = quizPair {
             if let user = userAnswer {
-                let ldDisatance = Double(LDCompare(quizAnswer: answer, userAnswer: user))
-                let answerLength = Double(answer.count)
+                let ldDisatance = Double(quiz.LDCompare(userAnswer: user, quizState: quizState))
+                let answerLength = Double(user.count)
                 result = (answerLength - ldDisatance) / answerLength
                 print("percent result \(result)")
             }}
