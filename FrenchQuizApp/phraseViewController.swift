@@ -134,7 +134,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
                     }
                     
                     if quizPair!.learned == true && quizPair!.correctInARow == 10 {
-                        quizPair?.learnedAlert(view: self)
+                        learnedAlert()
                     }
                     
                     getQuizPair()
@@ -228,9 +228,15 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         self.present(alert, animated: true)
     }
     
-    func NoAvailableQuizPairsAlert() {
+    func NoAvailableQuizPairsAlert () {
         let alert = UIAlertController(title: "There are no available phrase pairs", message: "Please add more phrases to learn!", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func learnedAlert () {
+        let alert = UIAlertController(title: "Learned!", message: "You've gotten \(quizPair!.primaryLanguage ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
 

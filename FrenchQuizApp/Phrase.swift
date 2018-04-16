@@ -96,29 +96,6 @@ extension Phrases {
         
         return answer
     }
-    
-    func learnedAlert(view: UIViewController) {
-            let alert = UIAlertController(title: "Learned!", message: "You've gotten \(self.primaryLanguage ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-            view.present(alert, animated: true)
-        }
-    
-//    func randomizeQuizLanguage (quizState: Int) -> (String, String) {
-//        var quiz: String
-//        var answer: String
-//        
-//        if quizState == 0 {
-//            quiz = self.learningLanguage!
-//            answer = self.primaryLanguage!
-//            print("The pair is \(String(quiz)) and \(answer))")
-//            }
-//        else {
-//            quiz = self.primaryLanguage!
-//            answer = self.learningLanguage!
-//            print("The pair is \(String(quiz)) and \(answer))")
-//        }
-//            return (quiz, answer)
-//    }
 }
     
 
