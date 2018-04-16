@@ -4,12 +4,9 @@ import CoreData
 class phraseViewController: UIViewController, UITextFieldDelegate {
  
     //Start Class Properties
-    var userAnswer: String?
+    
+    //should the variable Mode be something other then a string?
     var mode: String = "Quiz"
-    var message: String = " "
-//    var learningPhrase: String?
-//    var primaryPhrase: String?
-//    var quizAnswer: String?
     var quizPair: Phrases?
     var savedMemory: [Phrases]? = []
     var quizCount = 0
@@ -53,14 +50,11 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
 //trigger compare user answer and quiz from enter button
     @IBAction func textFieldPrimaryActionTriggered(_ sender: Any) {
         doTest()
-        
     }
     
 //Starter Functions and Core Data Manegment
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         correctMessage.text = " "
         getMemoryStore()
         if savedMemory!.count > 0 {
@@ -69,8 +63,6 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
             currentQuiz.text = " "
             answer.isUserInteractionEnabled = false
         }
-            
-        mode = "Quiz"
         currentMode.text = mode
     }
     
@@ -107,32 +99,87 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
             if memory.count > 0 {
                 let randomIndex = Int(arc4random_uniform(UInt32(memory.count)))
                 let newQuizPair = memory[randomIndex]
-                let available = arePairsAvailable()
+                quizState = Int(arc4random_uniform(2))
 
-                
                 //if there are available pairs, looks for a random one marked as unlearned and returns it to the view
-                if available == true {
+                if arePairsAvailable() == true {
                     if newQuizPair.learned == false {
-                        newQuizPair.learningLanguage = newQuizPair.learningLanguage?.lowercased()
-                        newQuizPair.primaryLanguage = newQuizPair.primaryLanguage?.lowercased()
                         print("The pair is \(String(describing: newQuizPair.learningLanguage)) and \(String(describing: newQuizPair.primaryLanguage))")
                         quizPair = newQuizPair
                         displayQuiz(newQuizPair)
-                        answer.text = ""
+                        clearUserAnswer()
                     } else {
                         self.getQuizPair()
                     }
                 } else {
-                    let alert = UIAlertController(title: "There are no available phrase pairs", message: "Please add more phrases to learn!", preferredStyle: .alert)
-                    
-                    alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-                    
-                    self.present(alert, animated: true)
+                    NoAvailableQuizPairsAlert()
                 }
             }
         }
     }
     
+    //compare the user answer to the quiz
+    //in quiz mode a correct or incorrect answer will trigger gaining and losing points towards marking a word as learned
+    func doTest () {
+        if let quiz = quizPair {
+            if getUserAnswer() != "No ANSWER" {
+                let answer = getUserAnswer()
+                
+                //If the answer is Correct
+                if quiz.doCompare(quizState: quizState, userAnswer: answer) == 1{
+                    correctMessage.text = "Correct!!!"
+                    
+                    if mode == "Quiz" {
+                        quizPair?.addPoint()
+                    }
+                    
+                    if quizPair!.learned == true && quizPair!.correctInARow == 10 {
+                        quizPair?.learnedAlert(view: self)
+                    }
+                    
+                    getQuizPair()
+                    
+                //If the answer is close
+                } else if quiz.doCompare(quizState: quizState, userAnswer: answer) > 0.85 {
+                    if quizCount < 4 {
+                        quizCount += 1
+                        correctMessage.text = "Almost, Try again! Try # \(quizCount)"
+                        print(quizCount)
+                    } else {
+                        correctMessage.text = "So close! The answer was: \(quiz.returnAnswer(quizState: quizState))"
+                        getQuizPair()
+                        quizCount = 0
+                    }
+                    
+                //if less then 85% correct
+                } else {
+                    if quizCount < 4 {
+                        quizCount += 1
+                        correctMessage.text = "Incorrect :/ Try # \(quizCount)"
+                        print(quizCount)
+                    } else {
+                        if mode == "Quiz" {
+                            quizPair?.resetCount()
+                            quizPair?.takePoint()
+                        }
+                        
+                        print("Count reset")
+                        correctMessage.text = "Incorrect, the answer was: \(quiz.returnAnswer(quizState: quizState))"
+                        
+                        getQuizPair()
+                        quizCount = 0
+                    }
+                }
+                
+            //If the user answer field was blank
+            } else {
+                noAnswerAlert()
+            }
+            
+        }
+    }
+    
+    //Check to make sure there are phrases stored in memory
     func arePairsAvailable() -> Bool {
         var pairsAreAvailable: Bool = false
         
@@ -153,192 +200,38 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
 //display the currently selected quiz pair on screen
     func displayQuiz(_ currentPhrase: Phrases) {
         //Displays the current quiz question
-        
-//            learningPhrase = currentPhrase.learningLanguage
-//            primaryPhrase = currentPhrase.primaryLanguage
-//
-        
-            
-            let randomNumber = Int(arc4random_uniform(2))
-            print("the random number was \(randomNumber)")
-            
-            switch randomNumber {
-            case 0:
-                currentQuiz.text = currentPhrase.learningLanguage
-                quizState = 0
-            default:
-                currentQuiz.text = currentPhrase.primaryLanguage
-                quizState = 1
-            }
-            
+            currentQuiz.text = currentPhrase.returnQuiz(quizState: quizState)
         }
 
 //Get user answer from text field
     func getUserAnswer() -> String {
-        //needs some work.  Should add some error catching insteadof the current solution.
+        if let userAnswer = answer.text {
+            var setAnswer: String = userAnswer
         
-        var setAnswer: String?
-        
-        setAnswer = answer.text
-        setAnswer = setAnswer?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        
-        if let a = setAnswer?.lowercased() {
-            return a
-        } else {return "No ANSWER"}
-    }
-    
-//Feedback to user for answering a message correctly.
-    func showCorrectMessage() {
-        message = "Correct!!"
-        correctMessage.text = message
-    }
-    
-//Trigger the correct test depending on the mode the app is in
-    func doTest() {
-        switch mode {
-        case "Learn":
-            doReview()
-        case "Quiz":
-            doQuiz()
-        default:
-            print("The mode is out of range")
-        }
-    }
-    
-//compare the user answer to the quiz
-//in quiz mode a correct or incorrect answer will trigger gaining and losing points towards marking a word as learned
-    func doQuiz () {
-        //get user answer
-        userAnswer = getUserAnswer()
-        if let quiz = quizPair {
-            if quizState == 0 {
-                let answer = quiz.learningLanguage
-            } else {
-                let answer = quiz.primaryLanguage
-            }
-        }
-        
-        //compare user answer and quiz answer to return a percent correct
-        let percentCorrect = percentageCompare(userAnswer: userAnswer)
-        
-        //respond to the percentage correct
-        //if 100% correct
-        if percentCorrect ==  1 {
-            showCorrectMessage()
-            quizPair!.addPoint()
-            print(quizPair!.timesCorrect)
-        
-            if quizPair!.learned == true && quizPair!.correctInARow == 10 {
-                let alert = UIAlertController(title: "Learned!", message: "You've gotten \(quizPair!.primaryLanguage ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-                self.present(alert, animated: true)
-            }
+            setAnswer = setAnswer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            setAnswer = setAnswer.lowercased()
             
-            getQuizPair()
-            quizCount = 0
-            //if 85% or more
-        } else if percentCorrect > 0.85 {
-            if quizCount < 4 {
-                quizCount += 1
-                correctMessage.text = "Almost, Try again! Try # \(quizCount)"
-                print(quizCount)
-            } else {
-                correctMessage.text = "So close! The answer was: \(answer!)"
-                getQuizPair()
-                quizCount = 0
-            }
-            //if less then 85% correct
-        } else {
-            if quizCount < 4 {
-                message = "Incorrect :/"
-                quizCount += 1
-                correctMessage.text = "Incorrect :/ Try # \(quizCount)"
-                print(quizCount)
-            } else {
-                quizPair?.resetCount()
-                quizPair?.takePoint()
-                print("Count reset")
-                correctMessage.text = "Incorrect, the answer was: \(answer!)"
-                getQuizPair()
-                quizCount = 0
-            }
-        }
-    }
-    
-    
-//compare the user answer to the quiz
-//in review mode a correct or incorrect answer will NOT trigger gaining and losing points towards marking a word as learned
-    func doReview () {
-        //get user answer
-        userAnswer = getUserAnswer()
-        
-        //compare user answer and quiz answer to return a percent correct
-        let percentCorrect = percentageCompare(userAnswer: userAnswer)
-        
-        //respond to the percentage correct
-        //if 100% correct
-        if percentCorrect ==  1 {
-            showCorrectMessage()
-            getQuizPair()
-            quizCount = 0
-            //if 85% or more
-        } else if percentCorrect > 0.85 {
-            if quizCount < 4 {
-                quizCount += 1
-                correctMessage.text = "Almost, Try again! Try # \(quizCount)"
-                print(quizCount)
-            } else {
-                correctMessage.text = "So close! The answer was: \(quizAnswer!)"
-                getQuizPair()
-                quizCount = 0
-            }
-            //if less then 85% correct
-        } else {
-            if quizCount < 4 {
-                message = "Incorrect :/"
-                quizCount += 1
-                correctMessage.text = "Incorrect :/ Try # \(quizCount)"
-                print(quizCount)
-            } else {
-                print("Count reset")
-                correctMessage.text = "Incorrect, the answer was: \(quizAnswer!)"
-                getQuizPair()
-                quizCount = 0
-            }
+            return setAnswer
             
-            
+            } else {return "No ANSWER"}
         }
+
+
+    func clearUserAnswer() {
+        answer.text = " "
+    }
+
+//Alert Functions
+    func noAnswerAlert () {
+        let alert = UIAlertController(title: "No Answer", message: "Please enter an answer.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
     
-    
-//Levenshein distance comparing the user answer and quiz
-//Returns an int of the number of steps to make one string the same as the other
-//    func LDCompare(quizAnswer: String?, userAnswer: String?) -> Int {
-//        var result: Int = 0
-//        if let answer = quizAnswer {
-//            if let user = userAnswer {
-//                result = Tools.levenshtein(aStr: answer, bStr: user)
-//                print(answer)
-//                print(user)
-//                print("LD distance number \(result)")
-//            }
-//        }
-//
-//        return result
-//    }
-//
-//uses the results from the LDcompare to create a percentage difference between the user and quiz answers
-    func percentageCompare (userAnswer: String?) -> Double {
-        var result: Double = 0.00
-        if let quiz = quizPair {
-            if let user = userAnswer {
-                let ldDisatance = Double(quiz.LDCompare(userAnswer: user, quizState: quizState))
-                let answerLength = Double(user.count)
-                result = (answerLength - ldDisatance) / answerLength
-                print("percent result \(result)")
-            }}
-        return result
+    func NoAvailableQuizPairsAlert() {
+        let alert = UIAlertController(title: "There are no available phrase pairs", message: "Please add more phrases to learn!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
-    
 
 }
