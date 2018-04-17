@@ -379,11 +379,6 @@
                                             <action selector="saveDeleteButtonAction" destination="pxV-7A-Q0c" id="0EG-CT-NIq"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Return" id="OQ4-QF-N26">
-                                        <connections>
-                                            <action selector="returnToList" destination="pxV-7A-Q0c" id="xiC-Nh-luw"/>
-                                        </connections>
-                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Primary Language" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QBv-Tp-FrN" userLabel="Primary Phrase">

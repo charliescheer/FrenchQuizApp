@@ -21,18 +21,12 @@ class phraseEditView: UIViewController {
     @IBAction func editPhrase() {
         if mode == "View" {
             enterEdit()
-
         } else if mode == "Edit" {
             updatePhrase()
             enterView()
-
         } else {
-            print("The mode is not correct")
+            print("The mode is out of range")
         }
-    }
-    
-    @IBAction func returnToList() {
-       returnsToList()
     }
     
     @IBAction func saveDeleteButtonAction() {
@@ -44,35 +38,15 @@ class phraseEditView: UIViewController {
         } else {
             print("Error: The mode is not correct")
         }
-    
-        
-        
     }
     
     @IBAction func resetAllCounts() {
        
         if phrase != nil{
             if let currentPhrase = phrase {
-                let alert = UIAlertController(title: "Reset Counts", message: "This will set the counts for '\(currentPhrase.primaryLanguage ?? "No Phrase Selected")' back to 0, are you sure?", preferredStyle: .alert)
-                
-                alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.resetCounts()}))
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                
-                
-                self.present(alert, animated: true)
+                resetAlert(phrase: currentPhrase)
             }
         }
-        
-        
-    }
-    
-    func resetCounts() {
-        phrase?.timesCorrect = 0
-        phrase?.timesIncorrect = 0
-        phrase?.correctInARow = 0
-        phrase?.learned = false
-        
-        displayPhrase()
     }
     
     override func viewDidLoad() {
@@ -82,13 +56,9 @@ class phraseEditView: UIViewController {
         if mode == "View"{
             modeLabel?.title = "Edit"
             deleteSaveButton?.title = "Delete"
-            primaryPhrase?.isUserInteractionEnabled = false
-            learningPhrase?.isUserInteractionEnabled = false
         } else if mode == "Edit" {
             modeLabel?.title = "View"
             deleteSaveButton?.title = "Save"
-            primaryPhrase?.isUserInteractionEnabled = true
-            learningPhrase?.isUserInteractionEnabled = true
         } else {
             print("Error: Mode is out of range")
         }
@@ -99,6 +69,15 @@ class phraseEditView: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         appDelegate?.saveContext()
+    }
+    
+    func resetCounts() {
+        phrase?.timesCorrect = 0
+        phrase?.timesIncorrect = 0
+        phrase?.correctInARow = 0
+        phrase?.learned = false
+        
+        displayPhrase()
     }
     
     func displayPhrase() {
@@ -156,7 +135,7 @@ class phraseEditView: UIViewController {
         if let currentPhrase = phrase {
             if let currentContext = context {
                 currentContext.delete(currentPhrase)
-                returnToList()
+                returnsToList()
           
             }
         }
@@ -169,6 +148,7 @@ class phraseEditView: UIViewController {
         self.present(controller, animated: true, completion: nil)
     }
     
+    //Alert methods
     func deleteAlert () {
         if let currentPhrase = phrase {
             let alert = UIAlertController(title: "Are you sure?", message: "This will delete '\(currentPhrase.primaryLanguage ?? "No Phrase Selected")'", preferredStyle: .alert)
@@ -178,6 +158,16 @@ class phraseEditView: UIViewController {
             
             self.present(alert, animated: true)
         }
+    }
+    
+    func resetAlert (phrase: Phrases) {
+        let alert = UIAlertController(title: "Reset Counts", message: "This will set the counts for '\(phrase.primaryLanguage ?? "No Phrase Selected")' back to 0, are you sure?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.resetCounts()}))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        
+        self.present(alert, animated: true)
     }
 }
 
