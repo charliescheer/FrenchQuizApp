@@ -31,9 +31,13 @@ class phraseEditView: UIViewController {
         }
     }
     
+    @IBAction func returnToList() {
+       returnsToList()
+    }
+    
     @IBAction func saveDeleteButtonAction() {
         if mode == "View" {
-            deletePhrase()
+            deleteAlert()
         } else if mode == "Edit" {
             updatePhrase()
             enterView()
@@ -152,13 +156,27 @@ class phraseEditView: UIViewController {
         if let currentPhrase = phrase {
             if let currentContext = context {
                 currentContext.delete(currentPhrase)
-                appDelegate?.saveContext()
-                
+                returnToList()
           
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let controller = storyboard.instantiateViewController(withIdentifier: "PhraseListViewController")
-                self.present(controller, animated: true, completion: nil)
             }
+        }
+    }
+    
+    func returnsToList () {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "PhraseListViewController")
+        self.dismiss(animated: true, completion: nil)
+        self.present(controller, animated: true, completion: nil)
+    }
+    
+    func deleteAlert () {
+        if let currentPhrase = phrase {
+            let alert = UIAlertController(title: "Are you sure?", message: "This will delete '\(currentPhrase.primaryLanguage ?? "No Phrase Selected")'", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.deletePhrase()}))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            self.present(alert, animated: true)
         }
     }
 }

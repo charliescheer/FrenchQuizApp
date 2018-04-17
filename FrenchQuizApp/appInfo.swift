@@ -10,8 +10,8 @@ import UIKit
 
 class appData {
     
-    static var primaryLanguage: String?
-    static var learningLanguage: String?
+    var primaryLanguage: String?
+    var learningLanguage: String?
     
     init(primaryLanguage: String, learningLanguage: String) {
         self.primaryLanguage = primaryLanguage
@@ -23,6 +23,18 @@ class appData {
         self.primaryLanguage = primary
         self.learningLanguage = learning
     }
+    
+//    func isAppAlreadyLaunchedOnce()->Bool{
+//        let defaults = UserDefaults.standard
+//        if let _ = defaults.string(forKey: "isAppAlreadyLaunchedOnce"){
+//            print("App already launched")
+//            return true
+//        }else{
+//            defaults.set(true, forKey: "isAppAlreadyLaunchedOnce")
+//            print("App launched first time")
+//            return false
+//        }
+    
 }
 
 

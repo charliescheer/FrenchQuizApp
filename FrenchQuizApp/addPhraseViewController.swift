@@ -11,11 +11,11 @@ import CoreData
 
 
 class addPhraseViewController: UIViewController {
-
-    var primaryPhrase: String?
-    var learningPhrase: String?
-    var addAlert: String = "Added!"
-    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+//
+//    var primaryPhrase: String?
+//    var learningPhrase: String?
+//    var addAlert: String = " "
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     @IBOutlet weak var newPrimaryPhrase: UITextField!
     @IBOutlet weak var newLearningPhrase: UITextField!
@@ -26,45 +26,39 @@ class addPhraseViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        appDelegate?.saveContext()
+        appDelegate.saveContext()
     }
     
     @IBAction func submitNewPhrase() {
-        
         if newPrimaryPhrase.text == "" || newLearningPhrase.text == "" {
-            let alert = UIAlertController(title: "Enter Phrase", message: "Please enter a phrase for both fields", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-            self.present(alert, animated: true)
+            emptyPhraseAlert()
         } else {
-            primaryPhrase = newPrimaryPhrase.text!
-            learningPhrase = newLearningPhrase.text!
+            let primaryPhrase = newPrimaryPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let learningPhrase = newLearningPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             
-            primaryPhrase = primaryPhrase?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            learningPhrase = learningPhrase?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            
-            //addedAlert.text = addAlert
+            createNewPhrase(primary: primaryPhrase, learning: learningPhrase)
             
             newLearningPhrase.text! = ""
             newPrimaryPhrase.text! = ""
-            
-            
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                return
-            }
-            
-            let context = appDelegate.persistentContainer.viewContext
-            
-            if let phrase = NSEntityDescription.insertNewObject(forEntityName: "Phrases",
-                                                               into: context) as? Phrases {
-                phrase.primaryLanguage = primaryPhrase
-                phrase.learningLanguage = learningPhrase
-                
-                
-                appDelegate.saveContext()
-            }
         
         }
         
+    }
+    
+    func createNewPhrase(primary: String, learning: String) {
+        let context = appDelegate.persistentContainer.viewContext
+        if let phrase = NSEntityDescription.insertNewObject(forEntityName: "Phrases",
+                                                            into: context) as? Phrases {
+            phrase.primaryLanguage = primary
+            phrase.learningLanguage = learning
+        }
+    }
+    
+    //Alert Methods
+    func emptyPhraseAlert () {
+        let alert = UIAlertController(title: "Enter Phrase", message: "Please enter a phrase for both fields", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
     
 

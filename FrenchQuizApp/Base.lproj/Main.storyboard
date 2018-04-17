@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nui-Vb-IXU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nui-Vb-IXU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,11 +21,6 @@
                                 <rect key="frame" x="0.0" y="46" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem title="Learn" id="XKW-S8-0Qq">
-                                        <connections>
-                                            <action selector="learnMode" destination="nui-Vb-IXU" id="1CV-8D-dTH"/>
-                                        </connections>
-                                    </barButtonItem>
                                     <barButtonItem title="Quiz" id="VA3-a7-d0R">
                                         <connections>
                                             <action selector="quizMode" destination="nui-Vb-IXU" id="w8b-mg-dkQ"/>
@@ -384,6 +379,11 @@
                                             <action selector="saveDeleteButtonAction" destination="pxV-7A-Q0c" id="0EG-CT-NIq"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem title="Return" id="OQ4-QF-N26">
+                                        <connections>
+                                            <action selector="returnToList" destination="pxV-7A-Q0c" id="xiC-Nh-luw"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Primary Language" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QBv-Tp-FrN" userLabel="Primary Phrase">
@@ -457,7 +457,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="g1p-x2-Tpf"/>
+        <segue reference="I0h-aB-qk2"/>
         <segue reference="qa2-gU-nBr"/>
     </inferredMetricsTieBreakers>
 </document>

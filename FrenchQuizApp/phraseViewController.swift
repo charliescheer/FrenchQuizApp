@@ -4,8 +4,6 @@ import CoreData
 class phraseViewController: UIViewController, UITextFieldDelegate {
  
     //Start Class Properties
-    
-    //should the variable Mode be something other then a string?
     var mode: String = "Quiz"
     var quizPair: Phrases?
     var savedMemory: [Phrases]? = []
@@ -18,36 +16,25 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var currentQuiz: UILabel!
     @IBOutlet weak var answer: UITextField!
     
-    //Start View Controller Buttons
-
-    
- //learn mode has been removed from scope, function and button on GUI need to be removed
-    @IBAction func learnMode() {
-        mode = "Learn"
-        currentMode.text = mode
-        print(mode)
-    }
-    
+//Start View Controller Buttons
     @IBAction func quizMode() {
         mode = "Quiz"
         currentMode.text = mode
         print(mode)
     }
 
-//trigger compare user answer and quiz answer from button on screen
+    //trigger compare user answer and quiz answer from button on screen
     @IBAction func answerQuiz() {
         doTest()
     }
 
-//get new quiz pair
+    //get new quiz pair
     @IBAction func newQuiz() {
         getQuizPair()
-
         correctMessage.text = " "
-        
     }
     
-//trigger compare user answer and quiz from enter button
+    //trigger compare user answer and quiz from enter button
     @IBAction func textFieldPrimaryActionTriggered(_ sender: Any) {
         doTest()
     }
@@ -197,13 +184,13 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         return pairsAreAvailable
     }
 
-//display the currently selected quiz pair on screen
+    //display the currently selected quiz pair on screen
     func displayQuiz(_ currentPhrase: Phrases) {
         //Displays the current quiz question
             currentQuiz.text = currentPhrase.returnQuiz(quizState: quizState)
         }
 
-//Get user answer from text field
+    //Get user answer from text field
     func getUserAnswer() -> String {
         if let userAnswer = answer.text {
             var setAnswer: String = userAnswer
@@ -240,4 +227,16 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         self.present(alert, animated: true)
     }
 
+//    func isAppAlreadyLaunchedOnce()->Bool{
+//        let defaults = UserDefaults.standard
+//        if let _ = defaults.string(forKey: "isAppAlreadyLaunchedOnce"){
+//            print("App already launched")
+//            return true
+//        }else{
+//            defaults.set(true, forKey: "isAppAlreadyLaunchedOnce")
+//            print("App launched first time")
+//            return false
+//        }
+//    }
 }
+
