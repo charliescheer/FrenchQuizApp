@@ -68,7 +68,7 @@ class phraseEditView: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        appDelegate?.saveContext()
+        managedData.saveContext()
     }
     
     func resetCounts() {
@@ -103,7 +103,7 @@ class phraseEditView: UIViewController {
             phrase?.primaryLanguage = primaryPhrase?.text
             phrase?.learningLanguage = learningPhrase?.text
             
-            appDelegate?.saveContext()
+            managedData.saveContext()
         }
     }
     
@@ -130,14 +130,14 @@ class phraseEditView: UIViewController {
     }
     
     func deletePhrase() {
-        let context = appDelegate?.persistentContainer.viewContext
+        let context = managedData.persistentContainer.viewContext
 
         if let currentPhrase = phrase {
-            if let currentContext = context {
-                currentContext.delete(currentPhrase)
+            
+                context.delete(currentPhrase)
                 returnsToList()
           
-            }
+            
         }
     }
     

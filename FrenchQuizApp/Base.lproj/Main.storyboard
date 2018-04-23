@@ -51,12 +51,6 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Mode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Co-YZ-ZW0">
-                                <rect key="frame" x="16" y="101" width="343" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quiz" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvf-lA-ix6">
                                 <rect key="frame" x="170" y="157" width="35" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -98,11 +92,8 @@
                             <constraint firstItem="J9o-WC-H0w" firstAttribute="leading" secondItem="NpK-Sa-zeS" secondAttribute="leading" constant="16" id="4N8-MT-MTq"/>
                             <constraint firstItem="NpK-Sa-zeS" firstAttribute="bottom" secondItem="ZPR-Cf-l3o" secondAttribute="bottom" constant="349.5" id="5Ff-Ew-kJB"/>
                             <constraint firstItem="hvf-lA-ix6" firstAttribute="leading" secondItem="NpK-Sa-zeS" secondAttribute="leading" constant="170" id="JWO-YO-ERZ"/>
-                            <constraint firstItem="NpK-Sa-zeS" firstAttribute="bottom" secondItem="6Co-YZ-ZW0" secondAttribute="bottom" constant="532" id="KIm-iJ-4BA"/>
-                            <constraint firstItem="NpK-Sa-zeS" firstAttribute="trailing" secondItem="6Co-YZ-ZW0" secondAttribute="trailing" constant="16" id="MGs-fE-nbn"/>
                             <constraint firstItem="NpK-Sa-zeS" firstAttribute="trailing" secondItem="hvf-lA-ix6" secondAttribute="trailing" constant="170" id="NF4-XI-d6S"/>
                             <constraint firstItem="ZPR-Cf-l3o" firstAttribute="leading" secondItem="NpK-Sa-zeS" secondAttribute="leading" constant="16" id="OhI-gr-mup"/>
-                            <constraint firstItem="6Co-YZ-ZW0" firstAttribute="leading" secondItem="NpK-Sa-zeS" secondAttribute="leading" constant="16" id="QmC-22-vAS"/>
                             <constraint firstItem="C80-Zf-O1k" firstAttribute="leading" secondItem="NpK-Sa-zeS" secondAttribute="leading" constant="16" id="YrC-Eb-Ihr"/>
                             <constraint firstItem="NpK-Sa-zeS" firstAttribute="trailing" secondItem="C80-Zf-O1k" secondAttribute="trailing" constant="16" id="caM-LG-Kvv"/>
                             <constraint firstItem="NpK-Sa-zeS" firstAttribute="bottom" secondItem="J9o-WC-H0w" secondAttribute="bottom" constant="453.5" id="rjs-qr-OEU"/>
@@ -187,6 +178,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Added" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZw-8S-NPy">
                                 <rect key="frame" x="162" y="395" width="50.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Mode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Co-YZ-ZW0">
+                                <rect key="frame" x="51" y="124" width="343" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -453,6 +451,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="I0h-aB-qk2"/>
-        <segue reference="qa2-gU-nBr"/>
+        <segue reference="wfI-XT-3gZ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -9,7 +9,9 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     var savedMemory: [Phrases]? = []
     var quizCount = 0
     var quizState: Int = 0
-    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+  //  let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    
+    
     
     @IBOutlet weak var correctMessage: UILabel!
     @IBOutlet weak var currentMode: UILabel!
@@ -22,7 +24,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         currentMode.text = mode
         print(mode)
     }
-
+    
     //trigger compare user answer and quiz answer from button on screen
     @IBAction func answerQuiz() {
         doTest()
@@ -39,6 +41,8 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         doTest()
     }
     
+
+    
 //Starter Functions and Core Data Manegment
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,30 +54,34 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
             currentQuiz.text = " "
             answer.isUserInteractionEnabled = false
         }
-        currentMode.text = mode
+ //       currentMode.text = mode
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        appDelegate?.saveContext()
+        managedData.saveContext()
     }
 
 //get data from core data
+    
     var managedObjectContext: NSManagedObjectContext {
         get {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            return appDelegate.persistentContainer.viewContext
+            return managedData.persistentContainer.viewContext
         }
     }
     
     func getMemoryStore() {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Phrases")
+        let request: NSFetchRequest<Phrases> = Phrases.fetchRequest()
         var results = [Phrases]()
         
         do {
-            results = try managedObjectContext.fetch(request) as! [Phrases]
-            } catch let error as NSError {
-                print("Could not fetch \(error), \(error.userInfo)")
-            }
+            results = try managedData.getContext().fetch(request)
+            print(results.count)
+        }
+        catch {
+            print(error)
+        }
+
         savedMemory = results
     }
     
@@ -89,20 +97,23 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
                 quizState = Int(arc4random_uniform(2))
 
                 //if there are available pairs, looks for a random one marked as unlearned and returns it to the view
-                if arePairsAvailable() == true {
-                    if newQuizPair.learned == false {
+                if arePairsAvailable() == true && newQuizPair.learned == false {
                         print("The pair is \(String(describing: newQuizPair.learningLanguage)) and \(String(describing: newQuizPair.primaryLanguage))")
                         quizPair = newQuizPair
                         displayQuiz(newQuizPair)
                         clearUserAnswer()
-                    } else {
-                        self.getQuizPair()
-                    }
                 } else {
-                    NoAvailableQuizPairsAlert()
+                    self.getQuizPair()
                 }
+            } else {
+                NoAvailableQuizPairsAlert()
             }
         }
+    }
+    func test (){
+        getQuizPair()
+        
+        
     }
     
     //compare the user answer to the quiz
@@ -162,7 +173,6 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
             } else {
                 noAnswerAlert()
             }
-            
         }
     }
     
@@ -238,5 +248,6 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
 //            return false
 //        }
 //    }
+    
 }
 

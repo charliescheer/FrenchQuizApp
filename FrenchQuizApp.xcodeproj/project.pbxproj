@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA22CFC7208E46AF009FF14F /* managedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22CFC6208E46AF009FF14F /* managedData.swift */; };
 		BA3E7E211FE46C2700C606AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E201FE46C2700C606AC /* AppDelegate.swift */; };
 		BA3E7E261FE46C2700C606AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA3E7E241FE46C2700C606AC /* Main.storyboard */; };
 		BA3E7E2B1FE46C2700C606AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA3E7E2A1FE46C2700C606AC /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BA22CFC6208E46AF009FF14F /* managedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = managedData.swift; sourceTree = "<group>"; };
 		BA3E7E1D1FE46C2700C606AC /* FrenchQuizApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FrenchQuizApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA3E7E201FE46C2700C606AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA3E7E251FE46C2700C606AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				BA3E7E2C1FE46C2700C606AC /* LaunchScreen.storyboard */,
 				BA3E7E2F1FE46C2700C606AC /* Info.plist */,
 				BA3E7E5E1FE476D300C606AC /* FrenchQuizApp.xcdatamodeld */,
+				BA22CFC6208E46AF009FF14F /* managedData.swift */,
 			);
 			path = FrenchQuizApp;
 			sourceTree = "<group>";
@@ -212,7 +215,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Paxsis;
 				TargetAttributes = {
 					BA3E7E1C1FE46C2700C606AC = {
@@ -286,6 +289,7 @@
 				BAF703A9206AFF35007098C7 /* appInfo.swift in Sources */,
 				BA3E7E601FE476D300C606AC /* FrenchQuizApp.xcdatamodeld in Sources */,
 				BA3E7E591FE46D0800C606AC /* phraseCell.swift in Sources */,
+				BA22CFC7208E46AF009FF14F /* managedData.swift in Sources */,
 				BA3E7E551FE46CFA00C606AC /* Phrase.swift in Sources */,
 				BA603E1C200415DC00A97490 /* phraseEditView.swift in Sources */,
 				BA3E7E211FE46C2700C606AC /* AppDelegate.swift in Sources */,
@@ -361,6 +365,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -368,6 +373,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -418,6 +424,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -425,6 +432,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

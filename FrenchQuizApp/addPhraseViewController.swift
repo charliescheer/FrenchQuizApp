@@ -26,7 +26,7 @@ class addPhraseViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        appDelegate.saveContext()
+        managedData.saveContext()
     }
     
     @IBAction func submitNewPhrase() {
@@ -46,7 +46,7 @@ class addPhraseViewController: UIViewController {
     }
     
     func createNewPhrase(primary: String, learning: String) {
-        let context = appDelegate.persistentContainer.viewContext
+        let context = managedData.persistentContainer.viewContext
         if let phrase = NSEntityDescription.insertNewObject(forEntityName: "Phrases",
                                                             into: context) as? Phrases {
             phrase.primaryLanguage = primary

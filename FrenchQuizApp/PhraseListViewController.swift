@@ -2,7 +2,7 @@ import UIKit
 import CoreData
 
 class PhraseListViewController : UITableViewController {
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+   // let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     lazy var resultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Phrases")
@@ -21,11 +21,8 @@ class PhraseListViewController : UITableViewController {
         return controller
     }()
 
-    var managedObjectContext: NSManagedObjectContext {
-        get {
-            return appDelegate.persistentContainer.viewContext
-        }
-    }
+    var managedObjectContext = managedData.persistentContainer.viewContext
+    
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhraseCell", for: indexPath) as! phraseCell
@@ -52,17 +49,8 @@ class PhraseListViewController : UITableViewController {
     }
 
 
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.beginUpdates()
-    }
-
-
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.endUpdates()
-    }
-
     override func viewDidDisappear(_ animated: Bool) {
-        appDelegate.saveContext()
+        managedData.saveContext()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
