@@ -54,7 +54,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
             currentQuiz.text = " "
             answer.isUserInteractionEnabled = false
         }
- //       currentMode.text = mode
+       currentMode.text = mode
         
     }
     
@@ -63,13 +63,6 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     }
 
 //get data from core data
-    
-    var managedObjectContext: NSManagedObjectContext {
-        get {
-            return managedData.persistentContainer.viewContext
-        }
-    }
-    
     func getMemoryStore() {
         let request: NSFetchRequest<Phrases> = Phrases.fetchRequest()
         var results = [Phrases]()
@@ -98,7 +91,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
 
                 //if there are available pairs, looks for a random one marked as unlearned and returns it to the view
                 if arePairsAvailable() == true && newQuizPair.learned == false {
-                        print("The pair is \(String(describing: newQuizPair.learningLanguage)) and \(String(describing: newQuizPair.primaryLanguage))")
+                        print("The pair is \(String(describing: newQuizPair.french)) and \(String(describing: newQuizPair.english))")
                         quizPair = newQuizPair
                         displayQuiz(newQuizPair)
                         clearUserAnswer()
@@ -232,22 +225,10 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     }
     
     func learnedAlert () {
-        let alert = UIAlertController(title: "Learned!", message: "You've gotten \(quizPair!.primaryLanguage ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Learned!", message: "You've gotten \(quizPair!.english ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
-
-//    func isAppAlreadyLaunchedOnce()->Bool{
-//        let defaults = UserDefaults.standard
-//        if let _ = defaults.string(forKey: "isAppAlreadyLaunchedOnce"){
-//            print("App already launched")
-//            return true
-//        }else{
-//            defaults.set(true, forKey: "isAppAlreadyLaunchedOnce")
-//            print("App launched first time")
-//            return false
-//        }
-//    }
     
 }
 

@@ -34,14 +34,14 @@ extension Phrases {
         
         if state == 0 {
             if let answer = userAnswer {
-                if let quiz = self.learningLanguage {
+                if let quiz = self.french {
                     result = Tools.levenshtein(aStr: quiz, bStr: answer)
                 }
             }
         
         } else {
             if let answer = userAnswer {
-                if let quiz = self.primaryLanguage {
+                if let quiz = self.english {
                     result = Tools.levenshtein(aStr: quiz, bStr: answer)
                 }
             }
@@ -66,9 +66,9 @@ extension Phrases {
         var quiz: String = ""
         
         if quizState == 0 {
-            quiz = self.learningLanguage!.lowercased()
+            quiz = self.french!.lowercased()
         } else {
-            quiz = self.primaryLanguage!.lowercased()
+            quiz = self.english!.lowercased()
         }
         return quiz
     }
@@ -77,9 +77,9 @@ extension Phrases {
         var answer: String = " "
         
         if quizState == 0 {
-            answer = self.primaryLanguage!.lowercased()
+            answer = self.english!.lowercased()
         } else {
-            answer = self.learningLanguage!.lowercased()
+            answer = self.french!.lowercased()
         }
         
         return answer

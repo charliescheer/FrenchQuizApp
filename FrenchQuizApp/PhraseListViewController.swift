@@ -28,8 +28,8 @@ class PhraseListViewController : UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhraseCell", for: indexPath) as! phraseCell
         // Set up the cell
         if let phrase = resultsController.object(at: indexPath) as? Phrases {
-            cell.primaryLabel?.text = phrase.primaryLanguage
-            cell.learningLabel?.text = phrase.learningLanguage
+            cell.primaryLabel?.text = phrase.english
+            cell.learningLabel?.text = phrase.french
         }
         //Populate the cell from the object
         return cell

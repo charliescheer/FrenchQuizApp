@@ -82,8 +82,8 @@ class phraseEditView: UIViewController {
     
     func displayPhrase() {
         if let currentPhrase = phrase {
-            primaryPhrase?.text = currentPhrase.primaryLanguage
-            learningPhrase?.text = currentPhrase.learningLanguage
+            primaryPhrase?.text = currentPhrase.english
+            learningPhrase?.text = currentPhrase.french
             
             correctLabel?.text = String(currentPhrase.timesCorrect)
             incorrectLabel?.text = String(currentPhrase.timesIncorrect)
@@ -100,8 +100,8 @@ class phraseEditView: UIViewController {
     
     func updatePhrase() {
         if phrase != nil {
-            phrase?.primaryLanguage = primaryPhrase?.text
-            phrase?.learningLanguage = learningPhrase?.text
+            phrase?.english = primaryPhrase?.text
+            phrase?.french = learningPhrase?.text
             
             managedData.saveContext()
         }
@@ -151,7 +151,7 @@ class phraseEditView: UIViewController {
     //Alert methods
     func deleteAlert () {
         if let currentPhrase = phrase {
-            let alert = UIAlertController(title: "Are you sure?", message: "This will delete '\(currentPhrase.primaryLanguage ?? "No Phrase Selected")'", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Are you sure?", message: "This will delete '\(currentPhrase.english ?? "No Phrase Selected")'", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.deletePhrase()}))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -161,7 +161,7 @@ class phraseEditView: UIViewController {
     }
     
     func resetAlert (phrase: Phrases) {
-        let alert = UIAlertController(title: "Reset Counts", message: "This will set the counts for '\(phrase.primaryLanguage ?? "No Phrase Selected")' back to 0, are you sure?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Reset Counts", message: "This will set the counts for '\(phrase.english ?? "No Phrase Selected")' back to 0, are you sure?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.resetCounts()}))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
