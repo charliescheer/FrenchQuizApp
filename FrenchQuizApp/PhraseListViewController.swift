@@ -2,11 +2,9 @@ import UIKit
 import CoreData
 
 class PhraseListViewController : UITableViewController {
-   // let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    
-    lazy var resultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
+   lazy var resultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Phrases")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "primaryLanguage", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "english", ascending: true)]
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                     managedObjectContext: self.managedObjectContext,
                                                     sectionNameKeyPath: nil, cacheName: nil)
@@ -47,8 +45,7 @@ class PhraseListViewController : UITableViewController {
         
         return sectionInfo.numberOfObjects
     }
-
-
+    
     override func viewDidDisappear(_ animated: Bool) {
         managedData.saveContext()
     }

@@ -6,9 +6,6 @@ class phraseEditView: UIViewController {
     var phrase: Phrases?
     var mode = "View"
     
-    let appDelegate = UIApplication.shared.delegate as? AppDelegate
-    
-    
     @IBOutlet weak var correctLabel: UILabel?
     @IBOutlet weak var incorrectLabel: UILabel?
     @IBOutlet weak var inRowLabel: UILabel?
@@ -102,8 +99,6 @@ class phraseEditView: UIViewController {
         if phrase != nil {
             phrase?.english = primaryPhrase?.text
             phrase?.french = learningPhrase?.text
-            
-            managedData.saveContext()
         }
     }
     
@@ -148,7 +143,7 @@ class phraseEditView: UIViewController {
         self.present(controller, animated: true, completion: nil)
     }
     
-    //Alert methods
+    //MARK: - Alert methods
     func deleteAlert () {
         if let currentPhrase = phrase {
             let alert = UIAlertController(title: "Are you sure?", message: "This will delete '\(currentPhrase.english ?? "No Phrase Selected")'", preferredStyle: .alert)

@@ -9,8 +9,6 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     var savedMemory: [Phrases]? = []
     var quizCount = 0
     var quizState: Int = 0
-  //  let appDelegate = UIApplication.shared.delegate as? AppDelegate
-    
     
     
     @IBOutlet weak var correctMessage: UILabel!
@@ -43,7 +41,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     
 
     
-//Starter Functions and Core Data Manegment
+    //MARK: - Starter Functions and Core Data Manegment
     override func viewDidLoad() {
         super.viewDidLoad()
         correctMessage.text = " "
@@ -78,10 +76,10 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         savedMemory = results
     }
     
-//active functions
+    // MARK: - Active functions
     
-//choose a random pair of words from the memory store, make sure that pair is not already marked as learned.
-//also confirms that there are currently available unlearned pairs to check, if not displays an alert
+    //choose a random pair of words from the memory store, make sure that pair is not already marked as learned.
+    //also confirms that there are currently available unlearned pairs to check, if not displays an alert
     func getQuizPair() {
         if let memory = savedMemory {
             if memory.count > 0 {
@@ -189,8 +187,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
 
     //display the currently selected quiz pair on screen
     func displayQuiz(_ currentPhrase: Phrases) {
-        //Displays the current quiz question
-            currentQuiz.text = currentPhrase.returnQuiz(quizState: quizState)
+            currentQuiz.text = currentPhrase.returnQuiz(quizState: quizState) as String as String
         }
 
     //Get user answer from text field
@@ -211,7 +208,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
         answer.text = " "
     }
 
-//Alert Functions
+    //MARK: - Alert Functions
     func noAnswerAlert () {
         let alert = UIAlertController(title: "No Answer", message: "Please enter an answer.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))

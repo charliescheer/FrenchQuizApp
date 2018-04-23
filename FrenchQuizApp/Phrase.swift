@@ -66,9 +66,13 @@ extension Phrases {
         var quiz: String = ""
         
         if quizState == 0 {
-            quiz = self.french!.lowercased()
+            if let french = self.french?.lowercased(){
+                quiz = french
+            }
         } else {
-            quiz = self.english!.lowercased()
+            if let english = self.english?.lowercased() {
+                quiz = english
+            }
         }
         return quiz
     }

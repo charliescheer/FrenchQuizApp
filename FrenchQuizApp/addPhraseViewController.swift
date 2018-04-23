@@ -11,11 +11,6 @@ import CoreData
 
 
 class addPhraseViewController: UIViewController {
-//
-//    var primaryPhrase: String?
-//    var learningPhrase: String?
-//    var addAlert: String = " "
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     @IBOutlet weak var newPrimaryPhrase: UITextField!
     @IBOutlet weak var newLearningPhrase: UITextField!
@@ -54,7 +49,7 @@ class addPhraseViewController: UIViewController {
         }
     }
     
-    //Alert Methods
+    //MARK: - Alert Methods
     func emptyPhraseAlert () {
         let alert = UIAlertController(title: "Enter Phrase", message: "Please enter a phrase for both fields", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
