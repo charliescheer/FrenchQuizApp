@@ -123,7 +123,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     
     //display the currently selected quiz pair on screen
     func displayQuiz(_ currentPhrase: Phrases) {
-        currentQuiz.text = currentPhrase.returnQuiz(quizState: quizState) as String as String
+        currentQuiz.text = currentPhrase.returnQuizQuestion(quizState: quizState) as String as String
     }
     
     func clearUserAnswer() {
@@ -137,7 +137,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     //in quiz mode a correct or incorrect answer will trigger gaining and losing points towards marking a word as learned
     func doTest () {
         if let quiz = quizPair {
-            if getUserAnswer() != "No ANSWER" {
+            if getUserAnswer() != "NO ANSWER" {
                 let answer = getUserAnswer()
                 compare(quiz: quiz, answer: answer, quizState: quizState)
             } else {
@@ -148,15 +148,22 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     
     //Get user answer from text field
     func getUserAnswer() -> String {
+        var setAnswer: String = ""
         if let userAnswer = answer.text {
-            var setAnswer: String = userAnswer
+            if userAnswer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != "" {
+                setAnswer = userAnswer
+                
+                setAnswer = setAnswer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                setAnswer = setAnswer.lowercased()
+                print("inside getUserAnswer \(setAnswer)")
+                } else {
+                    setAnswer = "NO ANSWER"
+                    print(setAnswer)
+                }
+            }
+        
             
-            setAnswer = setAnswer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            setAnswer = setAnswer.lowercased()
-            
-            return setAnswer
-            
-        } else {return "No ANSWER"}
+        return setAnswer
     }
     
     func compare(quiz: Phrases, answer: String, quizState: Int) {
@@ -194,7 +201,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
             correctMessage.text = "Almost, Try again! Try # \(quizCount)"
             print(quizCount)
         } else {
-            correctMessage.text = "So close! The answer was: \(quiz.returnAnswer(quizState: quizState))"
+            correctMessage.text = "So close! The answer was: \(quiz.returnQuizAnswer(quizState: quizState))"
             getQuizPair()
             quizCount = 0
         }
@@ -212,7 +219,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
             }
             
             print("Count reset")
-            correctMessage.text = "Incorrect, the answer was: \(quiz.returnAnswer(quizState: quizState))"
+            correctMessage.text = "Incorrect, the answer was: \(quiz.returnQuizAnswer(quizState: quizState))"
             
             getQuizPair()
             quizCount = 0
