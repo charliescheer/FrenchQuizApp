@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class phraseViewController: UIViewController, UITextFieldDelegate {
+class phraseQuizViewController: UIViewController, UITextFieldDelegate {
  
     //MARK: - Class Properties
     var mode: String = "Quiz"
@@ -90,7 +90,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
                 
                 //if there are available pairs, looks for a random one marked as unlearned and returns it to the view
                 if arePairsAvailable() == true && newQuizPair.learned == false {
-                    print("The pair is \(String(describing: newQuizPair.french)) and \(String(describing: newQuizPair.english))")
+                    print("The pair is \(String(describing: newQuizPair.frenchPhrase)) and \(String(describing: newQuizPair.englishPhrase))")
                     quizPair = newQuizPair
                     displayQuiz(newQuizPair)
                     clearUserAnswer()
@@ -241,7 +241,7 @@ class phraseViewController: UIViewController, UITextFieldDelegate {
     }
     
     func learnedAlert () {
-        let alert = UIAlertController(title: "Learned!", message: "You've gotten \(quizPair!.english ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Learned!", message: "You've gotten \(quizPair!.englishPhrase ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }

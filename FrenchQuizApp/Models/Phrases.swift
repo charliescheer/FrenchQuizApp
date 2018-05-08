@@ -23,7 +23,7 @@ extension Phrases {
         
         if quizState == 0 {
             if let answer = userAnswer {
-                if let quiz = self.french?.lowercased() {
+                if let quiz = self.frenchPhrase?.lowercased() {
                     if answer != "NO ANSWER" {
                         result = Tools.levenshtein(aStr: quiz, bStr: answer)
                         print(result)
@@ -33,7 +33,7 @@ extension Phrases {
             
         } else {
             if let answer = userAnswer {
-                if let quiz = self.english?.lowercased() {
+                if let quiz = self.englishPhrase?.lowercased() {
                         if answer != "NO ANSWER" {
                         result = Tools.levenshtein(aStr: quiz, bStr: answer)
                         print(result)
@@ -52,11 +52,11 @@ extension Phrases {
         var quiz: String = ""
         
         if quizState == 0 {
-            if let french = self.english?.lowercased(){
+            if let french = self.englishPhrase?.lowercased(){
                 quiz = french
             }
         } else {
-            if let english = self.french?.lowercased() {
+            if let english = self.frenchPhrase?.lowercased() {
                 quiz = english
             }
         }
@@ -68,9 +68,9 @@ extension Phrases {
         var answer: String = " "
         
         if quizState == 0 {
-            answer = self.french!.lowercased()
+            answer = self.frenchPhrase!.lowercased()
         } else {
-            answer = self.english!.lowercased()
+            answer = self.englishPhrase!.lowercased()
         }
         
         return answer
