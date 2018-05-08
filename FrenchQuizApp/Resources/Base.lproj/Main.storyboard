@@ -171,6 +171,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <connections>
+                                    <action selector="textFieldPrimaryActionTriggered:" destination="X8l-h3-x58" eventType="primaryActionTriggered" id="j6U-qO-3ij"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pob-K6-CwT">
                                 <rect key="frame" x="148" y="357" width="79" height="30"/>
@@ -450,8 +453,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="fK2-kZ-roq"/>
-        <segue reference="I0h-aB-qk2"/>
-        <segue reference="qa2-gU-nBr"/>
+        <segue reference="g1p-x2-Tpf"/>
+        <segue reference="wfI-XT-3gZ"/>
     </inferredMetricsTieBreakers>
 </document>

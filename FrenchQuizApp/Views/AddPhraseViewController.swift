@@ -40,6 +40,22 @@ class AddPhraseViewController: UIViewController {
         
     }
     
+    @IBAction func textFieldPrimaryActionTriggered(_ sender: Any) {
+        if newPrimaryPhrase.text == "" || newLearningPhrase.text == "" {
+            emptyPhraseAlert()
+        } else {
+            let primaryPhrase = newPrimaryPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let learningPhrase = newLearningPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            
+            createNewPhrase(primary: primaryPhrase, learning: learningPhrase)
+            
+            newLearningPhrase.text! = ""
+            newPrimaryPhrase.text! = ""
+            
+        }
+
+    }
+    
     func createNewPhrase(primary: String, learning: String) {
         let context = managedData.persistentContainer.viewContext
         if let phrase = NSEntityDescription.insertNewObject(forEntityName: "Phrases",
