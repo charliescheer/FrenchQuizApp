@@ -23,7 +23,7 @@ class PhraseListViewController : UITableViewController {
     
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PhraseCell", for: indexPath) as! phraseCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PhraseCell", for: indexPath) as! PhraseCell
         // Set up the cell
         if let phrase = resultsController.object(at: indexPath) as? Phrases {
             cell.primaryLabel?.text = phrase.englishPhrase
@@ -52,7 +52,7 @@ class PhraseListViewController : UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "ShowPhrase" {
-            let phraseVC = segue.destination as? phraseEditView
+            let phraseVC = segue.destination as? PhraseEditViewController
             
             guard let phraseCell = sender as? UITableViewCell,
                 let indexPath = tableView.indexPath(for: phraseCell) else {

@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 
-class addPhraseViewController: UIViewController {
+class AddPhraseViewController: UIViewController {
     
     @IBOutlet weak var newPrimaryPhrase: UITextField!
     @IBOutlet weak var newLearningPhrase: UITextField!

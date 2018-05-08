@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class phraseEditView: UIViewController {
+class PhraseEditViewController: UIViewController {
     
     var phrase: Phrases?
     var mode = "View"

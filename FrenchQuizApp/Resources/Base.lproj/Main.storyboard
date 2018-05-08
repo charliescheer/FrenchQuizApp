@@ -12,7 +12,7 @@
         <!--Phrase View Controller-->
         <scene sceneID="p6D-0d-b6x">
             <objects>
-                <viewController storyboardIdentifier="phraseViewController" title="Phrase View Controller" id="nui-Vb-IXU" customClass="phraseViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="phraseViewController" title="Phrase View Controller" id="nui-Vb-IXU" customClass="phraseQuizViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Q5p-iJ-ki5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -125,7 +125,7 @@
         <!--Add Phrase View Controller-->
         <scene sceneID="gz6-fW-OhJ">
             <objects>
-                <viewController storyboardIdentifier="addPhraseViewController" title="Add Phrase View Controller" id="X8l-h3-x58" customClass="addPhraseViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addPhraseViewController" title="Add Phrase View Controller" id="X8l-h3-x58" customClass="AddPhraseViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wxb-K9-41A">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -242,7 +242,7 @@
                             </items>
                         </navigationBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="PhraseCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhraseCell" id="MMe-Zn-dKR" customClass="phraseCell" customModule="FrenchQuizApp" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="PhraseCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhraseCell" id="MMe-Zn-dKR" customClass="PhraseCell" customModule="FrenchQuizApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MMe-Zn-dKR" id="kzO-kt-dPa">
@@ -283,10 +283,10 @@
             </objects>
             <point key="canvasLocation" x="1325.5999999999999" y="-3.1484257871064472"/>
         </scene>
-        <!--Phrase Edit View-->
+        <!--Phrase Edit View Controller-->
         <scene sceneID="gMb-h1-RN8">
             <objects>
-                <viewController storyboardIdentifier="phraseEditView" id="pxV-7A-Q0c" customClass="phraseEditView" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="phraseEditView" id="pxV-7A-Q0c" customClass="PhraseEditViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FTP-Dz-8WW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -450,6 +450,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="fK2-kZ-roq"/>
         <segue reference="I0h-aB-qk2"/>
         <segue reference="qa2-gU-nBr"/>
     </inferredMetricsTieBreakers>
