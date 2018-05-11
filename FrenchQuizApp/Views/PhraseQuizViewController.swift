@@ -168,11 +168,11 @@ class phraseQuizViewController: UIViewController, UITextFieldDelegate {
     
     func compare(quiz: Phrases, answer: String, quizState: Int) {
         //If the answer is Correct
-        if quiz.doCompare(quizState: quizState, userAnswer: answer) == 1{
+        if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 1{
             compareIsCorrect()
             
             //If the answer is close
-        } else if quiz.doCompare(quizState: quizState, userAnswer: answer) > 0.85 {
+        } else if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) > 0.85 {
             compareIsclose(quiz: quiz, quizState: quizState)
             
             //if less then 85% correct
@@ -185,7 +185,7 @@ class phraseQuizViewController: UIViewController, UITextFieldDelegate {
         correctMessage.text = "Correct!!!"
         
         if mode == "Quiz" {
-            quizPair?.addPoint()
+            quizPair?.addPointtoPhraseCorrectCount()
         }
         
         if quizPair!.learned == true && quizPair!.correctInARow == 10 {
@@ -214,8 +214,8 @@ class phraseQuizViewController: UIViewController, UITextFieldDelegate {
             print(quizCount)
         } else {
             if mode == "Quiz" {
-                quizPair?.resetCount()
-                quizPair?.takePoint()
+                quizPair?.resetCountPhraseCounts()
+                quizPair?.addPointToPhraseIncorrectCount()
             }
             
             print("Count reset")

@@ -21,6 +21,7 @@
 		BA3E7E601FE476D300C606AC /* FrenchQuizApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E5E1FE476D300C606AC /* FrenchQuizApp.xcdatamodeld */; };
 		BA425A2620A26BBD000F490E /* PhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA425A2520A26BBD000F490E /* PhraseCell.swift */; };
 		BA603E1C200415DC00A97490 /* PhraseEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA603E1B200415DC00A97490 /* PhraseEditViewController.swift */; };
+		BAADADC220A520CB00F96018 /* QuizObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAADADC120A520CB00F96018 /* QuizObject.swift */; };
 		BAD1504E20437CA400965719 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD1504D20437CA400965719 /* Tools.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +63,7 @@
 		BA3E7E5F1FE476D300C606AC /* FrenchQuizApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FrenchQuizApp.xcdatamodel; sourceTree = "<group>"; };
 		BA425A2520A26BBD000F490E /* PhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseCell.swift; sourceTree = "<group>"; };
 		BA603E1B200415DC00A97490 /* PhraseEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseEditViewController.swift; sourceTree = "<group>"; };
+		BAADADC120A520CB00F96018 /* QuizObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizObject.swift; sourceTree = "<group>"; };
 		BAD1504D20437CA400965719 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				BA3E7E541FE46CFA00C606AC /* Phrases.swift */,
+				BAADADC120A520CB00F96018 /* QuizObject.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				BA3E7E211FE46C2700C606AC /* AppDelegate.swift in Sources */,
 				BA3E7E5B1FE46D0E00C606AC /* AddPhraseViewController.swift in Sources */,
 				BA425A2620A26BBD000F490E /* PhraseCell.swift in Sources */,
+				BAADADC220A520CB00F96018 /* QuizObject.swift in Sources */,
 				BAD1504E20437CA400965719 /* Tools.swift in Sources */,
 				BA3E7E571FE46D0200C606AC /* PhraseQuizViewController.swift in Sources */,
 				BA3E7E5D1FE46D1400C606AC /* PhraseListViewController.swift in Sources */,

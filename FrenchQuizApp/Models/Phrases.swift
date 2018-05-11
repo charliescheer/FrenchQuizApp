@@ -25,7 +25,7 @@ extension Phrases {
             if let answer = userAnswer {
                 if let quiz = self.frenchPhrase?.lowercased() {
                     if answer != "NO ANSWER" {
-                        result = Tools.levenshtein(aStr: quiz, bStr: answer)
+                        result = levenshtein(aStr: quiz, bStr: answer)
                         print(result)
                     }
                 }
@@ -77,26 +77,7 @@ extension Phrases {
     }
     
     
-    //MARK: - Phrase Score Counting Functions
-    func addPointtoPhraseCorrectCount() {
-        self.timesCorrect += 1
-        self.correctInARow += 1
-        checkIfLearned()
-    }
-    
-    func resetCountPhraseCounts() {
-        self.correctInARow = 0
-    }
-    
-    func addPointToPhraseIncorrectCount() {
-        self.timesIncorrect += 1
-    }
-    
-    func checkIfLearned() {
-        if correctInARow == 10 {
-            self.learned = true
-        }
-    }
+
 }
     
 
