@@ -28,7 +28,7 @@ class PhraseEditViewController: UIViewController {
     
     @IBAction func saveDeleteButtonAction() {
         if mode == "View" {
-            deleteAlert()
+            displayDeleteAlert()
         } else if mode == "Edit" {
             updatePhrase()
             enterView()
@@ -41,7 +41,7 @@ class PhraseEditViewController: UIViewController {
        
         if phrase != nil{
             if let currentPhrase = phrase {
-                resetAlert(phrase: currentPhrase)
+                displayResetAlert(phrase: currentPhrase)
             }
         }
     }
@@ -144,7 +144,7 @@ class PhraseEditViewController: UIViewController {
     }
     
     //MARK: - Alert methods
-    func deleteAlert () {
+    func displayDeleteAlert () {
         if let currentPhrase = phrase {
             let alert = UIAlertController(title: "Are you sure?", message: "This will delete '\(currentPhrase.englishPhrase ?? "No Phrase Selected")'", preferredStyle: .alert)
             
@@ -155,7 +155,7 @@ class PhraseEditViewController: UIViewController {
         }
     }
     
-    func resetAlert (phrase: Phrases) {
+    func displayResetAlert (phrase: Phrases) {
         let alert = UIAlertController(title: "Reset Counts", message: "This will set the counts for '\(phrase.englishPhrase ?? "No Phrase Selected")' back to 0, are you sure?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.resetCounts()}))

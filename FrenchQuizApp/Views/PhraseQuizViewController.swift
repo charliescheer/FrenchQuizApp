@@ -98,7 +98,7 @@ class phraseQuizViewController: UIViewController, UITextFieldDelegate {
                     self.getQuizPair()
                 }
             } else {
-                NoAvailableQuizPairsAlert()
+                displayNoAvailableQuizPairsAlert()
             }
         }
     }
@@ -141,7 +141,7 @@ class phraseQuizViewController: UIViewController, UITextFieldDelegate {
                 let answer = getUserAnswer()
                 compare(quiz: quiz, answer: answer, quizState: quizState)
             } else {
-                noAnswerAlert()
+                displayNoAnswerAlert()
             }
         }
     }
@@ -189,7 +189,7 @@ class phraseQuizViewController: UIViewController, UITextFieldDelegate {
         }
         
         if quizPair!.learned == true && quizPair!.correctInARow == 10 {
-            learnedAlert()
+            displayLearnedAlert()
         }
         
         getQuizPair()
@@ -228,19 +228,19 @@ class phraseQuizViewController: UIViewController, UITextFieldDelegate {
     
 
     //MARK: - Alert Functions
-    func noAnswerAlert () {
+    func displayNoAnswerAlert () {
         let alert = UIAlertController(title: "No Answer", message: "Please enter an answer.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
     
-    func NoAvailableQuizPairsAlert () {
+    func displayNoAvailableQuizPairsAlert () {
         let alert = UIAlertController(title: "There are no available phrase pairs", message: "Please add more phrases to learn!", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
         self.present(alert, animated: true)
     }
     
-    func learnedAlert () {
+    func displayLearnedAlert () {
         let alert = UIAlertController(title: "Learned!", message: "You've gotten \(quizPair!.englishPhrase ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
         self.present(alert, animated: true)

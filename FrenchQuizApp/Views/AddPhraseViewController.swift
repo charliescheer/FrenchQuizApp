@@ -26,7 +26,7 @@ class AddPhraseViewController: UIViewController {
     
     @IBAction func submitNewPhrase() {
         if newPrimaryPhrase.text == "" || newLearningPhrase.text == "" {
-            emptyPhraseAlert()
+            displayEmptyPhraseAlert()
         } else {
             let primaryPhrase = newPrimaryPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             let learningPhrase = newLearningPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
@@ -42,7 +42,7 @@ class AddPhraseViewController: UIViewController {
     
     @IBAction func textFieldPrimaryActionTriggered(_ sender: Any) {
         if newPrimaryPhrase.text == "" || newLearningPhrase.text == "" {
-            emptyPhraseAlert()
+            displayEmptyPhraseAlert()
         } else {
             let primaryPhrase = newPrimaryPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             let learningPhrase = newLearningPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
@@ -66,7 +66,7 @@ class AddPhraseViewController: UIViewController {
     }
     
     //MARK: - Alert Methods
-    func emptyPhraseAlert () {
+    func displayEmptyPhraseAlert () {
         let alert = UIAlertController(title: "Enter Phrase", message: "Please enter a phrase for both fields", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
         self.present(alert, animated: true)
