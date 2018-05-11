@@ -12,8 +12,8 @@ import CoreData
 
 class AddPhraseViewController: UIViewController {
     
-    @IBOutlet weak var newPrimaryPhrase: UITextField!
-    @IBOutlet weak var newLearningPhrase: UITextField!
+    @IBOutlet weak var newEnglishPhrase: UITextField!
+    @IBOutlet weak var newFrenchPhrase: UITextField!
     @IBOutlet weak var addedAlert: UILabel!
     
     override func viewDidLoad() {
@@ -25,32 +25,32 @@ class AddPhraseViewController: UIViewController {
     }
     
     @IBAction func submitNewPhrase() {
-        if newPrimaryPhrase.text == "" || newLearningPhrase.text == "" {
+        if newEnglishPhrase.text == "" || newFrenchPhrase.text == "" {
             displayEmptyPhraseAlert()
         } else {
-            let primaryPhrase = newPrimaryPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            let learningPhrase = newLearningPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let englishPhrase = newEnglishPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let frenchPhrase = newFrenchPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             
-            createNewPhrase(primary: primaryPhrase, learning: learningPhrase)
+            createNewPhrase(primary: englishPhrase, learning: frenchPhrase)
             
-            newLearningPhrase.text! = ""
-            newPrimaryPhrase.text! = ""
+            newEnglishPhrase.text! = ""
+            newFrenchPhrase.text! = ""
         
         }
         
     }
     
     @IBAction func textFieldPrimaryActionTriggered(_ sender: Any) {
-        if newPrimaryPhrase.text == "" || newLearningPhrase.text == "" {
+        if newEnglishPhrase.text == "" || newFrenchPhrase.text == "" {
             displayEmptyPhraseAlert()
         } else {
-            let primaryPhrase = newPrimaryPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            let learningPhrase = newLearningPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let primaryPhrase = newEnglishPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let learningPhrase = newFrenchPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             
             createNewPhrase(primary: primaryPhrase, learning: learningPhrase)
             
-            newLearningPhrase.text! = ""
-            newPrimaryPhrase.text! = ""
+            newEnglishPhrase.text! = ""
+            newFrenchPhrase.text! = ""
             
         }
 
