@@ -11,6 +11,10 @@ extension QuizObject {
     
     func resetCountPhraseCounts() {
         self.correctInARow = 0
+        self.timesCorrect = 0
+        self.timesIncorrect = 0
+        self.correctInARow = 0
+        self.learned = false
     }
     
     func addPointToPhraseIncorrectCount() {
@@ -22,6 +26,8 @@ extension QuizObject {
             self.learned = true
         }
     }
+    
+    //MARK: - Comparing methods
     
     private class func min(numbers: Int...) -> Int {
         return numbers.reduce(numbers[0], {$0 < $1 ? $0 : $1})

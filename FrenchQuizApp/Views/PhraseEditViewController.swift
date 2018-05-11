@@ -68,15 +68,6 @@ class PhraseEditViewController: UIViewController {
         managedData.saveContext()
     }
     
-    func resetCounts() {
-        phrase?.timesCorrect = 0
-        phrase?.timesIncorrect = 0
-        phrase?.correctInARow = 0
-        phrase?.learned = false
-        
-        displayPhrase()
-    }
-    
     func displayPhrase() {
         if let currentPhrase = phrase {
             primaryPhrase?.text = currentPhrase.englishPhrase
@@ -124,16 +115,18 @@ class PhraseEditViewController: UIViewController {
         learningPhrase?.isUserInteractionEnabled = true
     }
     
-    func deletePhrase() {
+    func didConfirmDeletePhrase() {
         let context = managedData.persistentContainer.viewContext
 
         if let currentPhrase = phrase {
-            
                 context.delete(currentPhrase)
                 returnsToList()
-          
-            
         }
+    }
+    
+    func didConfirmResetCounts (){
+        phrase!.resetCountPhraseCounts()
+        displayPhrase()
     }
     
     func returnsToList () {
@@ -148,7 +141,7 @@ class PhraseEditViewController: UIViewController {
         if let currentPhrase = phrase {
             let alert = UIAlertController(title: "Are you sure?", message: "This will delete '\(currentPhrase.englishPhrase ?? "No Phrase Selected")'", preferredStyle: .alert)
             
-            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.deletePhrase()}))
+            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.didConfirmDeletePhrase()}))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             
             self.present(alert, animated: true)
@@ -158,7 +151,7 @@ class PhraseEditViewController: UIViewController {
     func displayResetAlert (phrase: Phrases) {
         let alert = UIAlertController(title: "Reset Counts", message: "This will set the counts for '\(phrase.englishPhrase ?? "No Phrase Selected")' back to 0, are you sure?", preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.resetCounts()}))
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.didConfirmResetCounts()}))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         
