@@ -12,7 +12,7 @@
         <!--Phrase View Controller-->
         <scene sceneID="p6D-0d-b6x">
             <objects>
-                <viewController storyboardIdentifier="phraseViewController" title="Phrase View Controller" id="nui-Vb-IXU" customClass="phraseQuizViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="phraseViewController" title="Phrase View Controller" id="nui-Vb-IXU" customClass="PhraseQuizViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Q5p-iJ-ki5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

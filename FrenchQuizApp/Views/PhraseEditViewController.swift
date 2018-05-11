@@ -92,7 +92,6 @@ class PhraseEditViewController: UIViewController {
             phrase?.frenchPhrase = learningPhrase?.text
         }
     }
-    
 
     
     func enterView() {
@@ -115,26 +114,6 @@ class PhraseEditViewController: UIViewController {
         learningPhrase?.isUserInteractionEnabled = true
     }
     
-    func didConfirmDeletePhrase() {
-        let context = managedData.persistentContainer.viewContext
-
-        if let currentPhrase = phrase {
-                context.delete(currentPhrase)
-                returnsToList()
-        }
-    }
-    
-    func didConfirmResetCounts (){
-        phrase!.resetCountPhraseCounts()
-        displayPhrase()
-    }
-    
-    func returnsToList () {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "PhraseListViewController")
-        self.dismiss(animated: true, completion: nil)
-        self.present(controller, animated: true, completion: nil)
-    }
     
     //MARK: - Alert methods
     func displayDeleteAlert () {
@@ -156,6 +135,27 @@ class PhraseEditViewController: UIViewController {
         
         
         self.present(alert, animated: true)
+    }
+    
+    func didConfirmDeletePhrase() {
+        let context = managedData.persistentContainer.viewContext
+        
+        if let currentPhrase = phrase {
+            context.delete(currentPhrase)
+            returnsToList()
+        }
+    }
+    
+    func didConfirmResetCounts (){
+        phrase!.resetCountPhraseCounts()
+        displayPhrase()
+    }
+    
+    func returnsToList () {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "PhraseListViewController")
+        self.dismiss(animated: true, completion: nil)
+        self.present(controller, animated: true, completion: nil)
     }
 }
 

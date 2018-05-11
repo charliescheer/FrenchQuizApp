@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class phraseQuizViewController: UIViewController, UITextFieldDelegate {
+class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
  
     //MARK: - Class Properties
     var mode: String = "Quiz"
