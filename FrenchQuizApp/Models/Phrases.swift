@@ -8,7 +8,7 @@ extension Phrases {
     func compareUserAnswerToQuiz (quizState: Int, userAnswer: String) -> Double {
         var result: Double = 0.00
         
-            let ldDisatance = Double(self.LDCompare(userAnswer: userAnswer, quizState: quizState))
+            let ldDisatance = Double(self.LDPhraseCompare(userAnswer: userAnswer, quizState: quizState))
             let answerLength = Double(self.returnQuizAnswer(quizState: quizState).count)
             result = (answerLength - ldDisatance) / answerLength
             print("percent result \(result)")
@@ -17,7 +17,7 @@ extension Phrases {
         return result
     }
     
-    func LDCompare(userAnswer: String?, quizState: Int) -> Int {
+    func LDPhraseCompare(userAnswer: String?, quizState: Int) -> Int {
         var result: Int = 0
         
         
@@ -35,7 +35,7 @@ extension Phrases {
             if let answer = userAnswer {
                 if let quiz = self.englishPhrase?.lowercased() {
                         if answer != "NO ANSWER" {
-                        result = Tools.levenshtein(aStr: quiz, bStr: answer)
+                        result = levenshtein(aStr: quiz, bStr: answer)
                         print(result)
                         } else {
                             result = 2
