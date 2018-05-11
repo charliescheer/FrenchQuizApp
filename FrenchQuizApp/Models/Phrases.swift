@@ -5,7 +5,7 @@ extension Phrases {
     
     //MARK: - Comparing Functions
     
-    func doCompare (quizState: Int, userAnswer: String) -> Double {
+    func compareUserAnswerToQuiz (quizState: Int, userAnswer: String) -> Double {
         var result: Double = 0.00
         
             let ldDisatance = Double(self.LDCompare(userAnswer: userAnswer, quizState: quizState))
@@ -78,17 +78,17 @@ extension Phrases {
     
     
     //MARK: - Phrase Score Counting Functions
-    func addPoint() {
+    func addPointtoPhraseCorrectCount() {
         self.timesCorrect += 1
         self.correctInARow += 1
         checkIfLearned()
     }
     
-    func resetCount() {
+    func resetCountPhraseCounts() {
         self.correctInARow = 0
     }
     
-    func takePoint() {
+    func addPointToPhraseIncorrectCount() {
         self.timesIncorrect += 1
     }
     
