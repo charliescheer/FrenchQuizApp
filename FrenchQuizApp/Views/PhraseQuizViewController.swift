@@ -56,6 +56,7 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
         } else {
             currentQuiz.text = " "
             answer.isUserInteractionEnabled = false
+            displayNoAvailableQuizPairsAlert()
         }
     }
     
