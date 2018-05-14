@@ -168,7 +168,11 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     
     func compare(quiz: Phrases, answer: String, quizState: Int) {
         //If the answer is Correct
-        if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 1{
+        
+        if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 2 {
+            displayCouldNotCompareAlert()
+        
+        } else if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 1{
             compareIsCorrect()
             
             //If the answer is close
@@ -242,6 +246,12 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     
     func displayLearnedAlert () {
         let alert = UIAlertController(title: "Learned!", message: "You've gotten \(quizPair!.englishPhrase ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func displayCouldNotCompareAlert () {
+        let alert = UIAlertController(title: "Learned!", message: "An error has occured.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }

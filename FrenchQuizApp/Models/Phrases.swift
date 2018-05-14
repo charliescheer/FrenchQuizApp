@@ -10,42 +10,26 @@ extension Phrases {
         
         let ldDisatance = Double(self.doLDPhraseCompare(userAnswer: userAnswer, quizState: quizState))
         
-        guard ldDisatance == 2.0 else {
-            return result
-        }
-        
         let answerLength = Double(self.returnQuizAnswer(quizState: quizState).count)
         result = (answerLength - ldDisatance) / answerLength
-        print("percent result \(result)")
-        print("user answer \(userAnswer)")
   
         return result
     }
     
     func doLDPhraseCompare(userAnswer: String?, quizState: Int) -> Int {
         var result: Int = 0
-        
+
         guard let answer = userAnswer else {
             result = 2
             return result
         }
         
-        guard let quiz = self.frenchPhrase?.lowercased() else {
-            result = 2
-            return result
-        }
-        
-        guard answer == "NO ANSWER" else {
-            result = 2
-            return result
-        }
-        
         if quizState == 0 {
-                result = levenshtein(aStr: quiz, bStr: answer)
-                print(result)
-        } else {
+            let quiz = self.frenchPhrase!.lowercased()
             result = levenshtein(aStr: quiz, bStr: answer)
-            print(result)
+        } else {
+            let quiz = self.englishPhrase!.lowercased()
+            result = levenshtein(aStr: quiz, bStr: answer)
         }
         
         return result
