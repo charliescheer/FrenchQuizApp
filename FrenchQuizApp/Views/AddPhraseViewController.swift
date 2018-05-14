@@ -12,8 +12,8 @@ import CoreData
 
 class AddPhraseViewController: UIViewController {
     
-    @IBOutlet weak var newPrimaryPhrase: UITextField!
-    @IBOutlet weak var newLearningPhrase: UITextField!
+    @IBOutlet weak var newEnglishPhrase: UITextField!
+    @IBOutlet weak var newFrenchPhrase: UITextField!
     @IBOutlet weak var addedAlert: UILabel!
     
     override func viewDidLoad() {
@@ -25,32 +25,32 @@ class AddPhraseViewController: UIViewController {
     }
     
     @IBAction func submitNewPhrase() {
-        if newPrimaryPhrase.text == "" || newLearningPhrase.text == "" {
-            emptyPhraseAlert()
+        if newEnglishPhrase.text == "" || newFrenchPhrase.text == "" {
+            displayEmptyPhraseAlert()
         } else {
-            let primaryPhrase = newPrimaryPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            let learningPhrase = newLearningPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let englishPhrase = newEnglishPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let frenchPhrase = newFrenchPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             
-            createNewPhrase(primary: primaryPhrase, learning: learningPhrase)
+            createNewPhrase(primary: englishPhrase, learning: frenchPhrase)
             
-            newLearningPhrase.text! = ""
-            newPrimaryPhrase.text! = ""
+            newEnglishPhrase.text! = ""
+            newFrenchPhrase.text! = ""
         
         }
         
     }
     
     @IBAction func textFieldPrimaryActionTriggered(_ sender: Any) {
-        if newPrimaryPhrase.text == "" || newLearningPhrase.text == "" {
-            emptyPhraseAlert()
+        if newEnglishPhrase.text == "" || newFrenchPhrase.text == "" {
+            displayEmptyPhraseAlert()
         } else {
-            let primaryPhrase = newPrimaryPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            let learningPhrase = newLearningPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let primaryPhrase = newEnglishPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let learningPhrase = newFrenchPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             
             createNewPhrase(primary: primaryPhrase, learning: learningPhrase)
             
-            newLearningPhrase.text! = ""
-            newPrimaryPhrase.text! = ""
+            newEnglishPhrase.text! = ""
+            newFrenchPhrase.text! = ""
             
         }
 
@@ -58,15 +58,15 @@ class AddPhraseViewController: UIViewController {
     
     func createNewPhrase(primary: String, learning: String) {
         let context = managedData.persistentContainer.viewContext
-        if let phrase = NSEntityDescription.insertNewObject(forEntityName: "Phrases",
-                                                            into: context) as? Phrases {
+        if let phrase = NSEntityDescription.insertNewObject(forEntityName: "Phrase",
+                                                            into: context) as? Phrase {
             phrase.englishPhrase = primary
             phrase.frenchPhrase = learning
         }
     }
     
     //MARK: - Alert Methods
-    func emptyPhraseAlert () {
+    func displayEmptyPhraseAlert () {
         let alert = UIAlertController(title: "Enter Phrase", message: "Please enter a phrase for both fields", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
         self.present(alert, animated: true)

@@ -1,12 +1,12 @@
 import UIKit
 import CoreData
 
-class phraseQuizViewController: UIViewController, UITextFieldDelegate {
+class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
  
     //MARK: - Class Properties
     var mode: String = "Quiz"
-    var quizPair: Phrases?
-    var savedMemory: [Phrases]? = []
+    var quizPair: Phrase?
+    var savedMemory: [Phrase]? = []
     var quizCount = 0
     var quizState: Int = 0
     
@@ -50,11 +50,13 @@ class phraseQuizViewController: UIViewController, UITextFieldDelegate {
         currentMode.text = mode
         
         getMemoryStore()
+        
         if savedMemory!.count > 0 {
             getQuizPair()
         } else {
             currentQuiz.text = " "
             answer.isUserInteractionEnabled = false
+            displayNoAvailableQuizPairsAlert()
         }
     }
     
@@ -64,8 +66,8 @@ class phraseQuizViewController: UIViewController, UITextFieldDelegate {
 
     //get data from core data
     func getMemoryStore() {
-        let request: NSFetchRequest<Phrases> = Phrases.fetchRequest()
-        var results = [Phrases]()
+        let request: NSFetchRequest<Phrase> = Phrase.fetchRequest()
+        var results = [Phrase]()
         
         do {
             results = try managedData.getContext().fetch(request)
@@ -74,55 +76,39 @@ class phraseQuizViewController: UIViewController, UITextFieldDelegate {
         catch {
             print(error)
         }
-
-        savedMemory = results
+        
+        for phrase in results {
+            if phrase.learned == false {
+                savedMemory?.append(phrase)
+            }
+        }
     }
     
     //MARK: - Quiz Setting Methods
     //choose a random pair of words from the memory store, make sure that pair is not already marked as learned.
     //also confirms that there are currently available unlearned pairs to check, if not displays an alert
     func getQuizPair() {
-        if let memory = savedMemory {
-            if memory.count > 0 {
-                let randomIndex = Int(arc4random_uniform(UInt32(memory.count)))
-                let newQuizPair = memory[randomIndex]
-                quizState = Int(arc4random_uniform(2))
-                
-                //if there are available pairs, looks for a random one marked as unlearned and returns it to the view
-                if arePairsAvailable() == true && newQuizPair.learned == false {
-                    print("The pair is \(String(describing: newQuizPair.frenchPhrase)) and \(String(describing: newQuizPair.englishPhrase))")
-                    quizPair = newQuizPair
-                    displayQuiz(newQuizPair)
-                    clearUserAnswer()
-                } else {
-                    self.getQuizPair()
-                }
-            } else {
-                NoAvailableQuizPairsAlert()
-            }
+        guard let memory = savedMemory else {
+            return
         }
-    }
-    
-    //Check to make sure there are phrases stored in memory
-    func arePairsAvailable() -> Bool {
-        var pairsAreAvailable: Bool = false
         
-        if let memory = savedMemory {
-            if memory.count > 0 {
-                
-                for pair in memory {
-                    if pair.learned == false {
-                        pairsAreAvailable = true
-                        break
-                    }
-                }
-            }
+        guard memory.count > 0 else {
+            displayNoAvailableQuizPairsAlert()
+            return
         }
-        return pairsAreAvailable
+        
+        let randomIndex = Int(arc4random_uniform(UInt32(memory.count)))
+        let newQuizPair = memory[randomIndex]
+        quizState = Int(arc4random_uniform(2))
+        
+        print("The pair is \(String(describing: newQuizPair.frenchPhrase)) and \(String(describing: newQuizPair.englishPhrase))")
+        quizPair = newQuizPair
+        displayQuiz(newQuizPair)
+        clearUserAnswer()
     }
     
     //display the currently selected quiz pair on screen
-    func displayQuiz(_ currentPhrase: Phrases) {
+    func displayQuiz(_ currentPhrase: Phrase) {
         currentQuiz.text = currentPhrase.returnQuizQuestion(quizState: quizState) as String as String
     }
     
@@ -136,43 +122,50 @@ class phraseQuizViewController: UIViewController, UITextFieldDelegate {
     //compare the user answer to the quiz
     //in quiz mode a correct or incorrect answer will trigger gaining and losing points towards marking a word as learned
     func doTest () {
-        if let quiz = quizPair {
-            if getUserAnswer() != "NO ANSWER" {
-                let answer = getUserAnswer()
-                compare(quiz: quiz, answer: answer, quizState: quizState)
-            } else {
-                noAnswerAlert()
-            }
+        guard let quiz = quizPair else {
+            return
         }
+        
+        if getUserAnswer() != "NO ANSWER" {
+            let answer = getUserAnswer()
+            compareCurrentAnswerWithQuiz(quiz: quiz, answer: answer, quizState: quizState)
+        } else {
+            displayNoAnswerAlert()
+        }
+        
     }
     
     //Get user answer from text field
     func getUserAnswer() -> String {
         var setAnswer: String = ""
-        if let userAnswer = answer.text {
-            if userAnswer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != "" {
-                setAnswer = userAnswer
-                
-                setAnswer = setAnswer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                setAnswer = setAnswer.lowercased()
-                print("inside getUserAnswer \(setAnswer)")
-                } else {
-                    setAnswer = "NO ANSWER"
-                    print(setAnswer)
-                }
-            }
         
-            
+        guard let userAnswer = answer.text else {
+            setAnswer = "NO ANSWER"
+            return setAnswer
+        }
+        
+        if userAnswer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != "" {
+            setAnswer = userAnswer
+            setAnswer = setAnswer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            setAnswer = setAnswer.lowercased()
+        } else {
+            setAnswer = "NO ANSWER"
+        }
+        
         return setAnswer
     }
     
-    func compare(quiz: Phrases, answer: String, quizState: Int) {
+    func compareCurrentAnswerWithQuiz(quiz: Phrase, answer: String, quizState: Int) {
         //If the answer is Correct
-        if quiz.doCompare(quizState: quizState, userAnswer: answer) == 1{
+        
+        if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 2 {
+            displayCouldNotCompareAlert()
+            
+        } else if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 1{
             compareIsCorrect()
             
             //If the answer is close
-        } else if quiz.doCompare(quizState: quizState, userAnswer: answer) > 0.85 {
+        } else if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) > 0.85 {
             compareIsclose(quiz: quiz, quizState: quizState)
             
             //if less then 85% correct
@@ -185,17 +178,17 @@ class phraseQuizViewController: UIViewController, UITextFieldDelegate {
         correctMessage.text = "Correct!!!"
         
         if mode == "Quiz" {
-            quizPair?.addPoint()
+            quizPair?.addPointtoPhraseCorrectCount()
         }
         
         if quizPair!.learned == true && quizPair!.correctInARow == 10 {
-            learnedAlert()
+            displayLearnedAlert()
         }
         
         getQuizPair()
     }
     
-    func compareIsclose(quiz: Phrases, quizState: Int) {
+    func compareIsclose(quiz: Phrase, quizState: Int) {
         if quizCount < 4 {
             quizCount += 1
             correctMessage.text = "Almost, Try again! Try # \(quizCount)"
@@ -207,15 +200,15 @@ class phraseQuizViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func compareIsWrong(quiz: Phrases, quizState: Int) {
+    func compareIsWrong(quiz: Phrase, quizState: Int) {
         if quizCount < 4 {
             quizCount += 1
             correctMessage.text = "Incorrect :/ Try # \(quizCount)"
             print(quizCount)
         } else {
             if mode == "Quiz" {
-                quizPair?.resetCount()
-                quizPair?.takePoint()
+                quizPair?.resetCountPhraseCounts()
+                quizPair?.addPointToPhraseIncorrectCount()
             }
             
             print("Count reset")
@@ -228,23 +221,31 @@ class phraseQuizViewController: UIViewController, UITextFieldDelegate {
     
 
     //MARK: - Alert Functions
-    func noAnswerAlert () {
+    func displayNoAnswerAlert () {
         let alert = UIAlertController(title: "No Answer", message: "Please enter an answer.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
     
-    func NoAvailableQuizPairsAlert () {
+    func displayNoAvailableQuizPairsAlert () {
         let alert = UIAlertController(title: "There are no available phrase pairs", message: "Please add more phrases to learn!", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
         self.present(alert, animated: true)
     }
     
-    func learnedAlert () {
+    func displayLearnedAlert () {
         let alert = UIAlertController(title: "Learned!", message: "You've gotten \(quizPair!.englishPhrase ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
     
+    func displayCouldNotCompareAlert () {
+        let alert = UIAlertController(title: "Phrase Error", message: "An error has occured.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
 }
+
+
 
