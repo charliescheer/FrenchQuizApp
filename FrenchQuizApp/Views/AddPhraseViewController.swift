@@ -58,8 +58,8 @@ class AddPhraseViewController: UIViewController {
     
     func createNewPhrase(primary: String, learning: String) {
         let context = managedData.persistentContainer.viewContext
-        if let phrase = NSEntityDescription.insertNewObject(forEntityName: "Phrases",
-                                                            into: context) as? Phrases {
+        if let phrase = NSEntityDescription.insertNewObject(forEntityName: "Phrase",
+                                                            into: context) as? Phrase {
             phrase.englishPhrase = primary
             phrase.frenchPhrase = learning
         }

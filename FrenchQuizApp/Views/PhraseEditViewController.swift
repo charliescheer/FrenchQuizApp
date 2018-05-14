@@ -3,7 +3,7 @@ import CoreData
 
 class PhraseEditViewController: UIViewController {
     
-    var phrase: Phrases?
+    var phrase: Phrase?
     var mode = "View"
     
     @IBOutlet weak var correctLabel: UILabel?
@@ -127,7 +127,7 @@ class PhraseEditViewController: UIViewController {
         }
     }
     
-    func displayResetAlert (phrase: Phrases) {
+    func displayResetAlert (phrase: Phrase) {
         let alert = UIAlertController(title: "Reset Counts", message: "This will set the counts for '\(phrase.englishPhrase ?? "No Phrase Selected")' back to 0, are you sure?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.didConfirmResetCounts()}))

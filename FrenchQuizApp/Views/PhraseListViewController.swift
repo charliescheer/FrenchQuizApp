@@ -3,7 +3,7 @@ import CoreData
 
 class PhraseListViewController : UITableViewController {
    lazy var resultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Phrases")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Phrase")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "englishPhrase", ascending: true)]
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                     managedObjectContext: self.managedObjectContext,
@@ -25,7 +25,7 @@ class PhraseListViewController : UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhraseCell", for: indexPath) as! PhraseCell
         // Set up the cell
-        if let phrase = resultsController.object(at: indexPath) as? Phrases {
+        if let phrase = resultsController.object(at: indexPath) as? Phrase {
             cell.englishLabel?.text = phrase.englishPhrase
             cell.frenchLabel?.text = phrase.frenchPhrase
         }
@@ -59,7 +59,7 @@ class PhraseListViewController : UITableViewController {
                     return
             }
         
-            if let phrase = resultsController.object(at: indexPath) as? Phrases {
+            if let phrase = resultsController.object(at: indexPath) as? Phrase {
                 phraseVC?.phrase = phrase
             }
         }

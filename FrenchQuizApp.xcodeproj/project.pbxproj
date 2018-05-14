@@ -14,7 +14,7 @@
 		BA3E7E2E1FE46C2700C606AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA3E7E2C1FE46C2700C606AC /* LaunchScreen.storyboard */; };
 		BA3E7E391FE46C2800C606AC /* FrenchQuizAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E381FE46C2800C606AC /* FrenchQuizAppTests.swift */; };
 		BA3E7E441FE46C2800C606AC /* FrenchQuizAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E431FE46C2800C606AC /* FrenchQuizAppUITests.swift */; };
-		BA3E7E551FE46CFA00C606AC /* Phrases.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E541FE46CFA00C606AC /* Phrases.swift */; };
+		BA3E7E551FE46CFA00C606AC /* Phrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E541FE46CFA00C606AC /* Phrase.swift */; };
 		BA3E7E571FE46D0200C606AC /* PhraseQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E561FE46D0200C606AC /* PhraseQuizViewController.swift */; };
 		BA3E7E5B1FE46D0E00C606AC /* AddPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E5A1FE46D0E00C606AC /* AddPhraseViewController.swift */; };
 		BA3E7E5D1FE46D1400C606AC /* PhraseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E5C1FE46D1400C606AC /* PhraseListViewController.swift */; };
@@ -55,7 +55,7 @@
 		BA3E7E3F1FE46C2800C606AC /* FrenchQuizAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FrenchQuizAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA3E7E431FE46C2800C606AC /* FrenchQuizAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrenchQuizAppUITests.swift; sourceTree = "<group>"; };
 		BA3E7E451FE46C2800C606AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BA3E7E541FE46CFA00C606AC /* Phrases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phrases.swift; sourceTree = "<group>"; };
+		BA3E7E541FE46CFA00C606AC /* Phrase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phrase.swift; sourceTree = "<group>"; };
 		BA3E7E561FE46D0200C606AC /* PhraseQuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhraseQuizViewController.swift; sourceTree = "<group>"; };
 		BA3E7E5A1FE46D0E00C606AC /* AddPhraseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPhraseViewController.swift; sourceTree = "<group>"; };
 		BA3E7E5C1FE46D1400C606AC /* PhraseListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhraseListViewController.swift; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 		BA425A2120A263ED000F490E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BA3E7E541FE46CFA00C606AC /* Phrases.swift */,
+				BA3E7E541FE46CFA00C606AC /* Phrase.swift */,
 				BAADADC120A520CB00F96018 /* QuizObject.swift */,
 			);
 			path = Models;
@@ -317,7 +317,7 @@
 			files = (
 				BA3E7E601FE476D300C606AC /* FrenchQuizApp.xcdatamodeld in Sources */,
 				BA22CFC7208E46AF009FF14F /* managedData.swift in Sources */,
-				BA3E7E551FE46CFA00C606AC /* Phrases.swift in Sources */,
+				BA3E7E551FE46CFA00C606AC /* Phrase.swift in Sources */,
 				BA603E1C200415DC00A97490 /* PhraseEditViewController.swift in Sources */,
 				BA3E7E211FE46C2700C606AC /* AppDelegate.swift in Sources */,
 				BA3E7E5B1FE46D0E00C606AC /* AddPhraseViewController.swift in Sources */,
