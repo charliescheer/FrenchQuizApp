@@ -7,8 +7,12 @@ extension Phrases {
     
     func compareUserAnswerToQuiz (quizState: Int, userAnswer: String) -> Double {
         var result: Double = 0.00
-        
         let ldDisatance = Double(self.doLDPhraseCompare(userAnswer: userAnswer, quizState: quizState))
+        
+        guard ldDisatance != 100 else {
+            result = 2
+            return result
+        }
         
         let answerLength = Double(self.returnQuizAnswer(quizState: quizState).count)
         result = (answerLength - ldDisatance) / answerLength
@@ -20,7 +24,8 @@ extension Phrases {
         var result: Int = 0
 
         guard let answer = userAnswer else {
-            result = 2
+            result = 100
+            print("LD compare returning 2")
             return result
         }
         

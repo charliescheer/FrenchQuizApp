@@ -50,6 +50,7 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
         currentMode.text = mode
         
         getMemoryStore()
+        
         if savedMemory!.count > 0 {
             getQuizPair()
         } else {
@@ -74,51 +75,35 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
         catch {
             print(error)
         }
-
-        savedMemory = results
+        
+        for phrase in results {
+            if phrase.learned == false {
+                savedMemory?.append(phrase)
+            }
+        }
     }
     
     //MARK: - Quiz Setting Methods
     //choose a random pair of words from the memory store, make sure that pair is not already marked as learned.
     //also confirms that there are currently available unlearned pairs to check, if not displays an alert
     func getQuizPair() {
-        if let memory = savedMemory {
-            if memory.count > 0 {
-                let randomIndex = Int(arc4random_uniform(UInt32(memory.count)))
-                let newQuizPair = memory[randomIndex]
-                quizState = Int(arc4random_uniform(2))
-                
-                //if there are available pairs, looks for a random one marked as unlearned and returns it to the view
-                if arePairsAvailable() == true && newQuizPair.learned == false {
-                    print("The pair is \(String(describing: newQuizPair.frenchPhrase)) and \(String(describing: newQuizPair.englishPhrase))")
-                    quizPair = newQuizPair
-                    displayQuiz(newQuizPair)
-                    clearUserAnswer()
-                } else {
-                    self.getQuizPair()
-                }
-            } else {
-                displayNoAvailableQuizPairsAlert()
-            }
+        guard let memory = savedMemory else {
+            return
         }
-    }
-    
-    //Check to make sure there are phrases stored in memory
-    func arePairsAvailable() -> Bool {
-        var pairsAreAvailable: Bool = false
         
-        if let memory = savedMemory {
-            if memory.count > 0 {
-                
-                for pair in memory {
-                    if pair.learned == false {
-                        pairsAreAvailable = true
-                        break
-                    }
-                }
-            }
+        guard memory.count > 0 else {
+            displayNoAvailableQuizPairsAlert()
+            return
         }
-        return pairsAreAvailable
+        
+        let randomIndex = Int(arc4random_uniform(UInt32(memory.count)))
+        let newQuizPair = memory[randomIndex]
+        quizState = Int(arc4random_uniform(2))
+        
+        print("The pair is \(String(describing: newQuizPair.frenchPhrase)) and \(String(describing: newQuizPair.englishPhrase))")
+        quizPair = newQuizPair
+        displayQuiz(newQuizPair)
+        clearUserAnswer()
     }
     
     //display the currently selected quiz pair on screen
@@ -136,42 +121,45 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     //compare the user answer to the quiz
     //in quiz mode a correct or incorrect answer will trigger gaining and losing points towards marking a word as learned
     func doTest () {
-        if let quiz = quizPair {
-            if getUserAnswer() != "NO ANSWER" {
-                let answer = getUserAnswer()
-                compare(quiz: quiz, answer: answer, quizState: quizState)
-            } else {
-                displayNoAnswerAlert()
-            }
+        guard let quiz = quizPair else {
+            return
         }
+        
+        if getUserAnswer() != "NO ANSWER" {
+            let answer = getUserAnswer()
+            compareCurrentAnswerWithQuiz(quiz: quiz, answer: answer, quizState: quizState)
+        } else {
+            displayNoAnswerAlert()
+        }
+        
     }
     
     //Get user answer from text field
     func getUserAnswer() -> String {
         var setAnswer: String = ""
-        if let userAnswer = answer.text {
-            if userAnswer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != "" {
-                setAnswer = userAnswer
-                
-                setAnswer = setAnswer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                setAnswer = setAnswer.lowercased()
-                print("inside getUserAnswer \(setAnswer)")
-                } else {
-                    setAnswer = "NO ANSWER"
-                    print(setAnswer)
-                }
-            }
         
-            
+        guard let userAnswer = answer.text else {
+            setAnswer = "NO ANSWER"
+            return setAnswer
+        }
+        
+        if userAnswer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != "" {
+            setAnswer = userAnswer
+            setAnswer = setAnswer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            setAnswer = setAnswer.lowercased()
+        } else {
+            setAnswer = "NO ANSWER"
+        }
+        
         return setAnswer
     }
     
-    func compare(quiz: Phrases, answer: String, quizState: Int) {
+    func compareCurrentAnswerWithQuiz(quiz: Phrases, answer: String, quizState: Int) {
         //If the answer is Correct
         
         if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 2 {
             displayCouldNotCompareAlert()
-        
+            
         } else if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 1{
             compareIsCorrect()
             
@@ -251,7 +239,7 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     }
     
     func displayCouldNotCompareAlert () {
-        let alert = UIAlertController(title: "Learned!", message: "An error has occured.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Phrase Error", message: "An error has occured.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
