@@ -4,7 +4,7 @@ import CoreData
 class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
  
     //MARK: - Class Properties
-    var mode: String = "Quiz"
+    var currentModeState: String?
     var quizPair: Phrase?
     var savedMemory: [Phrase]? = []
     var quizCount = 0
@@ -19,9 +19,18 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: - View Controller Buttons
     @IBAction func quizMode() {
-        mode = "Quiz"
-        currentMode.text = mode
-        print(mode)
+        guard let modeState = currentModeState else {
+            return
+        }
+        
+        if modeState == "Quiz" {
+            currentMode.text = "Learn"
+            
+        } else {
+            currentMode.text = "Quiz"
+            
+        }
+
     }
     
     //trigger compare user answer and quiz answer from button on screen
@@ -46,8 +55,15 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(currentModeState)
+        if currentModeState! == "Quiz" {
+            print("Quiz")
+        } else {
+            print("Learn")
+        }
+        
         correctMessage.text = " "
-        currentMode.text = mode
+        
         
         getMemoryStore()
         
@@ -177,7 +193,7 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     func compareIsCorrect() {
         correctMessage.text = "Correct!!!"
         
-        if mode == "Quiz" {
+        if currentModeState == "Quiz" {
             quizPair?.addPointtoPhraseCorrectCount()
         }
         
@@ -206,7 +222,7 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
             correctMessage.text = "Incorrect :/ Try # \(quizCount)"
             print(quizCount)
         } else {
-            if mode == "Quiz" {
+            if currentModeState == "Quiz" {
                 quizPair?.resetCountPhraseCounts()
                 quizPair?.addPointToPhraseIncorrectCount()
             }
@@ -244,6 +260,7 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
         alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
+    
     
 }
 

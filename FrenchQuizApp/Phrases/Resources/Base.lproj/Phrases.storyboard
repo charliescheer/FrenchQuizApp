@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nui-Vb-IXU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,6 +9,115 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Start Navigation View Controller-->
+        <scene sceneID="4js-PC-kmf">
+            <objects>
+                <viewController title="Start Navigation View Controller" id="MjZ-9a-sbi" customClass="StartNavigationViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="w0z-zr-LsF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WB5-Xz-wC8">
+                                <rect key="frame" x="0.0" y="318" width="300" height="30"/>
+                                <color key="backgroundColor" red="0.95483094453811646" green="0.22937262058258057" blue="0.09773717075586319" alpha="0.49488336267605632" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ecA-9I-izu"/>
+                                    <constraint firstAttribute="width" constant="300" id="y0L-IO-6Gr"/>
+                                </constraints>
+                                <state key="normal" title="Noun">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4aG-ca-xL1">
+                                <rect key="frame" x="0.0" y="218" width="300" height="30"/>
+                                <color key="backgroundColor" red="0.95483094453811646" green="0.22937262058258057" blue="0.09773717075586319" alpha="0.4948833627" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Egl-lY-T15"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="bvT-kp-oCZ"/>
+                                    <constraint firstAttribute="width" constant="300" id="no1-7F-H77"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="pHU-01-HOv"/>
+                                </constraints>
+                                <state key="normal" title="Quiz">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="quizWasPressed:" destination="MjZ-9a-sbi" eventType="touchUpInside" id="CLy-lj-eSP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AFY-Ll-7Pr">
+                                <rect key="frame" x="0.0" y="118" width="300" height="30"/>
+                                <color key="backgroundColor" red="0.95483094453811646" green="0.22937262058258057" blue="0.09773717075586319" alpha="0.4948833627" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="L17-Ic-clD"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Spg-qW-cy7"/>
+                                    <constraint firstAttribute="width" constant="300" id="cnh-vK-xgg"/>
+                                    <constraint firstAttribute="height" constant="30" id="teP-40-nH4"/>
+                                </constraints>
+                                <state key="normal" title="Phrase">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="phraseWasPressed:" destination="MjZ-9a-sbi" eventType="touchUpInside" id="uqU-VX-iJi"/>
+                                    <segue destination="nui-Vb-IXU" kind="showDetail" identifier="toPhraseQuizViewController" id="k4Q-eR-hH9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xrX-28-OjX">
+                                <rect key="frame" x="0.0" y="418" width="300" height="30"/>
+                                <color key="backgroundColor" red="0.95483094453811646" green="0.22937262058258057" blue="0.09773717075586319" alpha="0.4948833627" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="XhY-k2-1no"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="bs7-yl-cnJ"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="mGj-YX-mLO"/>
+                                    <constraint firstAttribute="height" constant="30" id="mPm-DK-ZBU"/>
+                                </constraints>
+                                <state key="normal" title="Learn">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="learnWasPressed:" destination="MjZ-9a-sbi" eventType="touchUpInside" id="NhA-Fm-gWO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fml-iN-mMB">
+                                <rect key="frame" x="0.0" y="518" width="300" height="30"/>
+                                <color key="backgroundColor" red="0.95483094453811646" green="0.22937262058258057" blue="0.09773717075586319" alpha="0.4948833627" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="NR7-EG-cl0"/>
+                                    <constraint firstAttribute="height" constant="30" id="OU8-nk-7rk"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="bem-qw-7CV"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="zjC-1n-1py"/>
+                                </constraints>
+                                <state key="normal" title="Verb">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="WB5-Xz-wC8" firstAttribute="centerY" secondItem="w0z-zr-LsF" secondAttribute="centerY" id="Kfb-d8-Kts"/>
+                            <constraint firstItem="Fml-iN-mMB" firstAttribute="leading" secondItem="OpB-RV-vdh" secondAttribute="leading" id="NkT-JP-CC8"/>
+                            <constraint firstItem="WB5-Xz-wC8" firstAttribute="top" secondItem="4aG-ca-xL1" secondAttribute="bottom" constant="70" id="Tp6-8v-Ty0"/>
+                            <constraint firstItem="4aG-ca-xL1" firstAttribute="top" secondItem="AFY-Ll-7Pr" secondAttribute="bottom" constant="70" id="UCT-be-S8D"/>
+                            <constraint firstItem="WB5-Xz-wC8" firstAttribute="leading" secondItem="OpB-RV-vdh" secondAttribute="leading" id="UfQ-GX-M75"/>
+                            <constraint firstItem="Fml-iN-mMB" firstAttribute="top" secondItem="xrX-28-OjX" secondAttribute="bottom" constant="70" id="YGF-3z-UtC"/>
+                            <constraint firstItem="AFY-Ll-7Pr" firstAttribute="leading" secondItem="OpB-RV-vdh" secondAttribute="leading" id="iDX-wc-B4V"/>
+                            <constraint firstItem="xrX-28-OjX" firstAttribute="leading" secondItem="OpB-RV-vdh" secondAttribute="leading" id="oHT-0f-sNe"/>
+                            <constraint firstItem="xrX-28-OjX" firstAttribute="top" secondItem="WB5-Xz-wC8" secondAttribute="bottom" constant="70" id="z2Y-es-wPB"/>
+                            <constraint firstItem="4aG-ca-xL1" firstAttribute="leading" secondItem="OpB-RV-vdh" secondAttribute="leading" id="zvf-6p-UYF"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="OpB-RV-vdh"/>
+                    </view>
+                    <connections>
+                        <outlet property="learnButton" destination="xrX-28-OjX" id="l0t-wN-Ni6"/>
+                        <outlet property="nounButton" destination="WB5-Xz-wC8" id="c3a-T0-Tp9"/>
+                        <outlet property="phraseButton" destination="AFY-Ll-7Pr" id="ZsM-3J-7cd"/>
+                        <outlet property="quizButton" destination="4aG-ca-xL1" id="YK2-yp-iLv"/>
+                        <outlet property="verbButton" destination="Fml-iN-mMB" id="0ol-C0-u4t"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xAK-RG-dna" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1386.4000000000001" y="-3.1484257871064472"/>
+        </scene>
         <!--Phrase View Controller-->
         <scene sceneID="p6D-0d-b6x">
             <objects>
@@ -17,29 +126,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T27-8M-Prk" userLabel="Page Tools">
-                                <rect key="frame" x="0.0" y="46" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <items>
-                                    <barButtonItem title="Quiz" id="VA3-a7-d0R">
-                                        <connections>
-                                            <action selector="quizMode" destination="nui-Vb-IXU" id="w8b-mg-dkQ"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="New Quiz" id="1Ms-56-jUv">
-                                        <connections>
-                                            <action selector="newQuiz" destination="nui-Vb-IXU" id="Fb9-GB-iqZ"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Answer" id="J9e-HN-dkE">
-                                        <connections>
-                                            <action selector="answerQuiz" destination="nui-Vb-IXU" id="1V4-3T-y3R"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0hN-LN-WZl">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Phrases" id="Z47-I7-adI">
@@ -91,6 +179,36 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T27-8M-Prk" userLabel="Page Tools">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Quiz" id="VA3-a7-d0R">
+                                        <connections>
+                                            <action selector="quizMode" destination="nui-Vb-IXU" id="w8b-mg-dkQ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="New Quiz" id="1Ms-56-jUv">
+                                        <connections>
+                                            <action selector="newQuiz" destination="nui-Vb-IXU" id="Fb9-GB-iqZ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Answer" id="J9e-HN-dkE">
+                                        <connections>
+                                            <action selector="answerQuiz" destination="nui-Vb-IXU" id="1V4-3T-y3R"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yBX-bl-58X">
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <tabBarItem systemItem="favorites" id="edG-U5-q65"/>
+                                    <tabBarItem systemItem="more" id="Ypi-yu-DxB"/>
+                                </items>
+                            </tabBar>
                         </subviews>
                         <color key="backgroundColor" red="0.83481759327063287" green="0.83481759327063287" blue="0.83481759327063287" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -130,24 +248,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EYQ-Ah-n8P">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Add Phrase" id="pq5-eP-aPI">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="oNB-gA-GEV">
-                                            <connections>
-                                                <segue destination="nui-Vb-IXU" kind="presentation" id="Wgc-7d-KPG"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="List" id="xdN-Kd-4dg">
-                                            <connections>
-                                                <segue destination="Jcu-Ss-ySD" kind="presentation" id="g1p-x2-Tpf"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WW4-1u-XHa">
                                 <rect key="frame" x="16" y="60" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -191,6 +291,24 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EYQ-Ah-n8P">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Add Phrase" id="pq5-eP-aPI">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="oNB-gA-GEV">
+                                            <connections>
+                                                <segue destination="nui-Vb-IXU" kind="presentation" id="Wgc-7d-KPG"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="List" id="xdN-Kd-4dg">
+                                            <connections>
+                                                <segue destination="Jcu-Ss-ySD" kind="presentation" id="g1p-x2-Tpf"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -453,8 +571,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="fK2-kZ-roq"/>
-        <segue reference="I0h-aB-qk2"/>
-        <segue reference="qa2-gU-nBr"/>
+        <segue reference="g1p-x2-Tpf"/>
+        <segue reference="wfI-XT-3gZ"/>
+        <segue reference="k4Q-eR-hH9"/>
     </inferredMetricsTieBreakers>
 </document>
