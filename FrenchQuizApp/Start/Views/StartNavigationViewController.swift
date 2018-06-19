@@ -91,9 +91,11 @@ class StartNavigationViewController:  UIViewController {
         switch sender {
         case 1:
             let storyboard = UIStoryboard(name: constants.phraseStoryboard, bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: constants.phraseViewController) as! PhraseQuizViewController
-            vc.currentModeState = mode
-            present(vc, animated: true, completion: nil)
+            let tabBarController = storyboard.instantiateViewController(withIdentifier: "navigation") as! UITabBarController
+            let tempVC = tabBarController.viewControllers![0] as! PhraseQuizViewController
+            tempVC.currentModeState = mode
+            
+            present(tabBarController, animated: true, completion: nil)
         case 2:
             let storyboard = UIStoryboard(name: constants.nounStoryboard, bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: constants.nounViewController) as UIViewController
@@ -117,7 +119,7 @@ class StartNavigationViewController:  UIViewController {
 extension StartNavigationViewController {
     enum constants {
         static let phraseStoryboard = "Phrases"
-        static let phraseViewController = "phraseViewController"
+        static let phraseViewController = "phrase"
         static let verbStoryboard = "Verbs"
         static let verbViewController = "verb"
         static let nounStoryboard = "Nouns"
