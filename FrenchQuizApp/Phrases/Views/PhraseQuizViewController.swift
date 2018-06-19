@@ -33,14 +33,10 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
         }
         
         if modeState == modeConstant.quiz {
-            currentMode.text = modeConstant.learn
-            quizStateButton.title = modeConstant.quiz
-            mode = modeConstant.learn
+            setModeToLearn()
             
         } else {
-            currentMode.text = modeConstant.quiz
-            quizStateButton.title = modeConstant.learn
-            mode = modeConstant.quiz
+            setModeToQuiz()
         }
 
     }
@@ -73,12 +69,10 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
         
         if tempMode == "Quiz" {
             print("Quiz")
-            quizStateButton.title = modeConstant.learn
-            currentMode.text = modeConstant.quiz
+            setModeToQuiz()
         } else {
             print("Learn")
-            quizStateButton.title = modeConstant.quiz
-            currentMode.text = modeConstant.learn
+            setModeToLearn()
             
         }
         
@@ -118,6 +112,18 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
                 savedMemory?.append(phrase)
             }
         }
+    }
+    
+    func setModeToQuiz() {
+        currentMode.text = modeConstant.quiz
+        quizStateButton.title = modeConstant.learn
+        mode = modeConstant.quiz
+    }
+    
+    func setModeToLearn() {
+        currentMode.text = modeConstant.learn
+        quizStateButton.title = modeConstant.quiz
+        mode = modeConstant.learn
     }
     
     //MARK: - Quiz Setting Methods
