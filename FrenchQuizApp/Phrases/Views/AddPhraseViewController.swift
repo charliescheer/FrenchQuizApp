@@ -15,9 +15,11 @@ class AddPhraseViewController: UIViewController {
     @IBOutlet weak var newEnglishPhrase: UITextField!
     @IBOutlet weak var newFrenchPhrase: UITextField!
     @IBOutlet weak var addedAlert: UILabel!
+    @IBOutlet weak var englishLabel: UILabel!
+    @IBOutlet weak var frenchLabel: UILabel!
     
     override func viewDidLoad() {
-        addedAlert.text = ""
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -73,4 +75,25 @@ class AddPhraseViewController: UIViewController {
     }
     
 
+}
+
+
+extension AddPhraseViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PhraseCell", for: indexPath) as! PhraseCell
+        cell.englishLabel?.text = "English \(indexPath.row)"
+        cell.frenchLabel?.text = "French \(indexPath.row)"
+        
+        return cell
+    }
+    
+    
+    
 }
