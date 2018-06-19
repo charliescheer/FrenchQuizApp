@@ -48,16 +48,28 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="aeV-at-Kul"/>
-                                    <barButtonItem title="New Quiz" id="oF9-vW-a7e"/>
+                                    <barButtonItem title="New Quiz" id="oF9-vW-a7e">
+                                        <connections>
+                                            <action selector="newQuiz" destination="QP9-tJ-gY3" id="sOM-0c-xla"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="6Tu-K6-whF"/>
-                                    <barButtonItem title="Answer" id="UME-gQ-dqV"/>
+                                    <barButtonItem title="Answer" id="UME-gQ-dqV">
+                                        <connections>
+                                            <action selector="answerQuiz" destination="QP9-tJ-gY3" id="4jV-U6-Hiv"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AjN-Xm-wcc">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="Phrases" id="yPD-QA-mF3">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="rEZ-yn-ixy"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="rEZ-yn-ixy">
+                                            <connections>
+                                                <action selector="backWasPressed:" destination="QP9-tJ-gY3" id="gon-WK-e4S"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -78,6 +90,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <connections>
+                                    <action selector="textFieldPrimaryActionTriggered:" destination="QP9-tJ-gY3" eventType="editingDidEnd" id="lbE-YU-ld1"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mvc-bW-ilx">
                                 <rect key="frame" x="16" y="281" width="343" height="20.5"/>

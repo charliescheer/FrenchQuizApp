@@ -18,6 +18,14 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     
     
     //MARK: - View Controller Buttons
+    @IBAction func backWasPressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Intro", bundle: nil)
+        let vc = storyboard.instantiateInitialViewController()
+        present(vc!, animated: true, completion: nil)
+        
+    }
+    
+    
     @IBAction func quizMode() {
         guard let modeState = currentModeState else {
             return
@@ -55,8 +63,11 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(currentModeState)
-        if currentModeState! == "Quiz" {
+        guard let tempMode = currentModeState else{
+            return
+        }
+        
+        if tempMode == "Quiz" {
             print("Quiz")
         } else {
             print("Learn")
