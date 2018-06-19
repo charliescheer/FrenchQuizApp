@@ -4,7 +4,7 @@ import CoreData
 class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
  
     //MARK: - Class Properties
-    var currentModeState: String?
+    var mode: String?
     var quizPair: Phrase?
     var savedMemory: [Phrase]? = []
     var quizCount = 0
@@ -14,12 +14,13 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var currentMode: UILabel!
     @IBOutlet weak var currentQuiz: UILabel!
     @IBOutlet weak var answer: UITextField!
+    @IBOutlet weak var quizStateButton: UIBarButtonItem!
     
     
     
     //MARK: - View Controller Buttons
     @IBAction func backWasPressed(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Intro", bundle: nil)
+        let storyboard = UIStoryboard(name: constants.initialViewController, bundle: nil)
         let vc = storyboard.instantiateInitialViewController()
         present(vc!, animated: true, completion: nil)
         
@@ -27,16 +28,19 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func quizMode() {
-        guard let modeState = currentModeState else {
+        guard let modeState = mode else {
             return
         }
         
-        if modeState == "Quiz" {
-            currentMode.text = "Learn"
+        if modeState == modeConstant.quiz {
+            currentMode.text = modeConstant.learn
+            quizStateButton.title = modeConstant.quiz
+            mode = modeConstant.learn
             
         } else {
-            currentMode.text = "Quiz"
-            
+            currentMode.text = modeConstant.quiz
+            quizStateButton.title = modeConstant.learn
+            mode = modeConstant.quiz
         }
 
     }
@@ -63,14 +67,19 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let tempMode = currentModeState else{
+        guard let tempMode = mode else {
             return
         }
         
         if tempMode == "Quiz" {
             print("Quiz")
+            quizStateButton.title = modeConstant.learn
+            currentMode.text = modeConstant.quiz
         } else {
             print("Learn")
+            quizStateButton.title = modeConstant.quiz
+            currentMode.text = modeConstant.learn
+            
         }
         
         correctMessage.text = " "
@@ -204,7 +213,7 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     func compareIsCorrect() {
         correctMessage.text = "Correct!!!"
         
-        if currentModeState == "Quiz" {
+        if mode == "Quiz" {
             quizPair?.addPointtoPhraseCorrectCount()
         }
         
@@ -233,7 +242,7 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
             correctMessage.text = "Incorrect :/ Try # \(quizCount)"
             print(quizCount)
         } else {
-            if currentModeState == "Quiz" {
+            if mode == "Quiz" {
                 quizPair?.resetCountPhraseCounts()
                 quizPair?.addPointToPhraseIncorrectCount()
             }
@@ -273,6 +282,17 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     }
     
     
+}
+
+extension PhraseQuizViewController {
+    enum constants {
+        static let initialViewController = "Intro"
+    }
+    
+    enum modeConstant  {
+        static let quiz = "Quiz"
+        static let learn = "Learn"
+    }
 }
 
 

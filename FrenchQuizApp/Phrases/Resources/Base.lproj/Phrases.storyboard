@@ -150,6 +150,7 @@
                         <outlet property="correctMessage" destination="jGt-ep-Fs9" id="1GA-Dd-zbn"/>
                         <outlet property="currentMode" destination="fdk-2g-y10" id="8u4-Kq-15x"/>
                         <outlet property="currentQuiz" destination="HvH-XR-M1x" id="hXE-c1-blM"/>
+                        <outlet property="quizStateButton" destination="pyK-h6-95F" id="mQG-fF-uSP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKf-3u-DGp" userLabel="First Responder" sceneMemberID="firstResponder"/>
