@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-extension Phrase {
+extension Phrases {
     
     //MARK: - Comparing Functions
     

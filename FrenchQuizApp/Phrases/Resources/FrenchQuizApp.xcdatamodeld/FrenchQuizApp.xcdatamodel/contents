@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17F77" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Phrase" representedClassName="Phrase" parentEntity="QuizObject" syncable="YES" codeGenerationType="class">
+    <entity name="Phrases" representedClassName="Phrases" parentEntity="QuizObject" syncable="YES" codeGenerationType="class">
         <attribute name="englishPhrase" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="frenchPhrase" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -12,7 +12,7 @@
         <attribute name="timesIncorrect" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Phrase" positionX="-54" positionY="-9" width="128" height="75"/>
+        <element name="Phrases" positionX="-54" positionY="-9" width="128" height="75"/>
         <element name="QuizObject" positionX="-54" positionY="36" width="128" height="120"/>
     </elements>
 </model>

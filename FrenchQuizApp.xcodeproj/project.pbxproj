@@ -20,7 +20,6 @@
 		BA3E7E551FE46CFA00C606AC /* Phrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E541FE46CFA00C606AC /* Phrase.swift */; };
 		BA3E7E571FE46D0200C606AC /* PhraseQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E561FE46D0200C606AC /* PhraseQuizViewController.swift */; };
 		BA3E7E5B1FE46D0E00C606AC /* AddPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E5A1FE46D0E00C606AC /* AddPhraseViewController.swift */; };
-		BA3E7E5D1FE46D1400C606AC /* PhraseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E5C1FE46D1400C606AC /* PhraseListViewController.swift */; };
 		BA3E7E601FE476D300C606AC /* FrenchQuizApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E5E1FE476D300C606AC /* FrenchQuizApp.xcdatamodeld */; };
 		BA603E1C200415DC00A97490 /* PhraseEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA603E1B200415DC00A97490 /* PhraseEditViewController.swift */; };
 		BA7663AC20D7034700D2D6B0 /* Intro.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA7663AB20D7034700D2D6B0 /* Intro.storyboard */; };
@@ -67,7 +66,6 @@
 		BA3E7E541FE46CFA00C606AC /* Phrase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phrase.swift; sourceTree = "<group>"; };
 		BA3E7E561FE46D0200C606AC /* PhraseQuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhraseQuizViewController.swift; sourceTree = "<group>"; };
 		BA3E7E5A1FE46D0E00C606AC /* AddPhraseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPhraseViewController.swift; sourceTree = "<group>"; };
-		BA3E7E5C1FE46D1400C606AC /* PhraseListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhraseListViewController.swift; sourceTree = "<group>"; };
 		BA3E7E5F1FE476D300C606AC /* FrenchQuizApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FrenchQuizApp.xcdatamodel; sourceTree = "<group>"; };
 		BA603E1B200415DC00A97490 /* PhraseEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseEditViewController.swift; sourceTree = "<group>"; };
 		BA7663AB20D7034700D2D6B0 /* Intro.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Intro.storyboard; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 			isa = PBXGroup;
 			children = (
 				BA3E7E561FE46D0200C606AC /* PhraseQuizViewController.swift */,
-				BA3E7E5C1FE46D1400C606AC /* PhraseListViewController.swift */,
 				BA3E7E5A1FE46D0E00C606AC /* AddPhraseViewController.swift */,
 				BA603E1B200415DC00A97490 /* PhraseEditViewController.swift */,
 				BA96465920AA270400BE33E1 /* PhraseCell.swift */,
@@ -403,7 +400,6 @@
 				BAADADC220A520CB00F96018 /* QuizObject.swift in Sources */,
 				BAD2E1A420D889A3003EDF78 /* PhraseTabBarController.swift in Sources */,
 				BA3E7E571FE46D0200C606AC /* PhraseQuizViewController.swift in Sources */,
-				BA3E7E5D1FE46D1400C606AC /* PhraseListViewController.swift in Sources */,
 				BA00DB7020D867CA008635FE /* NounQuizViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -3,7 +3,7 @@ import CoreData
 
 class PhraseEditViewController: UIViewController {
     
-    var phrase: Phrase?
+    var phrase: Phrases?
     var mode = "View"
     
     @IBOutlet weak var correctLabel: UILabel?
@@ -65,7 +65,7 @@ class PhraseEditViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        managedData.saveContext()
+        ManagedData.saveContext()
     }
     
     func displayPhrase() {
@@ -127,7 +127,7 @@ class PhraseEditViewController: UIViewController {
         }
     }
     
-    func displayResetAlert (phrase: Phrase) {
+    func displayResetAlert (phrase: Phrases) {
         let alert = UIAlertController(title: "Reset Counts", message: "This will set the counts for '\(phrase.englishPhrase ?? "No Phrase Selected")' back to 0, are you sure?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.didConfirmResetCounts()}))
@@ -138,7 +138,7 @@ class PhraseEditViewController: UIViewController {
     }
     
     func didConfirmDeletePhrase() {
-        let context = managedData.persistentContainer.viewContext
+        let context = ManagedData.persistentContainer.viewContext
         
         if let currentPhrase = phrase {
             context.delete(currentPhrase)

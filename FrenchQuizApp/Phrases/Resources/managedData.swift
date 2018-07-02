@@ -2,18 +2,18 @@ import UIKit
 import CoreData
 
 
-class managedData: NSObject {
+class ManagedData: NSObject {
     
     private override init() {
         
     }
     
     class func getContext() -> NSManagedObjectContext{
-        return managedData.persistentContainer.viewContext
+        return ManagedData.persistentContainer.viewContext
     }
     
     static var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "FrenchQuizApp")
+        let container = NSPersistentContainer(name: constants.persistantContainerName)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -37,10 +37,10 @@ class managedData: NSObject {
     }
     
     static var resultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Phrase")
-        var managedObjectContext = managedData.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: constants.entityName)
+        var managedObjectContext = ManagedData.persistentContainer.viewContext
         
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: constants.sortDescriptor, ascending: false)]
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                     managedObjectContext: managedObjectContext,
@@ -58,4 +58,12 @@ class managedData: NSObject {
         
         return controller
     }()
+}
+
+extension ManagedData {
+    enum constants {
+        static let entityName = "Phrases"
+        static let sortDescriptor = "creationDate"
+        static let persistantContainerName = "FrenchQuizApp"
+    }
 }

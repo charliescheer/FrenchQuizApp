@@ -16,15 +16,15 @@ class AddPhraseViewController: UIViewController {
     @IBOutlet weak var newFrenchPhrase: UITextField!
     @IBOutlet weak var tableView: UITableView!
     
-    var dataResultsController = managedData.resultsController
-    var managedObjectContext = managedData.persistentContainer.viewContext
+    var dataResultsController = ManagedData.resultsController
+    var managedObjectContext = ManagedData.persistentContainer.viewContext
     
     override func viewDidLoad() {
         
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        managedData.saveContext()
+        ManagedData.saveContext()
     }
     
     @IBAction func submitNewPhrase() {
@@ -36,8 +36,6 @@ class AddPhraseViewController: UIViewController {
             
             createNewPhrase(english: englishPhrase, french: frenchPhrase)
             clearUserFields()
-        
-
         }
         
     }
@@ -51,7 +49,6 @@ class AddPhraseViewController: UIViewController {
             
             createNewPhrase(english: englishPhrase, french: frenchPhrase)
             clearUserFields()
-            
         }
 
     }
@@ -59,13 +56,13 @@ class AddPhraseViewController: UIViewController {
     
     func createNewPhrase(english: String, french: String) {
         
-        if let phrase = NSEntityDescription.insertNewObject(forEntityName: "Phrase",
-                                                            into: managedObjectContext) as? Phrase {
+        if let phrase = NSEntityDescription.insertNewObject(forEntityName: constants.phraseEntity,
+                                                            into: managedObjectContext) as? Phrases {
             phrase.englishPhrase = english
             phrase.frenchPhrase = french
             phrase.creationDate = NSDate() as Date
             
-            managedData.saveContext()
+            ManagedData.saveContext()
             
             do {
                 try dataResultsController.performFetch()
@@ -103,7 +100,6 @@ extension AddPhraseViewController: UITableViewDelegate, UITableViewDataSource {
         guard let sections = dataResultsController.sections else { return 0 }
         
         return sections.count
-        
     }
     
     
@@ -117,8 +113,8 @@ extension AddPhraseViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PhraseCell", for: indexPath) as! PhraseCell
-        if let phrase = dataResultsController.object(at: indexPath) as? Phrase {
+        let cell = tableView.dequeueReusableCell(withIdentifier: constants.tableViewCellIndentifier, for: indexPath) as! PhraseCell
+        if let phrase = dataResultsController.object(at: indexPath) as? Phrases {
             cell.englishLabel?.text = phrase.englishPhrase
             cell.frenchLabel?.text = phrase.frenchPhrase
         }
@@ -127,13 +123,13 @@ extension AddPhraseViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "ShowPhrase", sender: nil)
+        performSegue(withIdentifier: constants.showPhraseVC, sender: nil)
     }
     
 
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        if segue.identifier == "ShowPhrase" {
+        if segue.identifier == constants.showPhraseVC {
             let phraseVC = segue.destination as? PhraseEditViewController
             
             guard let phraseCell = sender as? UITableViewCell,
@@ -141,10 +137,18 @@ extension AddPhraseViewController: UITableViewDelegate, UITableViewDataSource {
                     return
             }
             
-            if let phrase = dataResultsController.object(at: indexPath) as? Phrase {
+            if let phrase = dataResultsController.object(at: indexPath) as? Phrases {
                 phraseVC?.phrase = phrase
             }
         }
     }
     
+}
+
+extension AddPhraseViewController {
+    enum constants {
+        static let showPhraseVC = "ShowPhrase"
+        static let tableViewCellIndentifier = "PhraseCell"
+        static let phraseEntity = "Phrases"
+    }
 }

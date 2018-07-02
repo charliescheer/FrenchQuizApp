@@ -5,8 +5,8 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
  
     //MARK: - Class Properties
     var mode: String?
-    var quizPair: Phrase?
-    var savedMemory: [Phrase]? = []
+    var quizPair: Phrases?
+    var savedMemory: [Phrases]? = []
     var quizCount = 0
     var quizState: Int = 0
     
@@ -91,16 +91,16 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        managedData.saveContext()
+        ManagedData.saveContext()
     }
 
     //get data from core data
     func getMemoryStore() {
-        let request: NSFetchRequest<Phrase> = Phrase.fetchRequest()
-        var results = [Phrase]()
+        let request: NSFetchRequest<Phrases> = Phrases.fetchRequest()
+        var results = [Phrases]()
         
         do {
-            results = try managedData.getContext().fetch(request)
+            results = try ManagedData.getContext().fetch(request)
             print(results.count)
         }
         catch {
@@ -150,7 +150,7 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     }
     
     //display the currently selected quiz pair on screen
-    func displayQuiz(_ currentPhrase: Phrase) {
+    func displayQuiz(_ currentPhrase: Phrases) {
         currentQuiz.text = currentPhrase.returnQuizQuestion(quizState: quizState) as String as String
     }
     
@@ -197,7 +197,7 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
         return setAnswer
     }
     
-    func compareCurrentAnswerWithQuiz(quiz: Phrase, answer: String, quizState: Int) {
+    func compareCurrentAnswerWithQuiz(quiz: Phrases, answer: String, quizState: Int) {
         //If the answer is Correct
         
         if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 2 {
@@ -230,7 +230,7 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
         getQuizPair()
     }
     
-    func compareIsclose(quiz: Phrase, quizState: Int) {
+    func compareIsclose(quiz: Phrases, quizState: Int) {
         if quizCount < 4 {
             quizCount += 1
             correctMessage.text = "Almost, Try again! Try # \(quizCount)"
@@ -242,7 +242,7 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func compareIsWrong(quiz: Phrase, quizState: Int) {
+    func compareIsWrong(quiz: Phrases, quizState: Int) {
         if quizCount < 4 {
             quizCount += 1
             correctMessage.text = "Incorrect :/ Try # \(quizCount)"
