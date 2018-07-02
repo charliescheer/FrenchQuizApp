@@ -17,6 +17,9 @@ class AddPhraseViewController: UIViewController {
     @IBOutlet weak var addedAlert: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    var dataResultsController = managedData.resultsController
+    var managedObjectContext = managedData.persistentContainer.viewContext
+    
     override func viewDidLoad() {
         
     }
@@ -65,11 +68,12 @@ class AddPhraseViewController: UIViewController {
                                                             into: managedObjectContext) as? Phrase {
             phrase.englishPhrase = english
             phrase.frenchPhrase = french
+            phrase.creationDate = NSDate() as Date
             
             managedData.saveContext()
             
             do {
-                try resultsController.performFetch()
+                try dataResultsController.performFetch()
             } catch {
                 print("fetch failed")
             }
@@ -79,28 +83,7 @@ class AddPhraseViewController: UIViewController {
             
         }
     }
-    
-    
-    //MARK: - Data Management
-    lazy var resultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Phrase")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "englishPhrase", ascending: true)]
-        let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                                    managedObjectContext: self.managedObjectContext,
-                                                    sectionNameKeyPath: nil, cacheName: nil)
-        controller.delegate = self as? NSFetchedResultsControllerDelegate
-        do{
-            try controller.performFetch()
-        } catch let error as NSError {
-            assertionFailure("Failed to performFetch. \(error)")
-        }
-        var entityCount = controller.sections!.count
-        
-        return controller
-    }()
-    
-    var managedObjectContext = managedData.persistentContainer.viewContext
-    var newFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Phrase")
+
     
     //MARK: - Alert Methods
     func displayEmptyPhraseAlert () {
@@ -117,7 +100,7 @@ extension AddPhraseViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let sections = resultsController.sections else { return 0 }
+        guard let sections = dataResultsController.sections else { return 0 }
         
         return sections.count
         
@@ -126,7 +109,7 @@ extension AddPhraseViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sectionInfo = resultsController.sections?[section] else {
+        guard let sectionInfo = dataResultsController.sections?[section] else {
             fatalError("No serctions in fetchedResultsController")
         }
         
@@ -135,7 +118,7 @@ extension AddPhraseViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhraseCell", for: indexPath) as! PhraseCell
-        if let phrase = resultsController.object(at: indexPath) as? Phrase {
+        if let phrase = dataResultsController.object(at: indexPath) as? Phrase {
             cell.englishLabel?.text = phrase.englishPhrase
             cell.frenchLabel?.text = phrase.frenchPhrase
         }
@@ -152,7 +135,7 @@ extension AddPhraseViewController: UITableViewDelegate, UITableViewDataSource {
                     return
             }
             
-            if let phrase = resultsController.object(at: indexPath) as? Phrase {
+            if let phrase = dataResultsController.object(at: indexPath) as? Phrase {
                 phraseVC?.phrase = phrase
             }
         }
