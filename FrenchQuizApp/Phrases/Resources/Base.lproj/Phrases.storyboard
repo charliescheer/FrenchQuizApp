@@ -88,7 +88,7 @@
                                         <connections>
                                             <outlet property="englishLabel" destination="Iic-qP-4bx" id="nOJ-Ao-JRC"/>
                                             <outlet property="frenchLabel" destination="nwb-2t-vhk" id="H7q-aP-gGe"/>
-                                            <segue destination="pxV-7A-Q0c" kind="show" id="Zic-9L-FSl"/>
+                                            <segue destination="pxV-7A-Q0c" kind="show" identifier="ShowPhrase" id="Zic-9L-FSl"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

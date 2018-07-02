@@ -14,7 +14,6 @@ class AddPhraseViewController: UIViewController {
     
     @IBOutlet weak var newEnglishPhrase: UITextField!
     @IBOutlet weak var newFrenchPhrase: UITextField!
-    @IBOutlet weak var addedAlert: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     var dataResultsController = managedData.resultsController
@@ -126,6 +125,12 @@ extension AddPhraseViewController: UITableViewDelegate, UITableViewDataSource {
 
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ShowPhrase", sender: nil)
+    }
+    
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "ShowPhrase" {
