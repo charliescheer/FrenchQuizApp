@@ -36,9 +36,7 @@ class AddPhraseViewController: UIViewController {
             let frenchPhrase = newFrenchPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             
             createNewPhrase(english: englishPhrase, french: frenchPhrase)
-            
-            newEnglishPhrase.text! = ""
-            newFrenchPhrase.text! = ""
+            clearUserFields()
         
 
         }
@@ -49,13 +47,11 @@ class AddPhraseViewController: UIViewController {
         if newEnglishPhrase.text == "" || newFrenchPhrase.text == "" {
             displayEmptyPhraseAlert()
         } else {
-            let primaryPhrase = newEnglishPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            let learningPhrase = newFrenchPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let englishPhrase = newEnglishPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let frenchPhrase = newFrenchPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             
-            createNewPhrase(english: primaryPhrase, french: learningPhrase)
-            
-            newEnglishPhrase.text! = ""
-            newFrenchPhrase.text! = ""
+            createNewPhrase(english: englishPhrase, french: frenchPhrase)
+            clearUserFields()
             
         }
 
@@ -82,6 +78,11 @@ class AddPhraseViewController: UIViewController {
             
             
         }
+    }
+    
+    func clearUserFields () {
+        newEnglishPhrase.text! = ""
+        newFrenchPhrase.text! = ""
     }
 
     
@@ -110,7 +111,7 @@ extension AddPhraseViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sectionInfo = dataResultsController.sections?[section] else {
-            fatalError("No serctions in fetchedResultsController")
+            fatalError("No sections in fetchedResultsController")
         }
         
         return sectionInfo.numberOfObjects
