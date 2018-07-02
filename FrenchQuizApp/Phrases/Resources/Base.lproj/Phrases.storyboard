@@ -23,6 +23,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <connections>
+                                    <action selector="textFieldPrimaryActionTriggered:" destination="nXA-H9-MKj" eventType="editingDidEnd" id="bwY-D3-iB5"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WKR-fz-urj" userLabel="New Primary Phrase">
                                 <rect key="frame" x="16" y="120" width="343" height="30"/>
@@ -48,6 +51,9 @@
                                     <constraint firstAttribute="width" constant="79" id="Fvh-Zz-AQ5"/>
                                 </constraints>
                                 <state key="normal" title="Add Phrase"/>
+                                <connections>
+                                    <action selector="submitNewPhrase" destination="nXA-H9-MKj" eventType="touchUpInside" id="Yw1-iG-PTc"/>
+                                </connections>
                             </button>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hit-ap-RDa">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -140,6 +146,12 @@
                         <viewLayoutGuide key="safeArea" id="dG4-z8-C5s"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="MTO-Df-4Da"/>
+                    <connections>
+                        <outlet property="addedAlert" destination="rfO-ns-CJx" id="EKH-zs-0A1"/>
+                        <outlet property="newEnglishPhrase" destination="WKR-fz-urj" id="bxD-PJ-hU0"/>
+                        <outlet property="newFrenchPhrase" destination="aLj-eC-6yU" id="GGz-bt-0oU"/>
+                        <outlet property="tableView" destination="CME-st-3ic" id="xmz-or-DkU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FSV-6X-x99" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -462,6 +474,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Zic-9L-FSl"/>
         <segue reference="BDh-2P-SBH"/>
     </inferredMetricsTieBreakers>
 </document>

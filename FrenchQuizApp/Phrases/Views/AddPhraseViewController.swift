@@ -15,8 +15,7 @@ class AddPhraseViewController: UIViewController {
     @IBOutlet weak var newEnglishPhrase: UITextField!
     @IBOutlet weak var newFrenchPhrase: UITextField!
     @IBOutlet weak var addedAlert: UILabel!
-    @IBOutlet weak var englishLabel: UILabel!
-    @IBOutlet weak var frenchLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         
@@ -33,11 +32,12 @@ class AddPhraseViewController: UIViewController {
             let englishPhrase = newEnglishPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             let frenchPhrase = newFrenchPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             
-            createNewPhrase(primary: englishPhrase, learning: frenchPhrase)
+            createNewPhrase(english: englishPhrase, french: frenchPhrase)
             
             newEnglishPhrase.text! = ""
             newFrenchPhrase.text! = ""
         
+
         }
         
     }
@@ -49,7 +49,7 @@ class AddPhraseViewController: UIViewController {
             let primaryPhrase = newEnglishPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             let learningPhrase = newFrenchPhrase.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             
-            createNewPhrase(primary: primaryPhrase, learning: learningPhrase)
+            createNewPhrase(english: primaryPhrase, french: learningPhrase)
             
             newEnglishPhrase.text! = ""
             newFrenchPhrase.text! = ""
@@ -58,14 +58,49 @@ class AddPhraseViewController: UIViewController {
 
     }
     
-    func createNewPhrase(primary: String, learning: String) {
-        let context = managedData.persistentContainer.viewContext
+    
+    func createNewPhrase(english: String, french: String) {
+        
         if let phrase = NSEntityDescription.insertNewObject(forEntityName: "Phrase",
-                                                            into: context) as? Phrase {
-            phrase.englishPhrase = primary
-            phrase.frenchPhrase = learning
+                                                            into: managedObjectContext) as? Phrase {
+            phrase.englishPhrase = english
+            phrase.frenchPhrase = french
+            
+            managedData.saveContext()
+            
+            do {
+                try resultsController.performFetch()
+            } catch {
+                print("fetch failed")
+            }
+            
+            tableView.reloadData()
+            
+            
         }
     }
+    
+    
+    //MARK: - Data Management
+    lazy var resultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Phrase")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "englishPhrase", ascending: true)]
+        let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                    managedObjectContext: self.managedObjectContext,
+                                                    sectionNameKeyPath: nil, cacheName: nil)
+        controller.delegate = self as? NSFetchedResultsControllerDelegate
+        do{
+            try controller.performFetch()
+        } catch let error as NSError {
+            assertionFailure("Failed to performFetch. \(error)")
+        }
+        var entityCount = controller.sections!.count
+        
+        return controller
+    }()
+    
+    var managedObjectContext = managedData.persistentContainer.viewContext
+    var newFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Phrase")
     
     //MARK: - Alert Methods
     func displayEmptyPhraseAlert () {
@@ -81,19 +116,46 @@ class AddPhraseViewController: UIViewController {
 extension AddPhraseViewController: UITableViewDelegate, UITableViewDataSource {
     
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        guard let sections = resultsController.sections else { return 0 }
+        
+        return sections.count
+        
+    }
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        guard let sectionInfo = resultsController.sections?[section] else {
+            fatalError("No serctions in fetchedResultsController")
+        }
+        
+        return sectionInfo.numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhraseCell", for: indexPath) as! PhraseCell
-        cell.englishLabel?.text = "English \(indexPath.row)"
-        cell.frenchLabel?.text = "French \(indexPath.row)"
-        
+        if let phrase = resultsController.object(at: indexPath) as? Phrase {
+            cell.englishLabel?.text = phrase.englishPhrase
+            cell.frenchLabel?.text = phrase.frenchPhrase
+        }
+
         return cell
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        if segue.identifier == "ShowPhrase" {
+            let phraseVC = segue.destination as? PhraseEditViewController
+            
+            guard let phraseCell = sender as? UITableViewCell,
+                let indexPath = tableView.indexPath(for: phraseCell) else {
+                    return
+            }
+            
+            if let phrase = resultsController.object(at: indexPath) as? Phrase {
+                phraseVC?.phrase = phrase
+            }
+        }
+    }
     
 }

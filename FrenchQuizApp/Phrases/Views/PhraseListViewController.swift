@@ -19,7 +19,7 @@ class PhraseListViewController : UITableViewController {
         return controller
     }()
 
-    var managedObjectContext = managedData.persistentContainer.viewContext
+    var managedObjectContext = managedData.getContext()
     
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
