@@ -26,14 +26,13 @@ class PhraseQuizViewController: UIViewController {
     }
     
     
-    @IBAction func quizMode() {
+    @IBAction func toggleQuizMode() {
         guard let modeState = currentMode else {
             return
         }
         
         if modeState == mode.quiz {
             setModeToLearn()
-            
         } else {
             setModeToQuiz()
         }
@@ -60,26 +59,7 @@ class PhraseQuizViewController: UIViewController {
     //MARK: - View Functions and Core Data Manegment
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-        view.addGestureRecognizer(tap)
-        
-        guard let tempMode = currentMode else {
-            return
-        }
-        
-        if tempMode == "Quiz" {
-            print("Quiz")
-            setModeToQuiz()
-        } else {
-            print("Learn")
-            setModeToLearn()
-            
-        }
-        
-        correctMessageLabel.text = " "
-        
-        
+        setupTapDismissOfKeyboard()
         getMemoryStore()
         
         if savedMemory!.count > 0 {
@@ -89,10 +69,30 @@ class PhraseQuizViewController: UIViewController {
             answerTextField.isUserInteractionEnabled = false
             displayNoAvailableQuizPairsAlert()
         }
+        
+        
+        if let modeState = currentMode {
+            setupInitialModeState(modeState: modeState)
+        }
+    }
+    
+    func setupTapDismissOfKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func setupInitialModeState (modeState: String){
+        if modeState == mode.quiz {
+            print("Quiz")
+            setModeToQuiz()
+        } else {
+            print("Learn")
+            setModeToLearn()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -203,14 +203,16 @@ class PhraseQuizViewController: UIViewController {
     }
     
     func compareCurrentAnswerWithQuiz(quiz: Phrases, answer: String, quizState: Int) {
-        //If the answer is Correct
+        
+        UIView.animate(withDuration: 0, animations: {self.correctMessageLabel.alpha = 1})
         
         if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 2 {
             displayCouldNotCompareAlert()
             
+            //If the Answer is Correct
         } else if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 1{
             compareIsCorrect()
-            
+
             //If the answer is close
         } else if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) > 0.85 {
             compareIsclose(quiz: quiz, quizState: quizState)
@@ -219,6 +221,8 @@ class PhraseQuizViewController: UIViewController {
         } else {
             compareIsWrong(quiz: quiz, quizState: quizState)
         }
+        
+        UIView.animate(withDuration: 2, animations: {self.correctMessageLabel.alpha = 0})
     }
     
     func compareIsCorrect() {
