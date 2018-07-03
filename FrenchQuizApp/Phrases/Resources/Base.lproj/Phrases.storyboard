@@ -197,7 +197,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <connections>
-                                    <action selector="enterWasPressed:" destination="QP9-tJ-gY3" eventType="primaryActionTriggered" id="BLR-dy-0ki"/>
+                                    <action selector="enterWasPressed:" destination="QP9-tJ-gY3" eventType="primaryActionTriggered" id="iBW-1r-6zb"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mvc-bW-ilx">
@@ -244,10 +244,10 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Quiz" id="Zmr-5s-3Dk"/>
                     <connections>
-                        <outlet property="answer" destination="cfP-MY-zyV" id="Bcn-1k-yeW"/>
-                        <outlet property="correctMessage" destination="jGt-ep-Fs9" id="1GA-Dd-zbn"/>
-                        <outlet property="currentMode" destination="fdk-2g-y10" id="8u4-Kq-15x"/>
-                        <outlet property="currentQuiz" destination="HvH-XR-M1x" id="hXE-c1-blM"/>
+                        <outlet property="answerTextField" destination="cfP-MY-zyV" id="DEs-dt-arj"/>
+                        <outlet property="correctMessageLabel" destination="jGt-ep-Fs9" id="fua-Ek-sJ0"/>
+                        <outlet property="currentModeLabel" destination="fdk-2g-y10" id="kxN-iu-1lh"/>
+                        <outlet property="currentQuizLabel" destination="HvH-XR-M1x" id="3Ga-qG-CWJ"/>
                         <outlet property="quizStateButton" destination="pyK-h6-95F" id="mQG-fF-uSP"/>
                     </connections>
                 </viewController>
