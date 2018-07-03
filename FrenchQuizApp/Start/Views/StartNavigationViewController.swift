@@ -93,7 +93,7 @@ class StartNavigationViewController:  UIViewController {
             let storyboard = UIStoryboard(name: constants.phraseStoryboard, bundle: nil)
             let tabBarController = storyboard.instantiateViewController(withIdentifier: "navigation") as! UITabBarController
             let tempVC = tabBarController.viewControllers![0] as! PhraseQuizViewController
-            tempVC.mode = mode
+            tempVC.currentMode = mode
             
             present(tabBarController, animated: true, completion: nil)
         case 2:

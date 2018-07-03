@@ -31,7 +31,7 @@ class PhraseQuizViewController: UIViewController {
             return
         }
         
-        if modeState == modeConstant.quiz {
+        if modeState == mode.quiz {
             setModeToLearn()
             
         } else {
@@ -120,15 +120,15 @@ class PhraseQuizViewController: UIViewController {
     }
     
     func setModeToQuiz() {
-        currentModeLabel.text = modeConstant.quiz
-        quizStateButton.title = modeConstant.learn
-        currentMode = modeConstant.quiz
+        currentModeLabel.text = mode.quiz
+        quizStateButton.title = mode.learn
+        currentMode = mode.quiz
     }
     
     func setModeToLearn() {
-        currentModeLabel.text = modeConstant.learn
-        quizStateButton.title = modeConstant.quiz
-        currentMode = modeConstant.learn
+        currentModeLabel.text = mode.learn
+        quizStateButton.title = mode.quiz
+        currentMode = mode.learn
     }
     
     //MARK: - Quiz Setting Methods
@@ -300,7 +300,7 @@ extension PhraseQuizViewController {
         static let initialViewController = "Intro"
     }
     
-    enum modeConstant  {
+    enum mode  {
         static let quiz = "Quiz"
         static let learn = "Learn"
     }
