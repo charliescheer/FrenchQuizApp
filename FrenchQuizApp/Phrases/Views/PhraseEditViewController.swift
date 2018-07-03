@@ -15,6 +15,12 @@ class PhraseEditViewController: UIViewController {
     @IBOutlet weak var modeLabel: UIBarButtonItem?
     @IBOutlet weak var deleteSaveButton: UIBarButtonItem?
     
+    @IBAction func back(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+        
+    }
+    
+    
     @IBAction func editPhrase() {
         if mode == "View" {
             enterEdit()

@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 
-class AddPhraseViewController: UIViewController {
+class AddPhraseViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var newEnglishPhrase: UITextField!
     @IBOutlet weak var newFrenchPhrase: UITextField!
@@ -20,13 +20,20 @@ class AddPhraseViewController: UIViewController {
     var managedObjectContext = ManagedData.persistentContainer.viewContext
     
     override func viewDidLoad() {
-        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     
     override func viewDidDisappear(_ animated: Bool) {
         ManagedData.saveContext()
     }
     
+
     @IBAction func submitNewPhrase() {
         if newEnglishPhrase.text == "" || newFrenchPhrase.text == "" {
             displayEmptyPhraseAlert()
@@ -40,7 +47,7 @@ class AddPhraseViewController: UIViewController {
         
     }
     
-    @IBAction func textFieldPrimaryActionTriggered(_ sender: Any) {
+    @IBAction func frenchTextFieldPrimaryAction(_ sender: Any) {
         if newEnglishPhrase.text == "" || newFrenchPhrase.text == "" {
             displayEmptyPhraseAlert()
         } else {
@@ -50,9 +57,9 @@ class AddPhraseViewController: UIViewController {
             createNewPhrase(english: englishPhrase, french: frenchPhrase)
             clearUserFields()
         }
-
     }
     
+ 
     
     func createNewPhrase(english: String, french: String) {
         

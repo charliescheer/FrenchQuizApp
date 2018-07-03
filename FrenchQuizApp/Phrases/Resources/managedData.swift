@@ -4,10 +4,6 @@ import CoreData
 
 class ManagedData: NSObject {
     
-    private override init() {
-        
-    }
-    
     class func getContext() -> NSManagedObjectContext{
         return ManagedData.persistentContainer.viewContext
     }
@@ -21,8 +17,6 @@ class ManagedData: NSObject {
         })
         return container
     }()
-    
-    // MARK: - Core Data Saving support
     
     class func saveContext () {
         let context = persistentContainer.viewContext
@@ -45,8 +39,6 @@ class ManagedData: NSObject {
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                     managedObjectContext: managedObjectContext,
                                                     sectionNameKeyPath: nil, cacheName: nil)
-        
-        
         
         do{
             try controller.performFetch()

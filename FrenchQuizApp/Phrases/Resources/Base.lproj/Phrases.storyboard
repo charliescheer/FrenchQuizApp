@@ -17,16 +17,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aLj-eC-6yU" userLabel="New Learning Phrase">
+                            <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aLj-eC-6yU" userLabel="New Learning Phrase">
                                 <rect key="frame" x="16" y="211" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <connections>
-                                    <action selector="textFieldPrimaryActionTriggered:" destination="nXA-H9-MKj" eventType="editingDidEnd" id="bwY-D3-iB5"/>
+                                    <action selector="frenchTextFieldPrimaryAction:" destination="nXA-H9-MKj" eventType="primaryActionTriggered" id="e8b-pK-Tag"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WKR-fz-urj" userLabel="New Primary Phrase">
+                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WKR-fz-urj" userLabel="New Primary Phrase">
                                 <rect key="frame" x="16" y="120" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -197,7 +197,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <connections>
-                                    <action selector="textFieldPrimaryActionTriggered:" destination="QP9-tJ-gY3" eventType="editingDidEnd" id="lbE-YU-ld1"/>
+                                    <action selector="enterWasPressed:" destination="QP9-tJ-gY3" eventType="primaryActionTriggered" id="BLR-dy-0ki"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mvc-bW-ilx">
@@ -258,7 +258,7 @@
         <!--Navigation-->
         <scene sceneID="pit-SL-U3R">
             <objects>
-                <tabBarController storyboardIdentifier="navigation" title="Navigation" id="JVw-zE-Hh5" sceneMemberID="viewController">
+                <tabBarController restorationIdentifier="tabBarControllerRestorationID" storyboardIdentifier="navigation" title="Navigation" id="JVw-zE-Hh5" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6xc-Lh-gLv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -288,7 +288,7 @@
                                     <navigationItem title="Phrase" id="fVB-mx-6lW">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="ApZ-BS-31w">
                                             <connections>
-                                                <segue destination="nXA-H9-MKj" kind="show" id="BDh-2P-SBH"/>
+                                                <action selector="back:" destination="pxV-7A-Q0c" id="ufP-7a-8fx"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -441,7 +441,4 @@
             <point key="canvasLocation" x="-225" y="290"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="61e-fX-Y0G"/>
-    </inferredMetricsTieBreakers>
 </document>

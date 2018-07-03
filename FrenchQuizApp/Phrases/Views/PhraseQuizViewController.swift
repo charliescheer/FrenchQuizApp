@@ -1,19 +1,19 @@
 import UIKit
 import CoreData
 
-class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
+class PhraseQuizViewController: UIViewController {
  
     //MARK: - Class Properties
-    var mode: String?
+    var currentMode: String?
     var quizPair: Phrases?
     var savedMemory: [Phrases]? = []
     var quizCount = 0
     var quizState: Int = 0
     
-    @IBOutlet weak var correctMessage: UILabel!
-    @IBOutlet weak var currentMode: UILabel!
-    @IBOutlet weak var currentQuiz: UILabel!
-    @IBOutlet weak var answer: UITextField!
+    @IBOutlet weak var correctMessageLabel: UILabel!
+    @IBOutlet weak var currentModeLabel: UILabel!
+    @IBOutlet weak var currentQuizLabel: UILabel!
+    @IBOutlet weak var answerTextField: UITextField!
     @IBOutlet weak var quizStateButton: UIBarButtonItem!
     
     
@@ -23,12 +23,11 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
         let storyboard = UIStoryboard(name: constants.initialViewController, bundle: nil)
         let vc = storyboard.instantiateInitialViewController()
         present(vc!, animated: true, completion: nil)
-        
     }
     
     
     @IBAction func quizMode() {
-        guard let modeState = mode else {
+        guard let modeState = currentMode else {
             return
         }
         
@@ -49,21 +48,23 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     //get new quiz pair
     @IBAction func newQuiz() {
         getQuizPair()
-        correctMessage.text = " "
+        correctMessageLabel.text = " "
     }
     
-    //trigger compare user answer and quiz from enter button
-    @IBAction func textFieldPrimaryActionTriggered(_ sender: Any) {
+    //trigger compare user answer and quiz from enter button    
+    @IBAction func enterWasPressed(_ sender: Any) {
         doTest()
     }
     
-
     
     //MARK: - View Functions and Core Data Manegment
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let tempMode = mode else {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
+        guard let tempMode = currentMode else {
             return
         }
         
@@ -76,7 +77,7 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
             
         }
         
-        correctMessage.text = " "
+        correctMessageLabel.text = " "
         
         
         getMemoryStore()
@@ -84,10 +85,14 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
         if savedMemory!.count > 0 {
             getQuizPair()
         } else {
-            currentQuiz.text = " "
-            answer.isUserInteractionEnabled = false
+            currentQuizLabel.text = " "
+            answerTextField.isUserInteractionEnabled = false
             displayNoAvailableQuizPairsAlert()
         }
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -115,15 +120,15 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setModeToQuiz() {
-        currentMode.text = modeConstant.quiz
+        currentModeLabel.text = modeConstant.quiz
         quizStateButton.title = modeConstant.learn
-        mode = modeConstant.quiz
+        currentMode = modeConstant.quiz
     }
     
     func setModeToLearn() {
-        currentMode.text = modeConstant.learn
+        currentModeLabel.text = modeConstant.learn
         quizStateButton.title = modeConstant.quiz
-        mode = modeConstant.learn
+        currentMode = modeConstant.learn
     }
     
     //MARK: - Quiz Setting Methods
@@ -151,11 +156,11 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     
     //display the currently selected quiz pair on screen
     func displayQuiz(_ currentPhrase: Phrases) {
-        currentQuiz.text = currentPhrase.returnQuizQuestion(quizState: quizState) as String as String
+        currentQuizLabel.text = currentPhrase.returnQuizQuestion(quizState: quizState) as String as String
     }
     
     func clearUserAnswer() {
-        answer.text = " "
+        answerTextField.text = " "
     }
     
     
@@ -181,7 +186,7 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     func getUserAnswer() -> String {
         var setAnswer: String = ""
         
-        guard let userAnswer = answer.text else {
+        guard let userAnswer = answerTextField.text else {
             setAnswer = "NO ANSWER"
             return setAnswer
         }
@@ -217,9 +222,9 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     }
     
     func compareIsCorrect() {
-        correctMessage.text = "Correct!!!"
+        correctMessageLabel.text = "Correct!!!"
         
-        if mode == "Quiz" {
+        if currentMode == "Quiz" {
             quizPair?.addPointtoPhraseCorrectCount()
         }
         
@@ -233,10 +238,10 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     func compareIsclose(quiz: Phrases, quizState: Int) {
         if quizCount < 4 {
             quizCount += 1
-            correctMessage.text = "Almost, Try again! Try # \(quizCount)"
+            correctMessageLabel.text = "Almost, Try again! Try # \(quizCount)"
             print(quizCount)
         } else {
-            correctMessage.text = "So close! The answer was: \(quiz.returnQuizAnswer(quizState: quizState))"
+            correctMessageLabel.text = "So close! The answer was: \(quiz.returnQuizAnswer(quizState: quizState))"
             getQuizPair()
             quizCount = 0
         }
@@ -245,16 +250,16 @@ class PhraseQuizViewController: UIViewController, UITextFieldDelegate {
     func compareIsWrong(quiz: Phrases, quizState: Int) {
         if quizCount < 4 {
             quizCount += 1
-            correctMessage.text = "Incorrect :/ Try # \(quizCount)"
+            correctMessageLabel.text = "Incorrect :/ Try # \(quizCount)"
             print(quizCount)
         } else {
-            if mode == "Quiz" {
+            if currentMode == "Quiz" {
                 quizPair?.resetCountPhraseCounts()
                 quizPair?.addPointToPhraseIncorrectCount()
             }
             
             print("Count reset")
-            correctMessage.text = "Incorrect, the answer was: \(quiz.returnQuizAnswer(quizState: quizState))"
+            correctMessageLabel.text = "Incorrect, the answer was: \(quiz.returnQuizAnswer(quizState: quizState))"
             
             getQuizPair()
             quizCount = 0
