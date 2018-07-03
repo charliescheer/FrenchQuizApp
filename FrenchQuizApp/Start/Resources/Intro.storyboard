@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aYr-pb-o6d">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Start-->
+        <scene sceneID="kCe-NF-0hd">
+            <objects>
+                <viewController storyboardIdentifier="Start" title="Start" id="aYr-pb-o6d" customClass="StartNavigationViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hWb-IM-CjW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hnh-Ed-MRU">
+                                <rect key="frame" x="0.0" y="418" width="375" height="30"/>
+                                <color key="backgroundColor" red="0.95483094449999995" green="0.22937262059999999" blue="0.097737170760000006" alpha="0.4948833627" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="4sX-pf-bT4"/>
+                                </constraints>
+                                <state key="normal" title="Learn">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="learnWasPressed:" destination="aYr-pb-o6d" eventType="touchUpInside" id="GcT-Q2-3Kv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yhX-R5-JML">
+                                <rect key="frame" x="0.0" y="218" width="375" height="30"/>
+                                <color key="backgroundColor" red="0.95483094449999995" green="0.22937262059999999" blue="0.097737170760000006" alpha="0.4948833627" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Quiz">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="quizWasPressed:" destination="aYr-pb-o6d" eventType="touchUpInside" id="Ct6-fp-73v"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zlj-Sw-yll">
+                                <rect key="frame" x="0.0" y="518" width="375" height="30"/>
+                                <color key="backgroundColor" red="0.95483094449999995" green="0.22937262059999999" blue="0.097737170760000006" alpha="0.4948833627" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Ecs-aE-Kt4"/>
+                                </constraints>
+                                <state key="normal" title="Verb">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="phraseWasPressed:" destination="aYr-pb-o6d" eventType="touchUpInside" id="h5E-MH-wSz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfs-do-Xi8">
+                                <rect key="frame" x="0.0" y="118" width="375" height="30"/>
+                                <color key="backgroundColor" red="0.95483094449999995" green="0.22937262059999999" blue="0.097737170760000006" alpha="0.4948833627" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="uEI-p2-rdG"/>
+                                </constraints>
+                                <state key="normal" title="Phrase">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="phraseWasPressed:" destination="aYr-pb-o6d" eventType="touchUpInside" id="r2F-wl-eVm"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G91-bj-NCu">
+                                <rect key="frame" x="0.0" y="318" width="375" height="30"/>
+                                <color key="backgroundColor" red="0.95483094449999995" green="0.22937262059999999" blue="0.097737170760000006" alpha="0.4948833627" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="YUC-dn-zMS"/>
+                                </constraints>
+                                <state key="normal" title="Noun">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="phraseWasPressed:" destination="aYr-pb-o6d" eventType="touchUpInside" id="gfU-9S-2Ec"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="yhX-R5-JML" firstAttribute="top" secondItem="cfs-do-Xi8" secondAttribute="bottom" constant="70" id="2fD-dn-QYG"/>
+                            <constraint firstItem="G91-bj-NCu" firstAttribute="leading" secondItem="lX8-vZ-fQI" secondAttribute="leading" id="4Gi-A0-sIX"/>
+                            <constraint firstItem="lX8-vZ-fQI" firstAttribute="trailing" secondItem="yhX-R5-JML" secondAttribute="trailing" id="Cg0-UJ-WVi"/>
+                            <constraint firstItem="cfs-do-Xi8" firstAttribute="leading" secondItem="lX8-vZ-fQI" secondAttribute="leading" id="IVf-c5-oUp"/>
+                            <constraint firstItem="hnh-Ed-MRU" firstAttribute="top" secondItem="G91-bj-NCu" secondAttribute="bottom" constant="70" id="OUQ-gz-ZG7"/>
+                            <constraint firstItem="G91-bj-NCu" firstAttribute="centerY" secondItem="hWb-IM-CjW" secondAttribute="centerY" id="PvS-H6-1C6"/>
+                            <constraint firstItem="Zlj-Sw-yll" firstAttribute="leading" secondItem="lX8-vZ-fQI" secondAttribute="leading" id="R6w-L1-OTn"/>
+                            <constraint firstItem="G91-bj-NCu" firstAttribute="top" secondItem="cfs-do-Xi8" secondAttribute="bottom" constant="170" id="XTX-8I-fCG"/>
+                            <constraint firstItem="Zlj-Sw-yll" firstAttribute="top" secondItem="G91-bj-NCu" secondAttribute="bottom" constant="170" id="cAd-k7-oMz"/>
+                            <constraint firstItem="yhX-R5-JML" firstAttribute="leading" secondItem="lX8-vZ-fQI" secondAttribute="leading" id="kN5-uI-icd"/>
+                            <constraint firstItem="hnh-Ed-MRU" firstAttribute="trailing" secondItem="lX8-vZ-fQI" secondAttribute="trailing" id="kp5-g6-lUF"/>
+                            <constraint firstItem="hnh-Ed-MRU" firstAttribute="leading" secondItem="lX8-vZ-fQI" secondAttribute="leading" id="kyf-YQ-uZc"/>
+                            <constraint firstItem="Zlj-Sw-yll" firstAttribute="trailing" secondItem="lX8-vZ-fQI" secondAttribute="trailing" id="r6j-Ii-8kT"/>
+                            <constraint firstItem="G91-bj-NCu" firstAttribute="trailing" secondItem="lX8-vZ-fQI" secondAttribute="trailing" id="vcs-wW-5Pu"/>
+                            <constraint firstItem="cfs-do-Xi8" firstAttribute="trailing" secondItem="lX8-vZ-fQI" secondAttribute="trailing" id="yNG-bf-5CB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="lX8-vZ-fQI"/>
+                    </view>
+                    <connections>
+                        <outlet property="learnButton" destination="hnh-Ed-MRU" id="wY1-dU-w4l"/>
+                        <outlet property="nounButton" destination="G91-bj-NCu" id="UAU-SX-207"/>
+                        <outlet property="phraseButton" destination="cfs-do-Xi8" id="Bj9-kh-qLQ"/>
+                        <outlet property="quizButton" destination="yhX-R5-JML" id="mRH-E8-Z3a"/>
+                        <outlet property="verbButton" destination="Zlj-Sw-yll" id="qTN-K9-JBa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZbO-Pf-wJ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-280.80000000000001" y="23.838080959520241"/>
+        </scene>
+    </scenes>
+</document>
