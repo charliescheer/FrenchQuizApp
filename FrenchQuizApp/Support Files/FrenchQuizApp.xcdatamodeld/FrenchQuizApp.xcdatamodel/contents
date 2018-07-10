@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17F77" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Nouns" representedClassName="Nouns" parentEntity="QuizObject" syncable="YES" codeGenerationType="class">
+        <attribute name="englishNoun" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="frenchNoun" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Phrases" representedClassName="Phrases" parentEntity="QuizObject" syncable="YES" codeGenerationType="class">
         <attribute name="englishPhrase" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="frenchPhrase" optional="YES" attributeType="String" syncable="YES"/>
@@ -14,5 +19,6 @@
     <elements>
         <element name="Phrases" positionX="-54" positionY="-9" width="128" height="75"/>
         <element name="QuizObject" positionX="-54" positionY="36" width="128" height="120"/>
+        <element name="Nouns" positionX="-54" positionY="54" width="128" height="90"/>
     </elements>
 </model>

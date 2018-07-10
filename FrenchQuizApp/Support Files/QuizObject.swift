@@ -93,6 +93,4 @@ extension QuizObject {
         return dist[a.count, b.count]
     }
     
-    
-    
 }
