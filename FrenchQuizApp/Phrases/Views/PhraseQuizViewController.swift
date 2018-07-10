@@ -148,7 +148,7 @@ class PhraseQuizViewController: UIViewController {
         let newQuizPair = memory[randomIndex]
         quizState = Int(arc4random_uniform(2))
         
-        print("The pair is \(String(describing: newQuizPair.frenchPhrase)) and \(String(describing: newQuizPair.englishPhrase))")
+        print("The pair is \(String(describing: newQuizPair.french)) and \(String(describing: newQuizPair.english))")
         quizPair = newQuizPair
         displayQuiz(newQuizPair)
         clearUserAnswer()
@@ -285,7 +285,7 @@ class PhraseQuizViewController: UIViewController {
     }
     
     func displayLearnedAlert () {
-        let alert = UIAlertController(title: "Learned!", message: "You've gotten \(quizPair!.englishPhrase ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Learned!", message: "You've gotten \(quizPair!.english ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }

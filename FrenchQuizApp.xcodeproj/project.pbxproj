@@ -13,6 +13,7 @@
 		BA00DB7220D867DA008635FE /* VerbQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA00DB7120D867DA008635FE /* VerbQuizViewController.swift */; };
 		BA12777420ED9D0300D11B77 /* Nouns.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA12777320ED9D0300D11B77 /* Nouns.swift */; };
 		BA22CFC7208E46AF009FF14F /* managedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22CFC6208E46AF009FF14F /* managedData.swift */; };
+		BA3C6F9620F44145003C248E /* AddNounViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C6F9520F44145003C248E /* AddNounViewController.swift */; };
 		BA3E7E211FE46C2700C606AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E7E201FE46C2700C606AC /* AppDelegate.swift */; };
 		BA3E7E261FE46C2700C606AC /* Phrases.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA3E7E241FE46C2700C606AC /* Phrases.storyboard */; };
 		BA3E7E2B1FE46C2700C606AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA3E7E2A1FE46C2700C606AC /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		BA00DB7120D867DA008635FE /* VerbQuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbQuizViewController.swift; sourceTree = "<group>"; };
 		BA12777320ED9D0300D11B77 /* Nouns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nouns.swift; sourceTree = "<group>"; };
 		BA22CFC6208E46AF009FF14F /* managedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = managedData.swift; sourceTree = "<group>"; };
+		BA3C6F9520F44145003C248E /* AddNounViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNounViewController.swift; sourceTree = "<group>"; };
 		BA3E7E1D1FE46C2700C606AC /* FrenchQuizApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FrenchQuizApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA3E7E201FE46C2700C606AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA3E7E251FE46C2700C606AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Phrases.storyboard; sourceTree = "<group>"; };
@@ -105,6 +107,8 @@
 		BA12777120ED9CE400D11B77 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BA00DB6F20D867CA008635FE /* NounQuizViewController.swift */,
+				BA3C6F9520F44145003C248E /* AddNounViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -115,6 +119,14 @@
 				BA12777320ED9D0300D11B77 /* Nouns.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		BA3C6F9420F43F57003C248E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BA00DB6D20D867BB008635FE /* Nouns.storyboard */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		BA3E7E141FE46C2700C606AC = {
@@ -231,10 +243,9 @@
 		BAC7CE1D20D85ABF00DBBB7A /* Nouns */ = {
 			isa = PBXGroup;
 			children = (
+				BA3C6F9420F43F57003C248E /* Resources */,
 				BA12777220ED9CEA00D11B77 /* Models */,
 				BA12777120ED9CE400D11B77 /* Views */,
-				BA00DB6D20D867BB008635FE /* Nouns.storyboard */,
-				BA00DB6F20D867CA008635FE /* NounQuizViewController.swift */,
 			);
 			path = Nouns;
 			sourceTree = "<group>";
@@ -414,6 +425,7 @@
 				BA22CFC7208E46AF009FF14F /* managedData.swift in Sources */,
 				BA3E7E551FE46CFA00C606AC /* Phrase.swift in Sources */,
 				BA603E1C200415DC00A97490 /* PhraseEditViewController.swift in Sources */,
+				BA3C6F9620F44145003C248E /* AddNounViewController.swift in Sources */,
 				BA3E7E211FE46C2700C606AC /* AppDelegate.swift in Sources */,
 				BA3E7E5B1FE46D0E00C606AC /* AddPhraseViewController.swift in Sources */,
 				BA96465A20AA270400BE33E1 /* PhraseCell.swift in Sources */,

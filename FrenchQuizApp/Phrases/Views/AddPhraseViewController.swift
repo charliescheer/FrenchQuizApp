@@ -65,8 +65,8 @@ class AddPhraseViewController: UIViewController, UITextFieldDelegate {
         
         if let phrase = NSEntityDescription.insertNewObject(forEntityName: constants.phraseEntity,
                                                             into: managedObjectContext) as? Phrases {
-            phrase.englishPhrase = english
-            phrase.frenchPhrase = french
+            phrase.english = english
+            phrase.french = french
             phrase.creationDate = NSDate() as Date
             
             ManagedData.saveContext()
@@ -122,8 +122,8 @@ extension AddPhraseViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: constants.tableViewCellIndentifier, for: indexPath) as! PhraseCell
         if let phrase = dataResultsController.object(at: indexPath) as? Phrases {
-            cell.englishLabel?.text = phrase.englishPhrase
-            cell.frenchLabel?.text = phrase.frenchPhrase
+            cell.englishLabel?.text = phrase.english
+            cell.frenchLabel?.text = phrase.french
         }
 
         return cell
