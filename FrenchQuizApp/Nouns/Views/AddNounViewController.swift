@@ -12,13 +12,13 @@ class AddNounViewController:  UIViewController {
     var managedObjectContext = ManagedData.persistentContainer.viewContext
     
     override func viewDidLoad() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+//        view.addGestureRecognizer(tap)
     }
     
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
+//    @objc func dismissKeyboard() {
+//        view.endEditing(true)
+//    }
     
     
     override func viewDidDisappear(_ animated: Bool) {
