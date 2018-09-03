@@ -17,7 +17,6 @@ class PhraseEditViewController: UIViewController {
     
     @IBAction func back(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-        
     }
     
     
@@ -158,8 +157,8 @@ class PhraseEditViewController: UIViewController {
     }
     
     func returnsToList () {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "PhraseListViewController")
+        let storyboard = UIStoryboard(name: "Phrases", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "addPhrase")
         self.dismiss(animated: true, completion: nil)
         self.present(controller, animated: true, completion: nil)
     }

@@ -28,7 +28,15 @@ class AddPhraseViewController: UIViewController, UITextFieldDelegate {
 //        view.endEditing(true)
 //    }
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        do {
+            try dataResultsController.performFetch()
+        } catch {
+            print("fetch failed")
+        }
+        
+        tableView.reloadData()
+    }
     override func viewDidDisappear(_ animated: Bool) {
         ManagedData.saveContext()
     }

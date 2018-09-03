@@ -11,6 +11,16 @@ class AddNounViewController:  UIViewController {
     var dataResultsController = ManagedData.nounResultsController
     var managedObjectContext = ManagedData.persistentContainer.viewContext
     
+    override func viewDidAppear(_ animated: Bool) {
+        do {
+            try dataResultsController.performFetch()
+        } catch {
+            print("fetch failed")
+        }
+        
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
 //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
 //        view.addGestureRecognizer(tap)
@@ -59,7 +69,7 @@ class AddNounViewController:  UIViewController {
         } catch {
             print("fetch failed")
         }
-        print(dataResultsController.fetchedObjects?.count)
+        
         tableView.reloadData()
     }
     
