@@ -16,7 +16,7 @@ class AddPhraseViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var newFrenchPhrase: UITextField!
     @IBOutlet weak var tableView: UITableView!
     
-    var dataResultsController = ManagedData.resultsController
+    var dataResultsController = ManagedData.phraseResultsController
     var managedObjectContext = ManagedData.persistentContainer.viewContext
     
     override func viewDidLoad() {

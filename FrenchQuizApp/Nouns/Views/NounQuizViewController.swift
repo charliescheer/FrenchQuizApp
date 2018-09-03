@@ -6,6 +6,8 @@ class NounQuizViewController: UIViewController {
     @IBOutlet weak var userAnswerTextField: UITextField!
     @IBOutlet weak var quizButton: UIBarButtonItem!
     
+    var currentMode : String?
+    
     @IBAction func quizButtonWasPressed(_ sender: Any) {
     }
     

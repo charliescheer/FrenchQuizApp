@@ -8,9 +8,22 @@ class AddNounViewController:  UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var genderSwitch: UISwitch!
     
-    var dataResultsController = ManagedData.resultsController
+    var dataResultsController = ManagedData.nounResultsController
     var managedObjectContext = ManagedData.persistentContainer.viewContext
     
+    override func viewDidLoad() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        ManagedData.saveContext()
+    }
     
     @IBAction func addPhraseButtonWasPressed(_ sender: Any) {
         if englishTextField.text == "" || frenchTextField.text == "" {
@@ -37,6 +50,8 @@ class AddNounViewController:  UIViewController {
             }
             
             ManagedData.saveContext()
+        } else {
+            print("couldn't create new object")
         }
         
         do {
@@ -44,7 +59,7 @@ class AddNounViewController:  UIViewController {
         } catch {
             print("fetch failed")
         }
-        
+        print(dataResultsController.fetchedObjects?.count)
         tableView.reloadData()
     }
     
@@ -58,5 +73,62 @@ class AddNounViewController:  UIViewController {
         let alert = UIAlertController(title: "Enter Noun", message: "Please enter a Noun for both fields", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
         self.present(alert, animated: true)
+    }
+}
+
+extension AddNounViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        guard  let sections = dataResultsController.sections else {
+            return 0
+        }
+        
+        return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let sectionInfo = dataResultsController.sections?[section] else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        
+        return sectionInfo.numberOfObjects
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: constants.tableViewCellIdentifier, for: indexPath) as! NounCell
+        
+        if let noun = dataResultsController.object(at: indexPath) as? Nouns {
+            cell.englishNounTextLabel.text = noun.english
+            cell.frenchNounTextLabel.text = noun.french
+        }
+        
+        return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: constants.showNounVC, sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == constants.showNounVC {
+            let nounVC = segue.destination as? NounEditViewController
+            
+            guard let nounCell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: nounCell) else {
+                return
+            }
+            
+            if let noun  = dataResultsController.object(at: indexPath) as? Nouns {
+                nounVC?.noun = noun
+            }
+        }
+    }
+
+}
+
+extension AddNounViewController {
+    enum constants {
+        static let tableViewCellIdentifier = "nounCell"
+        static let showNounVC = "ShowNoun"
     }
 }

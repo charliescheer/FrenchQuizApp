@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
+        <!--Add Noun View Controller Scene-->
         <scene sceneID="n3y-Py-QmU">
             <objects>
-                <viewController id="ZkI-dj-8dK" customClass="AddNounViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Add Noun View Controller Scene" id="ZkI-dj-8dK" customClass="AddNounViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9HP-Oy-b6y">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -65,7 +65,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhraseCell" rowHeight="44" id="wqc-a6-aOr" customClass="PhraseCell" customModule="FrenchQuizApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="nounCell" rowHeight="44" id="wqc-a6-aOr" customClass="NounCell" customModule="FrenchQuizApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wqc-a6-aOr" id="2iY-DF-a3N">
@@ -89,12 +89,16 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="englishLabel" destination="Zph-uN-D7t" id="iJb-LJ-o2k"/>
-                                            <outlet property="frenchLabel" destination="Eqc-Bp-aJ2" id="BMI-lE-I66"/>
-                                            <segue destination="vcB-gk-p5R" kind="show" id="H6C-o1-tHX"/>
+                                            <outlet property="englishNounTextLabel" destination="Zph-uN-D7t" id="Nqf-sX-Q4L"/>
+                                            <outlet property="frenchNounTextLabel" destination="Eqc-Bp-aJ2" id="PZ1-zZ-kKo"/>
+                                            <segue destination="vcB-gk-p5R" kind="show" identifier="ShowNoun" id="H6C-o1-tHX"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="ZkI-dj-8dK" id="wJe-v4-QeX"/>
+                                    <outlet property="delegate" destination="ZkI-dj-8dK" id="NVS-Ti-T3z"/>
+                                </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gender:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hS0-Rd-ZRA">
                                 <rect key="frame" x="30" y="267" width="62" height="21"/>
@@ -137,10 +141,10 @@
             </objects>
             <point key="canvasLocation" x="1719.2" y="418.74062968515744"/>
         </scene>
-        <!--View Controller-->
+        <!--Noun Edit View Controller-->
         <scene sceneID="X9Y-59-S18">
             <objects>
-                <viewController id="vcB-gk-p5R" sceneMemberID="viewController">
+                <viewController id="vcB-gk-p5R" customClass="NounEditViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MLy-Nz-gwN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -252,7 +256,7 @@
         <!--Item 1-->
         <scene sceneID="3nF-pW-dX4">
             <objects>
-                <viewController id="unn-7w-teS" customClass="NounQuizViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="noun" id="unn-7w-teS" customClass="NounQuizViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7H1-jJ-Fbl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -353,7 +357,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Ie9-Uw-5BT">
             <objects>
-                <tabBarController id="62M-mX-QHu" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="navigation" id="62M-mX-QHu" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fal-X0-ksK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
