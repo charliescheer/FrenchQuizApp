@@ -119,25 +119,25 @@ class NounQuizViewController: UIViewController {
     
     func compareCurrentAnswerWithQuiz(quiz: Nouns, answer: String, quizState: Int) {
         
-        UIView.animate(withDuration: 0, animations: {self.correctMessageLabel.alpha = 1})
-        
-        if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 2 {
-            displayCouldNotCompareAlert()
-            
-            //If the Answer is Correct
-        } else if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 1{
-            compareIsCorrect()
-            
-            //If the answer is close
-        } else if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) > 0.85 {
-            compareIsclose(quiz: quiz, quizState: quizState)
-            
-            //if less then 85% correct
-        } else {
-            compareIsWrong(quiz: quiz, quizState: quizState)
-        }
-        
-        UIView.animate(withDuration: 2, animations: {self.correctMessageLabel.alpha = 0})
+//        UIView.animate(withDuration: 0, animations: {self.correctMessageLabel.alpha = 1})
+//        
+//        if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 2 {
+//            displayCouldNotCompareAlert()
+//            
+//            //If the Answer is Correct
+//        } else if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 1{
+//            compareIsCorrect()
+//            
+//            //If the answer is close
+//        } else if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) > 0.85 {
+//            compareIsclose(quiz: quiz, quizState: quizState)
+//            
+//            //if less then 85% correct
+//        } else {
+//            compareIsWrong(quiz: quiz, quizState: quizState)
+//        }
+//        
+//        UIView.animate(withDuration: 2, animations: {self.correctMessageLabel.alpha = 0})
     }
     
     func compareIsCorrect() {

@@ -19,6 +19,7 @@ extension QuizObject {
     
     func addPointToPhraseIncorrectCount() {
         self.timesIncorrect += 1
+        self.correctInARow = 0
     }
     
     func checkIfLearned() {
@@ -92,40 +93,24 @@ extension QuizObject {
         
         return dist[a.count, b.count]
     }
+
     
-    func compareUserAnswerToQuiz (quizState: Int, userAnswer: String) -> Double {
-        var result: Double = 0.00
-        let ldDisatance = Double(self.doLDPhraseCompare(userAnswer: userAnswer, quizState: quizState))
+    func compareUserAnswerToQuiz (quizState: Int, userAnswer: String) -> String {
+        var stringResult = ""
+        let ldDisatance = Double(levenshtein(aStr: returnQuizAnswer(quizState: quizState), bStr: userAnswer))
+        let answerLength = Double(returnQuizAnswer(quizState: quizState).count)
         
-        guard ldDisatance != 100 else {
-            result = 2
-            return result
-        }
+        let result = (answerLength - ldDisatance) / answerLength
         
-        let answerLength = Double(self.returnQuizAnswer(quizState: quizState).count)
-        result = (answerLength - ldDisatance) / answerLength
-        
-        return result
-    }
-    
-    func doLDPhraseCompare(userAnswer: String?, quizState: Int) -> Int {
-        var result: Int = 0
-        
-        guard let answer = userAnswer else {
-            result = 100
-            print("LD compare returning 2")
-            return result
-        }
-        
-        if quizState == 0 {
-            let quiz = self.french!.lowercased()
-            result = levenshtein(aStr: quiz, bStr: answer)
+        if result == 1{
+            stringResult = compareResult.correct
+        } else if result > 0.85 {
+            stringResult = compareResult.close
         } else {
-            let quiz = self.english!.lowercased()
-            result = levenshtein(aStr: quiz, bStr: answer)
+            stringResult = compareResult.incorrect
         }
         
-        return result
+        return stringResult
     }
     
     //MARK: - View helper functions
@@ -158,4 +143,12 @@ extension QuizObject {
     }
     
     
+}
+
+extension QuizObject {
+    enum compareResult {
+        static let correct = "correct"
+        static let incorrect = "incorrect"
+        static let close = "close"
+    }
 }
