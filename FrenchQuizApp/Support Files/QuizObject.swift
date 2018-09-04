@@ -29,7 +29,13 @@ extension QuizObject {
     }
     
     //MARK: - Comparing methods
-    
+    /**
+     * Levenshtein edit distance calculator
+     * Usage: levenstein <string> <string>
+     *
+     * Inspired by https://gist.github.com/bgreenlee/52d93a1d8fa1b8c1f38b
+     * Improved with http://stackoverflow.com/questions/26990394/slow-swift-arrays-and-strings-performance
+     */
     private class func min(numbers: Int...) -> Int {
         return numbers.reduce(numbers[0], {$0 < $1 ? $0 : $1})
     }
