@@ -32,6 +32,11 @@ class NounEditViewController : UIViewController {
     }
     
     @IBAction func resetTapped(_ sender: Any) {
+        if noun != nil{
+            if let currentNoun = noun {
+                displayResetAlert(phrase: currentNoun)
+            }
+        }
     }
     
     @IBAction func deleteSaveTapped(_ sender: Any) {
@@ -78,27 +83,6 @@ class NounEditViewController : UIViewController {
         }
     }
     
-    func didConfirmResetCounts (){
-        noun!.resetCountPhraseCounts()
-        setupView()
-    }
-    
-    func didConfirmDeletePhrase() {
-        let context = ManagedData.persistentContainer.viewContext
-        
-        if let currentNoun = noun {
-            context.delete(currentNoun)
-            returnsToList()
-        }
-    }
-    
-    func returnsToList () {
-        let storyboard = UIStoryboard(name: "Nouns", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "addNoun")
-        self.dismiss(animated: true, completion: nil)
-        self.present(controller, animated: true, completion: nil)
-    }
-    
     func setupView() {
         if let currentNoun = noun {
             englishTextField.text = currentNoun.english
@@ -133,6 +117,7 @@ class NounEditViewController : UIViewController {
         }
     }
     
+    //MARK: - Alert Methods
     func displayDeleteAlert () {
         if let currentNoun = noun {
             let alert = UIAlertController(title: "Are you sure?", message: "This will delete '\(currentNoun.english ?? "No Phrase Selected")'", preferredStyle: .alert)
@@ -144,7 +129,7 @@ class NounEditViewController : UIViewController {
         }
     }
     
-    func displayResetAlert (phrase: Phrases) {
+    func displayResetAlert (phrase: Nouns) {
         let alert = UIAlertController(title: "Reset Counts", message: "This will set the counts for '\(noun?.english ?? "No Phrase Selected")' back to 0, are you sure?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.didConfirmResetCounts()}))
@@ -152,5 +137,26 @@ class NounEditViewController : UIViewController {
         
         
         self.present(alert, animated: true)
+    }
+    
+    func didConfirmResetCounts (){
+        noun!.resetCountPhraseCounts()
+        setupView()
+    }
+    
+    func didConfirmDeletePhrase() {
+        let context = ManagedData.persistentContainer.viewContext
+        
+        if let currentNoun = noun {
+            context.delete(currentNoun)
+            returnsToList()
+        }
+    }
+    
+    func returnsToList () {
+        let storyboard = UIStoryboard(name: "Nouns", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "addNoun")
+        self.dismiss(animated: true, completion: nil)
+        self.present(controller, animated: true, completion: nil)
     }
 }
