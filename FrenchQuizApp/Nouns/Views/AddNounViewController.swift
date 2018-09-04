@@ -23,6 +23,19 @@ class AddNounViewController:  UIViewController {
         }
     }
     
+    @IBAction func frenchEnterWasPressed(_ sender: Any) {
+        if englishTextField.text == "" || frenchTextField.text == "" {
+            displayEmptyNounAlert()
+        } else {
+            let englishNoun = englishTextField.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let frenchNoun = frenchTextField.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            
+            createNewNoun(english: englishNoun, french: frenchNoun)
+            clearUserFields()
+        }
+    }
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         do {
             try dataResultsController.performFetch()
