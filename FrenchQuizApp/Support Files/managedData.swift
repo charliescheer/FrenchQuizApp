@@ -30,8 +30,29 @@ class ManagedData: NSObject {
         }
     }
     
-    static var resultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: constants.entityName)
+    static var phraseResultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: constants.phraseEntityName)
+        var managedObjectContext = ManagedData.persistentContainer.viewContext
+        
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: constants.sortDescriptor, ascending: false)]
+        
+        let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                    managedObjectContext: managedObjectContext,
+                                                    sectionNameKeyPath: nil, cacheName: nil)
+        
+        do{
+            try controller.performFetch()
+        } catch let error as NSError {
+            assertionFailure("Failed to performFetch. \(error)")
+        }
+        
+        var entityCount = controller.sections!.count
+        
+        return controller
+    }()
+    
+    static var nounResultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: constants.nounEntityName)
         var managedObjectContext = ManagedData.persistentContainer.viewContext
         
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: constants.sortDescriptor, ascending: false)]
@@ -54,7 +75,9 @@ class ManagedData: NSObject {
 
 extension ManagedData {
     enum constants {
-        static let entityName = "Phrases"
+        static let phraseEntityName = "Phrases"
+        static let nounEntityName = "Nouns"
+        static let verbEntityName = "Verbs"
         static let sortDescriptor = "creationDate"
         static let persistantContainerName = "FrenchQuizApp"
     }

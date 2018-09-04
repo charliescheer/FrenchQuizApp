@@ -12,27 +12,34 @@ import CoreData
 
 class AddPhraseViewController: UIViewController, UITextFieldDelegate {
     
+    var dataResultsController = ManagedData.phraseResultsController
+    var managedObjectContext = ManagedData.persistentContainer.viewContext
+    
     @IBOutlet weak var newEnglishPhrase: UITextField!
     @IBOutlet weak var newFrenchPhrase: UITextField!
     @IBOutlet weak var tableView: UITableView!
     
-    var dataResultsController = ManagedData.resultsController
-    var managedObjectContext = ManagedData.persistentContainer.viewContext
-    
     override func viewDidLoad() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+//        view.addGestureRecognizer(tap)
     }
+//    
+//    @objc func dismissKeyboard() {
+//        view.endEditing(true)
+//    }
     
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
+    override func viewDidAppear(_ animated: Bool) {
+        do {
+            try dataResultsController.performFetch()
+        } catch {
+            print("fetch failed")
+        }
+        
+        tableView.reloadData()
     }
-    
-    
     override func viewDidDisappear(_ animated: Bool) {
         ManagedData.saveContext()
     }
-    
 
     @IBAction func submitNewPhrase() {
         if newEnglishPhrase.text == "" || newFrenchPhrase.text == "" {
@@ -44,7 +51,6 @@ class AddPhraseViewController: UIViewController, UITextFieldDelegate {
             createNewPhrase(english: englishPhrase, french: frenchPhrase)
             clearUserFields()
         }
-        
     }
     
     @IBAction func frenchTextFieldPrimaryAction(_ sender: Any) {
@@ -65,8 +71,8 @@ class AddPhraseViewController: UIViewController, UITextFieldDelegate {
         
         if let phrase = NSEntityDescription.insertNewObject(forEntityName: constants.phraseEntity,
                                                             into: managedObjectContext) as? Phrases {
-            phrase.englishPhrase = english
-            phrase.frenchPhrase = french
+            phrase.english = english
+            phrase.french = french
             phrase.creationDate = NSDate() as Date
             
             ManagedData.saveContext()
@@ -78,8 +84,6 @@ class AddPhraseViewController: UIViewController, UITextFieldDelegate {
             }
             
             tableView.reloadData()
-            
-            
         }
     }
     
@@ -95,35 +99,30 @@ class AddPhraseViewController: UIViewController, UITextFieldDelegate {
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
         self.present(alert, animated: true)
     }
-    
-
 }
 
-
+//MARK: - TableViewDelegate
 extension AddPhraseViewController: UITableViewDelegate, UITableViewDataSource {
-    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         guard let sections = dataResultsController.sections else { return 0 }
         
         return sections.count
     }
-    
-    
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sectionInfo = dataResultsController.sections?[section] else {
             fatalError("No sections in fetchedResultsController")
         }
-        
+ 
         return sectionInfo.numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: constants.tableViewCellIndentifier, for: indexPath) as! PhraseCell
         if let phrase = dataResultsController.object(at: indexPath) as? Phrases {
-            cell.englishLabel?.text = phrase.englishPhrase
-            cell.frenchLabel?.text = phrase.frenchPhrase
+            cell.englishLabel?.text = phrase.english
+            cell.frenchLabel?.text = phrase.french
         }
 
         return cell

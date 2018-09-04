@@ -2,12 +2,12 @@ import UIKit
 import CoreData
 
 class PhraseQuizViewController: UIViewController {
- 
+    
     //MARK: - Class Properties
     var currentMode: String?
     var quizPair: Phrases?
     var savedMemory: [Phrases]? = []
-    var quizCount = 0
+    var quizCount = 1
     var quizState: Int = 0
     
     @IBOutlet weak var correctMessageLabel: UILabel!
@@ -36,14 +36,14 @@ class PhraseQuizViewController: UIViewController {
         } else {
             setModeToQuiz()
         }
-
+        
     }
     
     //trigger compare user answer and quiz answer from button on screen
     @IBAction func answerQuiz() {
         doTest()
     }
-
+    
     //get new quiz pair
     @IBAction func newQuiz() {
         getQuizPair()
@@ -76,6 +76,10 @@ class PhraseQuizViewController: UIViewController {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        ManagedData.saveContext()
+    }
+    
     func setupTapDismissOfKeyboard() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -95,10 +99,19 @@ class PhraseQuizViewController: UIViewController {
         }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        ManagedData.saveContext()
+    func setModeToQuiz() {
+        currentModeLabel.text = mode.quiz
+        quizStateButton.title = mode.learn
+        currentMode = mode.quiz
     }
-
+    
+    func setModeToLearn() {
+        currentModeLabel.text = mode.learn
+        quizStateButton.title = mode.quiz
+        currentMode = mode.learn
+    }
+    
+    
     //get data from core data
     func getMemoryStore() {
         let request: NSFetchRequest<Phrases> = Phrases.fetchRequest()
@@ -119,18 +132,6 @@ class PhraseQuizViewController: UIViewController {
         }
     }
     
-    func setModeToQuiz() {
-        currentModeLabel.text = mode.quiz
-        quizStateButton.title = mode.learn
-        currentMode = mode.quiz
-    }
-    
-    func setModeToLearn() {
-        currentModeLabel.text = mode.learn
-        quizStateButton.title = mode.quiz
-        currentMode = mode.learn
-    }
-    
     //MARK: - Quiz Setting Methods
     //choose a random pair of words from the memory store, make sure that pair is not already marked as learned.
     //also confirms that there are currently available unlearned pairs to check, if not displays an alert
@@ -148,7 +149,7 @@ class PhraseQuizViewController: UIViewController {
         let newQuizPair = memory[randomIndex]
         quizState = Int(arc4random_uniform(2))
         
-        print("The pair is \(String(describing: newQuizPair.frenchPhrase)) and \(String(describing: newQuizPair.englishPhrase))")
+        print("The pair is \(String(describing: newQuizPair.french)) and \(String(describing: newQuizPair.english))")
         quizPair = newQuizPair
         displayQuiz(newQuizPair)
         clearUserAnswer()
@@ -160,7 +161,7 @@ class PhraseQuizViewController: UIViewController {
     }
     
     func clearUserAnswer() {
-        answerTextField.text = " "
+        answerTextField.text = ""
     }
     
     
@@ -169,13 +170,12 @@ class PhraseQuizViewController: UIViewController {
     //compare the user answer to the quiz
     //in quiz mode a correct or incorrect answer will trigger gaining and losing points towards marking a word as learned
     func doTest () {
-        guard let quiz = quizPair else {
+        guard quizPair != nil else {
             return
         }
         
-        if getUserAnswer() != "NO ANSWER" {
-            let answer = getUserAnswer()
-            compareCurrentAnswerWithQuiz(quiz: quiz, answer: answer, quizState: quizState)
+        if answerTextField.text != "" {
+            compareCurrentAnswerWithQuiz(answer: getUserAnswer())
         } else {
             displayNoAnswerAlert()
         }
@@ -202,24 +202,33 @@ class PhraseQuizViewController: UIViewController {
         return setAnswer
     }
     
-    func compareCurrentAnswerWithQuiz(quiz: Phrases, answer: String, quizState: Int) {
+    func compareCurrentAnswerWithQuiz(answer: String) {
         
         UIView.animate(withDuration: 0, animations: {self.correctMessageLabel.alpha = 1})
         
-        if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 2 {
-            displayCouldNotCompareAlert()
+        if let currentQuiz = quizPair {
+            let compareResult = currentQuiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: getUserAnswer())
             
-            //If the Answer is Correct
-        } else if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 1{
-            compareIsCorrect()
-
-            //If the answer is close
-        } else if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) > 0.85 {
-            compareIsclose(quiz: quiz, quizState: quizState)
-            
-            //if less then 85% correct
-        } else {
-            compareIsWrong(quiz: quiz, quizState: quizState)
+            if quizCount < 6 {
+                //Several chances to get the answer correct
+                if compareResult == QuizObject.compareResult.correct {
+                    compareIsCorrect()
+                    quizCount = 0
+                } else if compareResult == QuizObject.compareResult.close {
+                    compareIsclose()
+                } else {
+                    compareIsWrong()
+                }
+            } else {
+                //When chances have run out
+                correctMessageLabel.text = "Incorrect, the answer was: \(currentQuiz.returnQuizAnswer(quizState: quizState))"
+                
+                if currentMode == "Quiz" {
+                    currentQuiz.addPointToPhraseIncorrectCount()
+                }
+                getQuizPair()
+                quizCount = 1
+            }    
         }
         
         UIView.animate(withDuration: 2, animations: {self.correctMessageLabel.alpha = 0})
@@ -239,38 +248,18 @@ class PhraseQuizViewController: UIViewController {
         getQuizPair()
     }
     
-    func compareIsclose(quiz: Phrases, quizState: Int) {
-        if quizCount < 4 {
-            quizCount += 1
-            correctMessageLabel.text = "Almost, Try again! Try # \(quizCount)"
-            print(quizCount)
-        } else {
-            correctMessageLabel.text = "So close! The answer was: \(quiz.returnQuizAnswer(quizState: quizState))"
-            getQuizPair()
-            quizCount = 0
-        }
+    func compareIsclose() {
+        correctMessageLabel.text = "Almost, Try again! Try # \(quizCount)"
+        quizCount += 1
     }
     
-    func compareIsWrong(quiz: Phrases, quizState: Int) {
-        if quizCount < 4 {
-            quizCount += 1
-            correctMessageLabel.text = "Incorrect :/ Try # \(quizCount)"
-            print(quizCount)
-        } else {
-            if currentMode == "Quiz" {
-                quizPair?.resetCountPhraseCounts()
-                quizPair?.addPointToPhraseIncorrectCount()
-            }
-            
-            print("Count reset")
-            correctMessageLabel.text = "Incorrect, the answer was: \(quiz.returnQuizAnswer(quizState: quizState))"
-            
-            getQuizPair()
-            quizCount = 0
-        }
+    func compareIsWrong() {
+        correctMessageLabel.text = "Incorrect :/ Try # \(quizCount)"
+        quizCount += 1
     }
     
-
+    
+    
     //MARK: - Alert Functions
     func displayNoAnswerAlert () {
         let alert = UIAlertController(title: "No Answer", message: "Please enter an answer.", preferredStyle: .alert)
@@ -285,7 +274,7 @@ class PhraseQuizViewController: UIViewController {
     }
     
     func displayLearnedAlert () {
-        let alert = UIAlertController(title: "Learned!", message: "You've gotten \(quizPair!.englishPhrase ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Learned!", message: "You've gotten \(quizPair!.english ?? "No Phrase Selected") correct 10 times in a row", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }

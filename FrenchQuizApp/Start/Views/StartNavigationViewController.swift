@@ -98,10 +98,11 @@ class StartNavigationViewController:  UIViewController {
             present(tabBarController, animated: true, completion: nil)
         case 2:
             let storyboard = UIStoryboard(name: constants.nounStoryboard, bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: constants.nounViewController) as UIViewController
+            let tabBarController = storyboard.instantiateViewController(withIdentifier: constants.navigationController) as! UITabBarController
+            let tempVC = tabBarController.viewControllers![0] as! NounQuizViewController
+            tempVC.currentMode = mode
             
-            
-            present(vc, animated: true, completion: nil)
+            present(tabBarController, animated: true, completion: nil)
         case 3:
             let storyboard = UIStoryboard(name: constants.verbStoryboard, bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: constants.verbViewController) as UIViewController
@@ -124,6 +125,7 @@ extension StartNavigationViewController {
         static let verbViewController = "verb"
         static let nounStoryboard = "Nouns"
         static let nounViewController = "noun"
+        static let navigationController = "navigation"
         
         static let quizMode = "Quiz"
         static let learnMode = "Learn"
