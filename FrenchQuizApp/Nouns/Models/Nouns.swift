@@ -11,23 +11,14 @@ extension Nouns {
     }
     
     func compareUserAnswerToQuiz(quizState: Int, userAnswer: String, correctGenderChoice: Bool) -> String {
-        var stringResult = ""
-        let ldDisatance = Double(levenshtein(aStr: returnQuizAnswer(quizState: quizState), bStr: userAnswer))
-        let answerLength = Double(returnQuizAnswer(quizState: quizState).count)
+        var result = getWordCompareResult(quizState: quizState, userAnswer: userAnswer)
         
-        var result = (answerLength - ldDisatance) / answerLength
-        
-        if correctGenderChoice != true {
+        //factor in gender
+        if correctGenderChoice == false {
             result -= 0.1
         }
         
-        if result == 1{
-            stringResult = compareResult.correct
-        } else if result > 0.85 {
-            stringResult = compareResult.close
-        } else {
-            stringResult = compareResult.incorrect
-        }
+        let stringResult = getStringResult(result)
         
         return stringResult
     }

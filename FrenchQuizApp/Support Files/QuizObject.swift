@@ -96,12 +96,24 @@ extension QuizObject {
 
     
     func compareUserAnswerToQuiz (quizState: Int, userAnswer: String) -> String {
-        var stringResult = ""
+        let result = getWordCompareResult(quizState: quizState, userAnswer: userAnswer)
+        
+        let stringResult = getStringResult(result)
+        
+        return stringResult
+    }
+    
+    func getWordCompareResult (quizState: Int, userAnswer: String) -> Double {
         let ldDisatance = Double(levenshtein(aStr: returnQuizAnswer(quizState: quizState), bStr: userAnswer))
         let answerLength = Double(returnQuizAnswer(quizState: quizState).count)
         
         let result = (answerLength - ldDisatance) / answerLength
         
+        return result
+    }
+    
+    func getStringResult(_ result: Double) -> String {
+        var stringResult = ""
         if result == 1{
             stringResult = compareResult.correct
         } else if result > 0.85 {
