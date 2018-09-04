@@ -208,7 +208,7 @@ class PhraseQuizViewController: UIViewController {
         if let currentQuiz = quizPair {
             let compareResult = currentQuiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: getUserAnswer())
             
-            if quizCount < 5 {
+            if quizCount < 6 {
                 //Several chances to get the answer correct
                 if compareResult == QuizObject.compareResult.correct {
                     compareIsCorrect()
@@ -220,8 +220,9 @@ class PhraseQuizViewController: UIViewController {
                 }
             } else {
                 //When chances have run out
+                correctMessageLabel.text = "Incorrect, the answer was: \(currentQuiz.returnQuizAnswer(quizState: quizState))"
+                
                 if currentMode == "Quiz" {
-                    correctMessageLabel.text = "Incorrect, the answer was: \(currentQuiz.returnQuizAnswer(quizState: quizState))"
                     currentQuiz.addPointToPhraseIncorrectCount()
                 }
                 getQuizPair()

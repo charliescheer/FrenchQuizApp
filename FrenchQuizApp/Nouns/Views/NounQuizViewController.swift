@@ -6,9 +6,9 @@ class NounQuizViewController: UIViewController {
     var currentMode : String?
     var quizPair: Nouns?
     var savedMemory: [Nouns]? = []
-    var quizCount = 0
+    var quizCount = 1
     var quizState: Int = 0
-
+    
     
     @IBOutlet weak var currentModeLabel: UILabel!
     @IBOutlet weak var currentQuizLabel: UILabel!
@@ -85,13 +85,12 @@ class NounQuizViewController: UIViewController {
     }
     
     func doTest () {
-        guard let quiz = quizPair else {
+        guard quizPair != nil else {
             return
         }
         
-        if getUserAnswer() != "NO ANSWER" {
-            let answer = getUserAnswer()
-            compareCurrentAnswerWithQuiz(quiz: quiz, answer: answer, quizState: quizState)
+        if userAnswerTextField.text != "" {
+            compareCurrentAnswerWithQuiz(answer: getUserAnswer())
         } else {
             displayNoAnswerAlert()
         }
@@ -117,27 +116,36 @@ class NounQuizViewController: UIViewController {
         return setAnswer
     }
     
-    func compareCurrentAnswerWithQuiz(quiz: Nouns, answer: String, quizState: Int) {
+    func compareCurrentAnswerWithQuiz(answer: String) {
         
-//        UIView.animate(withDuration: 0, animations: {self.correctMessageLabel.alpha = 1})
-//        
-//        if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 2 {
-//            displayCouldNotCompareAlert()
-//            
-//            //If the Answer is Correct
-//        } else if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) == 1{
-//            compareIsCorrect()
-//            
-//            //If the answer is close
-//        } else if quiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: answer) > 0.85 {
-//            compareIsclose(quiz: quiz, quizState: quizState)
-//            
-//            //if less then 85% correct
-//        } else {
-//            compareIsWrong(quiz: quiz, quizState: quizState)
-//        }
-//        
-//        UIView.animate(withDuration: 2, animations: {self.correctMessageLabel.alpha = 0})
+        UIView.animate(withDuration: 0, animations: {self.correctMessageLabel.alpha = 1})
+        
+        if let currentQuiz = quizPair {
+            let compareResult = currentQuiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: getUserAnswer())
+            
+            if quizCount < 6 {
+                //Several chances to get the answer correct
+                if compareResult == QuizObject.compareResult.correct {
+                    compareIsCorrect()
+                    quizCount = 0
+                } else if compareResult == QuizObject.compareResult.close {
+                    compareIsclose()
+                } else {
+                    compareIsWrong()
+                }
+            } else {
+                //When chances have run out
+                correctMessageLabel.text = "Incorrect, the answer was: \(currentQuiz.returnQuizAnswer(quizState: quizState))"
+                if currentMode == "Quiz" {
+                    currentQuiz.addPointToPhraseIncorrectCount()
+                }
+                getQuizPair()
+                quizCount = 1
+            }
+            
+        }
+        
+        UIView.animate(withDuration: 2, animations: {self.correctMessageLabel.alpha = 0})
     }
     
     func compareIsCorrect() {
@@ -154,42 +162,22 @@ class NounQuizViewController: UIViewController {
         getQuizPair()
     }
     
-    func compareIsclose(quiz: Nouns, quizState: Int) {
-        if quizCount < 4 {
-            quizCount += 1
-            correctMessageLabel.text = "Almost, Try again! Try # \(quizCount)"
-            print(quizCount)
-        } else {
-            correctMessageLabel.text = "So close! The answer was: \(quiz.returnQuizAnswer(quizState: quizState))"
-            getQuizPair()
-            quizCount = 0
-        }
+    func compareIsclose() {
+        correctMessageLabel.text = "Almost, Try again! Try # \(quizCount)"
+        quizCount += 1
     }
     
-    func compareIsWrong(quiz: Nouns, quizState: Int) {
-        if quizCount < 4 {
-            quizCount += 1
-            correctMessageLabel.text = "Incorrect :/ Try # \(quizCount)"
-            print(quizCount)
-        } else {
-            if currentMode == "Quiz" {
-                quizPair?.resetCountPhraseCounts()
-                quizPair?.addPointToPhraseIncorrectCount()
-            }
-            
-            print("Count reset")
-            correctMessageLabel.text = "Incorrect, the answer was: \(quiz.returnQuizAnswer(quizState: quizState))"
-            
-            getQuizPair()
-            quizCount = 0
-        }
+    func compareIsWrong() {
+        correctMessageLabel.text = "Incorrect :/ Try # \(quizCount)"
+        quizCount += 1
     }
+    
     
     @IBAction func backWasPressed(_ sender: Any) {
-            let storyboard = UIStoryboard(name: constants.introStoryboard, bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: constants.introViewController) as UIViewController
-            present(vc, animated: true, completion: nil)
-        }
+        let storyboard = UIStoryboard(name: constants.introStoryboard, bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: constants.introViewController) as UIViewController
+        present(vc, animated: true, completion: nil)
+    }
     
     
     override func viewDidLoad() {
@@ -275,20 +263,20 @@ class NounQuizViewController: UIViewController {
     }
     
 }
-    
 
 
 
-    extension NounQuizViewController {
-        enum constants {
-            static let introStoryboard = "Intro"
-            static let introViewController = "Start"
-        }
-        
-        enum mode {
-            static let quiz = "quiz"
-            static let learn = "Learn"
-        }
+
+extension NounQuizViewController {
+    enum constants {
+        static let introStoryboard = "Intro"
+        static let introViewController = "Start"
     }
+    
+    enum mode {
+        static let quiz = "quiz"
+        static let learn = "Learn"
+    }
+}
 
 
