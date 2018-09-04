@@ -406,8 +406,11 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="EVq-sR-1Zd"/>
                     <connections>
+                        <outlet property="correctMessageLabel" destination="9nq-bL-ub4" id="gWI-ir-2hz"/>
+                        <outlet property="currentModeLabel" destination="DDU-4M-4Ky" id="MWl-qb-LXt"/>
                         <outlet property="currentQuizLabel" destination="bRj-FH-SYl" id="wRh-Ji-O21"/>
                         <outlet property="quizButton" destination="4gU-lP-7IV" id="w95-E9-IEi"/>
+                        <outlet property="quizStateButton" destination="4gU-lP-7IV" id="hq3-ay-JN0"/>
                         <outlet property="userAnswerTextField" destination="jd8-tI-wDe" id="YAr-ds-3W8"/>
                     </connections>
                 </viewController>
