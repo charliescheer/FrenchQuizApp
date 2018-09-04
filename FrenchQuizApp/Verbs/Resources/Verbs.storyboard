@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
+        <!--Add Verb View Controller-->
         <scene sceneID="d4k-yg-P1g">
             <objects>
-                <viewController id="2cw-XK-POj" sceneMemberID="viewController">
+                <viewController title="Add Verb View Controller" id="2cw-XK-POj" customClass="AddVerbViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uN1-TM-dEg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -28,6 +28,9 @@
                                 <rect key="frame" x="164" y="259" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Search"/>
+                                <connections>
+                                    <action selector="searchWasPressed:" destination="2cw-XK-POj" eventType="touchUpInside" id="J56-wa-u2F"/>
+                                </connections>
                             </button>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4nb-4e-Jj3">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -62,14 +65,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="nounCell" rowHeight="44" id="JBl-MD-bAn" customClass="NounCell" customModule="FrenchQuizApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="nounCell" rowHeight="44" id="JBl-MD-bAn" userLabel="verbCell" customClass="VerbCell" customModule="FrenchQuizApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JBl-MD-bAn" id="kAg-u3-g24">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="English" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sWd-Qf-Anq">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="English" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sWd-Qf-Anq" userLabel="English Label">
                                                     <rect key="frame" x="31" y="12" width="151" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -86,8 +89,8 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="englishNounTextLabel" destination="sWd-Qf-Anq" id="vBd-b3-uhC"/>
-                                            <outlet property="frenchNounTextLabel" destination="V6P-lc-xp5" id="SFR-8E-5sq"/>
+                                            <outlet property="englishVerbLabel" destination="sWd-Qf-Anq" id="Mdx-At-8QL"/>
+                                            <outlet property="frenchVerbLabel" destination="V6P-lc-xp5" id="cI1-Cb-ZO2"/>
                                             <segue destination="cSS-4s-ysi" kind="show" id="ufN-vE-kPw"/>
                                         </connections>
                                     </tableViewCell>
@@ -98,15 +101,20 @@
                         <viewLayoutGuide key="safeArea" id="Swl-GD-4hp"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="tQf-md-THs"/>
+                    <connections>
+                        <outlet property="englishTextField" destination="Zag-2d-Raq" id="4ZM-mH-PON"/>
+                        <outlet property="frenchTextField" destination="2xM-ex-g6T" id="Nwm-eW-1hT"/>
+                        <outlet property="tableView" destination="AKm-bN-UDz" id="zfX-Yo-4JI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8aV-aq-U53" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="396" y="446"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Verb Edit View Controller-->
         <scene sceneID="lm2-qb-KVR">
             <objects>
-                <tableViewController id="cSS-4s-ysi" sceneMemberID="viewController">
+                <tableViewController title="Verb Edit View Controller" id="cSS-4s-ysi" customClass="VerbEditTableViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="TDk-ez-aA0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -131,10 +139,10 @@
             </objects>
             <point key="canvasLocation" x="1377" y="446"/>
         </scene>
-        <!--Item 1-->
+        <!--Verb Quiz View Controller-->
         <scene sceneID="vDD-qN-nF5">
             <objects>
-                <viewController id="eSE-RG-ZtN" customClass="VerbQuizViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Verb Quiz View Controller" id="eSE-RG-ZtN" customClass="VerbQuizViewController" customModule="FrenchQuizApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cQT-2u-IF0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -143,7 +151,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Nouns" id="4mM-rh-BdJ">
+                                    <navigationItem title="Verbs" id="4mM-rh-BdJ">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="bvu-KD-p8E">
                                             <connections>
                                                 <action selector="backWasPressed:" destination="eSE-RG-ZtN" id="aM5-V0-DNt"/>
@@ -179,9 +187,17 @@
                                 <items>
                                     <barButtonItem title="Quiz" id="pLE-uY-G9a"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="qx6-CS-3nk"/>
-                                    <barButtonItem title="New Quiz" id="ONx-xJ-K9B"/>
+                                    <barButtonItem title="New Quiz" id="ONx-xJ-K9B">
+                                        <connections>
+                                            <action selector="newQuizWasPressed:" destination="eSE-RG-ZtN" id="i8g-SN-ueO"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="RXJ-DP-OGN"/>
-                                    <barButtonItem title="Answer" id="jlX-xP-b98"/>
+                                    <barButtonItem title="Answer" id="jlX-xP-b98">
+                                        <connections>
+                                            <action selector="answerWasPressed:" destination="eSE-RG-ZtN" id="iXD-kp-Yzv"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Quiz" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="24G-Ot-Kb2">
@@ -210,6 +226,13 @@
                         <viewLayoutGuide key="safeArea" id="ZF0-lh-jVx"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="eSU-Vx-UQ7"/>
+                    <connections>
+                        <outlet property="correctMessageLabel" destination="3q5-yI-57W" id="DU4-9S-lh2"/>
+                        <outlet property="currentModeLabel" destination="mnM-fk-qDe" id="3k1-Ve-toO"/>
+                        <outlet property="currentQuizLabel" destination="mwq-QF-26m" id="Gon-W3-AAr"/>
+                        <outlet property="quizLearnButton" destination="CAw-oL-z1B" id="EU0-SG-RiT"/>
+                        <outlet property="userAnswerLabel" destination="gwA-F2-EIt" id="qO4-fn-yOq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="anT-lU-ddS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
