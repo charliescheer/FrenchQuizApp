@@ -16,6 +16,7 @@ class NounQuizViewController: UIViewController {
     @IBOutlet weak var quizButton: UIBarButtonItem!
     @IBOutlet weak var quizStateButton: UIBarButtonItem!
     @IBOutlet weak var correctMessageLabel: UILabel!
+    @IBOutlet weak var genderSwitch: UISwitch!
     
     
     @IBAction func quizButtonWasPressed(_ sender: Any) {
@@ -144,8 +145,24 @@ class NounQuizViewController: UIViewController {
         UIView.animate(withDuration: 0, animations: {self.correctMessageLabel.alpha = 1})
         
         if let currentQuiz = quizPair {
-            let compareResult = currentQuiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: getUserAnswer())
             
+            //Factor in if the user got the correct gender
+            var userGenderResponse = ""
+            var userGenderChoiceCorrect = false
+            if genderSwitch.isOn {
+                userGenderResponse = Nouns.constants.female
+            } else {
+                userGenderResponse = Nouns.constants.male
+            }
+            
+            if userGenderResponse == currentQuiz.gender {
+                userGenderChoiceCorrect = true
+            }
+            
+            //Compare the two words and the gender choice
+            let compareResult = currentQuiz.compareUserAnswerToQuiz(quizState: quizState, userAnswer: getUserAnswer(), correctGenderChoice: userGenderChoiceCorrect)
+            
+            //Multiple change Quiz Loop
             if quizCount < 6 {
                 //Several chances to get the answer correct
                 if compareResult == QuizObject.compareResult.correct {
