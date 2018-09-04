@@ -2,7 +2,10 @@ import UIKit
 
 class VerbQuizViewController: UIViewController {
     
-    @IBAction func returnWasPressed(_ sender: Any) {
+    var currentMode : String?
+    
+    
+    @IBAction func backWasPressed(_ sender: Any) {
         let storyboard = UIStoryboard(name: constants.introStoryboard, bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: constants.introViewController) as UIViewController
         present(vc, animated: true, completion: nil)

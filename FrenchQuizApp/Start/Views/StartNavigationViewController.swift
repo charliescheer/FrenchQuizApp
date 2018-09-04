@@ -105,10 +105,11 @@ class StartNavigationViewController:  UIViewController {
             present(tabBarController, animated: true, completion: nil)
         case 3:
             let storyboard = UIStoryboard(name: constants.verbStoryboard, bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: constants.verbViewController) as UIViewController
+            let tabBarController = storyboard.instantiateViewController(withIdentifier: constants.navigationController) as! UITabBarController
+            let tempVC = tabBarController.viewControllers![0] as! VerbQuizViewController
+            tempVC.currentMode = mode
             
-            
-            present(vc, animated: true, completion: nil)
+            present(tabBarController, animated: true, completion: nil)
         default:
             print("An error has occured")
         }

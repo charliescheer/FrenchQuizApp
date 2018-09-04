@@ -227,6 +227,29 @@
 			path = "Support Files";
 			sourceTree = "<group>";
 		};
+		BA8B4DBE213F352D00AFFFD9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BA00DB6B20D867B2008635FE /* Verbs.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BA8B4DBF213F353B00AFFFD9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BA00DB7120D867DA008635FE /* VerbQuizViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BA8B4DC0213F354E00AFFFD9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		BAC7CE1B20D85AAB00DBBB7A /* Start */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,8 +282,9 @@
 		BAC7CE1E20D85AC600DBBB7A /* Verbs */ = {
 			isa = PBXGroup;
 			children = (
-				BA00DB6B20D867B2008635FE /* Verbs.storyboard */,
-				BA00DB7120D867DA008635FE /* VerbQuizViewController.swift */,
+				BA8B4DBF213F353B00AFFFD9 /* Views */,
+				BA8B4DBE213F352D00AFFFD9 /* Resources */,
+				BA8B4DC0213F354E00AFFFD9 /* Models */,
 			);
 			path = Verbs;
 			sourceTree = "<group>";
