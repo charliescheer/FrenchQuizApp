@@ -18,8 +18,6 @@ class NounQuizViewController: UIViewController {
     @IBOutlet weak var correctMessageLabel: UILabel!
     
     
-    
-    
     @IBAction func quizButtonWasPressed(_ sender: Any) {
         guard let modeState = currentMode else {
             return
@@ -29,6 +27,53 @@ class NounQuizViewController: UIViewController {
             setModeToLearn()
         } else {
             setModeToQuiz()
+        }
+    }
+    
+    @IBAction func newQuizButtonWasPressed(_ sender: Any) {
+        getQuizPair()
+        correctMessageLabel.text = " "
+    }
+    
+    @IBAction func answerWasPressed(_ sender: Any) {
+        doTest()
+    }
+    
+    func doTest () {
+        guard quizPair != nil else {
+            return
+        }
+        
+        if userAnswerTextField.text != "" {
+            compareCurrentAnswerWithQuiz(answer: getUserAnswer())
+        } else {
+            displayNoAnswerAlert()
+        }
+        
+    }
+    
+    @IBAction func backWasPressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: constants.introStoryboard, bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: constants.introViewController) as UIViewController
+        present(vc, animated: true, completion: nil)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        getMemoryStore()
+        setupTapDismissOfKeyboard()
+        if savedMemory!.count > 0 {
+            getQuizPair()
+        } else {
+            currentQuizLabel.text = " "
+            userAnswerTextField.isUserInteractionEnabled = false
+            displayNoAvailableQuizPairsAlert()
+        }
+        
+        
+        if let modeState = currentMode {
+            setupInitialModeState(modeState: modeState)
         }
     }
     
@@ -44,10 +89,6 @@ class NounQuizViewController: UIViewController {
         currentMode = mode.learn
     }
     
-    @IBAction func newQuizButtonWasPressed(_ sender: Any) {
-        getQuizPair()
-        correctMessageLabel.text = " "
-    }
     
     func getQuizPair() {
         guard let memory = savedMemory else {
@@ -77,24 +118,6 @@ class NounQuizViewController: UIViewController {
     //display the currently selected quiz pair on screen
     func displayQuiz(_ currentNoun: Nouns) {
         currentQuizLabel.text = currentNoun.returnQuizQuestion(quizState: quizState) as String as String
-    }
-    
-    
-    @IBAction func answerWasPressed(_ sender: Any) {
-        doTest()
-    }
-    
-    func doTest () {
-        guard quizPair != nil else {
-            return
-        }
-        
-        if userAnswerTextField.text != "" {
-            compareCurrentAnswerWithQuiz(answer: getUserAnswer())
-        } else {
-            displayNoAnswerAlert()
-        }
-        
     }
     
     func getUserAnswer() -> String {
@@ -170,33 +193,6 @@ class NounQuizViewController: UIViewController {
     func compareIsWrong() {
         correctMessageLabel.text = "Incorrect :/ Try # \(quizCount)"
         quizCount += 1
-    }
-    
-    
-    @IBAction func backWasPressed(_ sender: Any) {
-        let storyboard = UIStoryboard(name: constants.introStoryboard, bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: constants.introViewController) as UIViewController
-        present(vc, animated: true, completion: nil)
-    }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        getMemoryStore()
-        setupTapDismissOfKeyboard()
-        if savedMemory!.count > 0 {
-            getQuizPair()
-        } else {
-            currentQuizLabel.text = " "
-            userAnswerTextField.isUserInteractionEnabled = false
-            displayNoAvailableQuizPairsAlert()
-        }
-        
-        
-        if let modeState = currentMode {
-            setupInitialModeState(modeState: modeState)
-        }
     }
     
     func setupTapDismissOfKeyboard() {

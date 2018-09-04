@@ -11,6 +11,18 @@ class AddNounViewController:  UIViewController {
     var dataResultsController = ManagedData.nounResultsController
     var managedObjectContext = ManagedData.persistentContainer.viewContext
     
+    @IBAction func addPhraseButtonWasPressed(_ sender: Any) {
+        if englishTextField.text == "" || frenchTextField.text == "" {
+            displayEmptyNounAlert()
+        } else {
+            let englishNoun = englishTextField.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let frenchNoun = frenchTextField.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            
+            createNewNoun(english: englishNoun, french: frenchNoun)
+            clearUserFields()
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         do {
             try dataResultsController.performFetch()
@@ -22,29 +34,12 @@ class AddNounViewController:  UIViewController {
     }
     
     override func viewDidLoad() {
-//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-//        view.addGestureRecognizer(tap)
+        //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        //        view.addGestureRecognizer(tap)
     }
-    
-//    @objc func dismissKeyboard() {
-//        view.endEditing(true)
-//    }
-    
     
     override func viewDidDisappear(_ animated: Bool) {
         ManagedData.saveContext()
-    }
-    
-    @IBAction func addPhraseButtonWasPressed(_ sender: Any) {
-        if englishTextField.text == "" || frenchTextField.text == "" {
-            displayEmptyNounAlert()
-        } else {
-            let englishNoun = englishTextField.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            let frenchNoun = frenchTextField.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            
-            createNewNoun(english: englishNoun, french: frenchNoun)
-            clearUserFields()
-        }
     }
     
     func createNewNoun(english: String, french: String) {
@@ -78,6 +73,10 @@ class AddNounViewController:  UIViewController {
         frenchTextField.text! = ""
         genderSwitch.isOn = false
     }
+    
+    //    @objc func dismissKeyboard() {
+    //        view.endEditing(true)
+    //    }
     
     func displayEmptyNounAlert () {
         let alert = UIAlertController(title: "Enter Noun", message: "Please enter a Noun for both fields", preferredStyle: .alert)
@@ -133,7 +132,7 @@ extension AddNounViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
-
+    
 }
 
 extension AddNounViewController {

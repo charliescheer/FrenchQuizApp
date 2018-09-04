@@ -76,6 +76,10 @@ class PhraseQuizViewController: UIViewController {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        ManagedData.saveContext()
+    }
+    
     func setupTapDismissOfKeyboard() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -95,9 +99,18 @@ class PhraseQuizViewController: UIViewController {
         }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        ManagedData.saveContext()
+    func setModeToQuiz() {
+        currentModeLabel.text = mode.quiz
+        quizStateButton.title = mode.learn
+        currentMode = mode.quiz
     }
+    
+    func setModeToLearn() {
+        currentModeLabel.text = mode.learn
+        quizStateButton.title = mode.quiz
+        currentMode = mode.learn
+    }
+    
     
     //get data from core data
     func getMemoryStore() {
@@ -117,18 +130,6 @@ class PhraseQuizViewController: UIViewController {
                 savedMemory?.append(phrase)
             }
         }
-    }
-    
-    func setModeToQuiz() {
-        currentModeLabel.text = mode.quiz
-        quizStateButton.title = mode.learn
-        currentMode = mode.quiz
-    }
-    
-    func setModeToLearn() {
-        currentModeLabel.text = mode.learn
-        quizStateButton.title = mode.quiz
-        currentMode = mode.learn
     }
     
     //MARK: - Quiz Setting Methods
@@ -227,8 +228,7 @@ class PhraseQuizViewController: UIViewController {
                 }
                 getQuizPair()
                 quizCount = 1
-            }
-                
+            }    
         }
         
         UIView.animate(withDuration: 2, animations: {self.correctMessageLabel.alpha = 0})

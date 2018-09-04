@@ -31,6 +31,25 @@ class NounEditViewController : UIViewController {
         }
     }
     
+    @IBAction func resetTapped(_ sender: Any) {
+    }
+    
+    @IBAction func deleteSaveTapped(_ sender: Any) {
+        if mode == "View" {
+            displayDeleteAlert()
+        } else if mode == "Edit" {
+            updatePhrase()
+            enterView()
+        } else {
+            print("Error: The mode is not correct")
+        }
+    }
+    
+    override func viewDidLoad() {
+        setupView()
+        setupMode()
+    }
+    
     func enterView() {
         mode = "View"
         editViewButton.title = "Edit"
@@ -51,6 +70,7 @@ class NounEditViewController : UIViewController {
         frenchTextField?.isUserInteractionEnabled = true
     }
     
+    
     func updatePhrase() {
         if noun != nil {
             noun?.english = englishTextField.text
@@ -58,47 +78,9 @@ class NounEditViewController : UIViewController {
         }
     }
     
-    @IBAction func resetTapped(_ sender: Any) {
-    }
-    
-    func displayResetAlert (phrase: Phrases) {
-        let alert = UIAlertController(title: "Reset Counts", message: "This will set the counts for '\(noun?.english ?? "No Phrase Selected")' back to 0, are you sure?", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.didConfirmResetCounts()}))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        
-        self.present(alert, animated: true)
-    }
-    
     func didConfirmResetCounts (){
         noun!.resetCountPhraseCounts()
         setupView()
-        
-    }
-    
-
- 
-    @IBAction func deleteSaveTapped(_ sender: Any) {
-        if mode == "View" {
-            displayDeleteAlert()
-        } else if mode == "Edit" {
-            updatePhrase()
-            enterView()
-        } else {
-            print("Error: The mode is not correct")
-        }
-    }
-    
-    func displayDeleteAlert () {
-        if let currentNoun = noun {
-            let alert = UIAlertController(title: "Are you sure?", message: "This will delete '\(currentNoun.english ?? "No Phrase Selected")'", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.didConfirmDeletePhrase()}))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            
-            self.present(alert, animated: true)
-        }
     }
     
     func didConfirmDeletePhrase() {
@@ -115,12 +97,6 @@ class NounEditViewController : UIViewController {
         let controller = storyboard.instantiateViewController(withIdentifier: "addNoun")
         self.dismiss(animated: true, completion: nil)
         self.present(controller, animated: true, completion: nil)
-    }
-    
-    
-    override func viewDidLoad() {
-        setupView()
-        setupMode()
     }
     
     func setupView() {
@@ -155,5 +131,26 @@ class NounEditViewController : UIViewController {
         } else {
             print("Error: Mode is out of range")
         }
+    }
+    
+    func displayDeleteAlert () {
+        if let currentNoun = noun {
+            let alert = UIAlertController(title: "Are you sure?", message: "This will delete '\(currentNoun.english ?? "No Phrase Selected")'", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.didConfirmDeletePhrase()}))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            self.present(alert, animated: true)
+        }
+    }
+    
+    func displayResetAlert (phrase: Phrases) {
+        let alert = UIAlertController(title: "Reset Counts", message: "This will set the counts for '\(noun?.english ?? "No Phrase Selected")' back to 0, are you sure?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: {action in self.didConfirmResetCounts()}))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        
+        self.present(alert, animated: true)
     }
 }
