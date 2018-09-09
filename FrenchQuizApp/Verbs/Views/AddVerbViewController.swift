@@ -7,9 +7,7 @@ class AddVerbViewController: UIViewController {
     var articles = ["je", "tu", "il", "nous", "vous", "ils"]
     var dataResultsController = ManagedData.verbResultsController
     var managedObjectContext = ManagedData.persistentContainer.viewContext
-
-    
-    
+    var newVerbDictionary : [String : [String : String]] = [ : ]
     
     @IBOutlet weak var englishTextField: UITextField!
     @IBOutlet weak var frenchTextField: UITextField!
@@ -50,14 +48,17 @@ class AddVerbViewController: UIViewController {
                     
                     for tense in self.tenses {
                         let currentTense = self.isolateTense(currentString: indicatif, tense: tense)
-                        
-                        print(currentTense)
+                        var tempDictionary : [String : String] = [:]
+//                        print(currentTense)
                         
                         for article in self.articles {
                             let verbConjugation = self.getVerbConjugation(currentTense: currentTense, article: article)
+                            tempDictionary[article as String] = verbConjugation
                         
-                            print(verbConjugation)
+                            print(tempDictionary)
                         }
+                        self.newVerbDictionary[tense as String] = tempDictionary
+                        print(self.newVerbDictionary)
                     }
                 }
             }
@@ -122,23 +123,33 @@ class AddVerbViewController: UIViewController {
         return currentArticle as String
     }
     
-    func createNewVerb(english: String, french: String) {
-        if let newVerb = NSEntityDescription.insertNewObject(forEntityName: "Verbs", into: managedObjectContext) as? Nouns {
-            newVerb.creationDate = NSDate() as Date
-            
+
     
-            ManagedData.saveContext()
-        } else {
-            print("couldn't create new object")
-        }
+    func mutateDictionaryToData() -> Data {
+        let data: Data = NSKeyedArchiver.archivedData(withRootObject: newVerbDictionary)
         
-        do {
-            try dataResultsController.performFetch()
-        } catch {
-            print("fetch failed")
-        }
-        
-        tableView.reloadData()
+        return data
     }
+    
+    func createNewVerb(english : String, french : String) {
+            if let newVerb = NSEntityDescription.insertNewObject(forEntityName: "Verbs", into: managedObjectContext) as? Verbs {
+                newVerb.english = english
+                newVerb.french = french
+                newVerb.creationDate = NSDate() as Date
+                newVerb.conjugationDictionary = mutateDictionaryToData()
+                
+                ManagedData.saveContext()
+            } else {
+                print("couldn't create new object")
+            }
+            
+            do {
+                try dataResultsController.performFetch()
+            } catch {
+                print("fetch failed")
+            }
+            
+            tableView.reloadData()
+        }
     
 }

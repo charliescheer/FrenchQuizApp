@@ -12,7 +12,6 @@
 		BA00DB7020D867CA008635FE /* NounQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA00DB6F20D867CA008635FE /* NounQuizViewController.swift */; };
 		BA00DB7220D867DA008635FE /* VerbQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA00DB7120D867DA008635FE /* VerbQuizViewController.swift */; };
 		BA09CD6921449F2A008C7E60 /* Verbs.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA09CD6821449F2A008C7E60 /* Verbs.swift */; };
-		BA09CD6C21449FD4008C7E60 /* VerbTenses.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BA09CD6A21449FD4008C7E60 /* VerbTenses.xcdatamodeld */; };
 		BA12777420ED9D0300D11B77 /* Nouns.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA12777320ED9D0300D11B77 /* Nouns.swift */; };
 		BA22CFC7208E46AF009FF14F /* managedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22CFC6208E46AF009FF14F /* managedData.swift */; };
 		BA3C6F9620F44145003C248E /* AddNounViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C6F9520F44145003C248E /* AddNounViewController.swift */; };
@@ -61,7 +60,6 @@
 		BA00DB6F20D867CA008635FE /* NounQuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NounQuizViewController.swift; sourceTree = "<group>"; };
 		BA00DB7120D867DA008635FE /* VerbQuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbQuizViewController.swift; sourceTree = "<group>"; };
 		BA09CD6821449F2A008C7E60 /* Verbs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verbs.swift; sourceTree = "<group>"; };
-		BA09CD6B21449FD4008C7E60 /* VerbTenses.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VerbTenses.xcdatamodel; sourceTree = "<group>"; };
 		BA12777320ED9D0300D11B77 /* Nouns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nouns.swift; sourceTree = "<group>"; };
 		BA22CFC6208E46AF009FF14F /* managedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = managedData.swift; sourceTree = "<group>"; };
 		BA3C6F9520F44145003C248E /* AddNounViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNounViewController.swift; sourceTree = "<group>"; };
@@ -230,7 +228,6 @@
 			isa = PBXGroup;
 			children = (
 				BAADADC120A520CB00F96018 /* QuizObject.swift */,
-				BA09CD6A21449FD4008C7E60 /* VerbTenses.xcdatamodeld */,
 				BA3E7E5E1FE476D300C606AC /* FrenchQuizApp.xcdatamodeld */,
 				BA22CFC6208E46AF009FF14F /* managedData.swift */,
 				BA3E7E201FE46C2700C606AC /* AppDelegate.swift */,
@@ -479,7 +476,6 @@
 				BA3E7E5B1FE46D0E00C606AC /* AddPhraseViewController.swift in Sources */,
 				BA96465A20AA270400BE33E1 /* PhraseCell.swift in Sources */,
 				BAADADC220A520CB00F96018 /* QuizObject.swift in Sources */,
-				BA09CD6C21449FD4008C7E60 /* VerbTenses.xcdatamodeld in Sources */,
 				BA8B4DC4213F383800AFFFD9 /* VerbEditViewController.swift in Sources */,
 				BAD2E1A420D889A3003EDF78 /* PhraseTabBarController.swift in Sources */,
 				BA8B4DC2213F382100AFFFD9 /* AddVerbViewController.swift in Sources */,
@@ -776,16 +772,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		BA09CD6A21449FD4008C7E60 /* VerbTenses.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				BA09CD6B21449FD4008C7E60 /* VerbTenses.xcdatamodel */,
-			);
-			currentVersion = BA09CD6B21449FD4008C7E60 /* VerbTenses.xcdatamodel */;
-			path = VerbTenses.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		BA3E7E5E1FE476D300C606AC /* FrenchQuizApp.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
