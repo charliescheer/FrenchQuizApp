@@ -71,6 +71,27 @@ class ManagedData: NSObject {
         
         return controller
     }()
+    
+    static var verbResultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: constants.verbEntityName)
+        var managedObjectContext = ManagedData.persistentContainer.viewContext
+        
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: constants.sortDescriptor, ascending: false)]
+        
+        let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                    managedObjectContext: managedObjectContext,
+                                                    sectionNameKeyPath: nil, cacheName: nil)
+        
+        do{
+            try controller.performFetch()
+        } catch let error as NSError {
+            assertionFailure("Failed to performFetch. \(error)")
+        }
+        
+        var entityCount = controller.sections!.count
+        
+        return controller
+    }()
 }
 
 extension ManagedData {

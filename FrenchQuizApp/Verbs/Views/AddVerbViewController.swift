@@ -1,9 +1,15 @@
 import UIKit
+import CoreData
 
 class AddVerbViewController: UIViewController {
     
     var tenses = ["Présent", "Imparfait", "Futur", "Passé", "Passé simple"]
     var articles = ["je", "tu", "il", "nous", "vous", "ils"]
+    var dataResultsController = ManagedData.verbResultsController
+    var managedObjectContext = ManagedData.persistentContainer.viewContext
+
+    
+    
     
     @IBOutlet weak var englishTextField: UITextField!
     @IBOutlet weak var frenchTextField: UITextField!
@@ -11,7 +17,7 @@ class AddVerbViewController: UIViewController {
     
     
     @IBAction func searchWasPressed(_ sender: Any) {
-        
+    
     }
     
     override func viewDidLoad() {
@@ -111,7 +117,28 @@ class AddVerbViewController: UIViewController {
         let isolateHighRange = currentArticle.range(of: "</i>")
         currentArticle = currentArticle.substring(to: isolateHighRange.lowerBound) as NSString
         
+        
+        
         return currentArticle as String
+    }
+    
+    func createNewVerb(english: String, french: String) {
+        if let newVerb = NSEntityDescription.insertNewObject(forEntityName: "Verbs", into: managedObjectContext) as? Nouns {
+            newVerb.creationDate = NSDate() as Date
+            
+    
+            ManagedData.saveContext()
+        } else {
+            print("couldn't create new object")
+        }
+        
+        do {
+            try dataResultsController.performFetch()
+        } catch {
+            print("fetch failed")
+        }
+        
+        tableView.reloadData()
     }
     
 }

@@ -3,7 +3,7 @@
     <entity name="Nouns" representedClassName="Nouns" parentEntity="QuizObject" syncable="YES" codeGenerationType="class">
         <attribute name="gender" attributeType="String" defaultValueString="male" syncable="YES"/>
     </entity>
-    <entity name="Phrases" representedClassName="Phrases" parentEntity="QuizObject" syncable="YES" codeGenerationType="class"/>
+    <entity name="Phrases" representedClassName="Phrases" parentEntity="Verbs" syncable="YES" codeGenerationType="class"/>
     <entity name="QuizObject" representedClassName="QuizObject" syncable="YES" codeGenerationType="class">
         <attribute name="correctInARow" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -13,9 +13,13 @@
         <attribute name="timesCorrect" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="timesIncorrect" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
+    <entity name="Verbs" representedClassName="Verbs" parentEntity="QuizObject" syncable="YES" codeGenerationType="class">
+        <attribute name="conjugationDictionary" optional="YES" attributeType="Binary" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Nouns" positionX="-54" positionY="54" width="128" height="60"/>
         <element name="Phrases" positionX="-54" positionY="-9" width="128" height="45"/>
         <element name="QuizObject" positionX="-54" positionY="36" width="128" height="150"/>
+        <element name="Verbs" positionX="-54" positionY="63" width="128" height="60"/>
     </elements>
 </model>
