@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class AddVerbViewController: UIViewController {
+class AddVerbViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var tenses = ["Présent", "Imparfait", "Futur", "Passé", "Passé simple"]
     var articles = ["je", "tu", "il", "nous", "vous", "ils"]
@@ -151,5 +151,21 @@ class AddVerbViewController: UIViewController {
             
             tableView.reloadData()
         }
+    
+}
+
+extension AddVerbViewController {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "verbCell")
+        
+        cell.textLabel?.text = "test"
+        
+        return cell
+    }
+    
     
 }

@@ -95,6 +95,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="2cw-XK-POj" id="fEh-r9-ZWN"/>
+                                    <outlet property="delegate" destination="2cw-XK-POj" id="YmX-0p-1mK"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
