@@ -189,18 +189,6 @@ class AddVerbViewController: UIViewController {
         tableView.reloadData()
     }
     
-
-    
-//    func prepareToSaveNewVerb() {
-//        let verbURLString = getURL()
-//
-//        let conjugationOutput = GetConjugation(from: verbURLString)
-//
-//        let tableData = mutateDictionaryToData()
-//
-//        createNewVerb(english: englishTextField.text!, french: frenchTextField.text!, dictionaryData: tableData)
-//    }
-    
     func displayEmptyVerbAlert () {
         let alert = UIAlertController(title: "Enter Verb", message: "Please enter a Verb for both fields", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
@@ -251,11 +239,25 @@ extension AddVerbViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == constants.showVerbVC {
+            let verbVC = segue.destination as? VerbEditViewController
+            
+            guard let verbCell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: verbCell) else {
+                return
+            }
+            
+            if let verb  = dataResultsController.object(at: indexPath) as? Verbs {
+                verbVC?.verb = verb
+            }
+        }
+    }
     
 }
 
 extension AddVerbViewController {
     enum constants {
         static let tableViewCellIdentifier = "verbCell"
+        static let showVerbVC = "showVerbSegue"
     }
 }
