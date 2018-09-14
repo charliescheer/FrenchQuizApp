@@ -1,83 +1,103 @@
 import UIKit
 import CoreData
 
-class AddVerbViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AddVerbViewController: UIViewController {
     
     var tenses = ["Présent", "Imparfait", "Futur", "Passé", "Passé simple"]
     var articles = ["je", "tu", "il", "nous", "vous", "ils"]
     var dataResultsController = ManagedData.verbResultsController
     var managedObjectContext = ManagedData.persistentContainer.viewContext
     var newVerbDictionary : [String : [String : String]] = [ : ]
+    let dispatchGroup = DispatchGroup()
+    
     
     @IBOutlet weak var englishTextField: UITextField!
     @IBOutlet weak var frenchTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBAction func printVerbDictionary(_ sender: Any) {
+        printDictionary()
+    }
     
     @IBAction func searchWasPressed(_ sender: Any) {
-    
+        if englishTextField.text == "" || frenchTextField.text == "" {
+            displayEmptyVerbAlert()
+        } else {
+            //get the URL data
+            let verbURLString = getURL()
+            
+            //Isolate the conjugations
+            //create the dictionary
+            dispatchGroup.enter()
+            self.getVerbDescriptionStringFromURL(from: verbURLString)
+            dispatchGroup.wait()
+            
+            //save dictionary to new object
+            //add to coredata
+            //reset the tableview
+            let mutatedDictionary = mutateDictionaryToData()
+            createNewVerb(english: englishTextField.text!, french: frenchTextField.text!, dictionaryData: mutatedDictionary)
+        }
     }
     
     override func viewDidLoad() {
-        GetConjugation()
-    }
-    
-    func GetConjugation() {
-        let urlString = getURL()
         
-        guard let url = URL(string: urlString) else {
-            return
-        }
-        
-        
-        let request = NSMutableURLRequest(url: url)
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest) {
-            data, response, error in
-            
-            if error != nil {
-                print(error!.localizedDescription as String)
-            } else {
-                guard let unwrappedData = data else {
-                    return
-                }
-                
-                let dataString = NSString(data: unwrappedData, encoding: String.Encoding.utf8.rawValue)
-                if let tempData = dataString {
-                    let indicatif = self.isolateIndicatif(tempData)
-                    
-                    for tense in self.tenses {
-                        let currentTense = self.isolateTense(currentString: indicatif, tense: tense)
-                        var tempDictionary : [String : String] = [:]
-//                        print(currentTense)
-                        
-                        for article in self.articles {
-                            let verbConjugation = self.getVerbConjugation(currentTense: currentTense, article: article)
-                            tempDictionary[article as String] = verbConjugation
-                        
-                            print(tempDictionary)
-                        }
-                        self.newVerbDictionary[tense as String] = tempDictionary
-                        print(self.newVerbDictionary)
-                    }
-                }
-            }
-        }
-        task.resume()
     }
     
     func getURL() -> String {
         var string = ""
         if let frenchStr = frenchTextField.text{
+            string = "http://conjugator.reverso.net/conjugation-french-verb-" + frenchStr.lowercased() + ".html"
+        }
+        return string
+    }
+    
+    func printDictionary() {
+        print(newVerbDictionary)
+        
+    }
+    
+    
+    func getVerbDescriptionStringFromURL(from URLString: String) {
+        
+        var isolatedWebText : NSString = ""
+        
+        if let url = URL(string: URLString) {
+            let request = NSMutableURLRequest(url: url)
             
-            var tempUrl = frenchStr
-            tempUrl = tempUrl.lowercased()
-            let url = "http://conjugator.reverso.net/conjugation-french-verb-marcher.html"
+            let task = URLSession.shared.dataTask(with: request as URLRequest) {
+                data, response, error in
+                
+                if error != nil {
+                    print(error!.localizedDescription)
+                } else {
+                    guard let unwrappedData = data else {
+                        return
+                    }
+                    
+                    
+                    guard let dataString = NSString(data: unwrappedData, encoding: String.Encoding.utf8.rawValue) else {
+                        return
+                    }
+                    
+                    
+                    
+                    if dataString.contains("The verb entered does not match any possible conjugation table") {
+                        isolatedWebText = "error"
+                        
+                    } else {
+                        isolatedWebText = self.isolateIndicatif(dataString)
+                        self.parseVerbConjugationFromDataString(isolatedWebText)
+                    }
+                    self.dispatchGroup.leave()
+                }
+            }
+            task.resume()
             
-            string = url
         }
         
-        return string
+        
+        
     }
     
     func isolateIndicatif(_ URLContent: NSString) -> NSString {
@@ -90,6 +110,23 @@ class AddVerbViewController: UIViewController, UITableViewDelegate, UITableViewD
         return indicatif
     }
     
+    func parseVerbConjugationFromDataString(_ dataString : NSString) {
+        let indicatif = dataString
+        
+        for tense in self.tenses {
+            let currentTense = self.isolateTense(currentString: indicatif, tense: tense)
+            var tempDictionary : [String : String] = [:]
+            //                        print(currentTense)
+            
+            for article in self.articles {
+                let verbConjugation = self.getVerbConjugations(currentTense: currentTense, article: article)
+                tempDictionary[article as String] = verbConjugation
+            }
+            self.newVerbDictionary[tense as String] = tempDictionary
+            
+        }
+    }
+    
     func isolateTense(currentString: NSString, tense: String) -> NSString {
         var currentTense = currentString
         let lowRange = currentTense.range(of: tense)
@@ -100,7 +137,7 @@ class AddVerbViewController: UIViewController, UITableViewDelegate, UITableViewD
         return currentTense
     }
     
-    func getVerbConjugation(currentTense: NSString, article: String) -> String {
+    func getVerbConjugations(currentTense: NSString, article: String) -> String {
         var currentArticle = currentTense
         var tempArticle = article
         
@@ -123,7 +160,7 @@ class AddVerbViewController: UIViewController, UITableViewDelegate, UITableViewD
         return currentArticle as String
     }
     
-
+    
     
     func mutateDictionaryToData() -> Data {
         let data: Data = NSKeyedArchiver.archivedData(withRootObject: newVerbDictionary)
@@ -131,41 +168,94 @@ class AddVerbViewController: UIViewController, UITableViewDelegate, UITableViewD
         return data
     }
     
-    func createNewVerb(english : String, french : String) {
-            if let newVerb = NSEntityDescription.insertNewObject(forEntityName: "Verbs", into: managedObjectContext) as? Verbs {
-                newVerb.english = english
-                newVerb.french = french
-                newVerb.creationDate = NSDate() as Date
-                newVerb.conjugationDictionary = mutateDictionaryToData()
-                
-                ManagedData.saveContext()
-            } else {
-                print("couldn't create new object")
-            }
+    func createNewVerb(english : String, french : String, dictionaryData: Data) {
+        if let newVerb = NSEntityDescription.insertNewObject(forEntityName: "Verbs", into: managedObjectContext) as? Verbs {
+            newVerb.english = english
+            newVerb.french = french
+            newVerb.creationDate = NSDate() as Date
+            newVerb.conjugationDictionary = dictionaryData
             
-            do {
-                try dataResultsController.performFetch()
-            } catch {
-                print("fetch failed")
-            }
-            
-            tableView.reloadData()
+            ManagedData.saveContext()
+        } else {
+            print("couldn't create new object")
         }
+        
+        do {
+            try dataResultsController.performFetch()
+        } catch {
+            print("fetch failed")
+        }
+        
+        tableView.reloadData()
+    }
+    
+
+    
+//    func prepareToSaveNewVerb() {
+//        let verbURLString = getURL()
+//
+//        let conjugationOutput = GetConjugation(from: verbURLString)
+//
+//        let tableData = mutateDictionaryToData()
+//
+//        createNewVerb(english: englishTextField.text!, french: frenchTextField.text!, dictionaryData: tableData)
+//    }
+    
+    func displayEmptyVerbAlert () {
+        let alert = UIAlertController(title: "Enter Verb", message: "Please enter a Verb for both fields", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func noVerbFoundAlert () {
+        let alert = UIAlertController(title: "Error", message: "Couldn't find verb \(String(describing: frenchTextField.text))  Please try again", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func verbFoundAlert (_ dataString: NSString) {
+        let alert = UIAlertController(title: "Verb Found", message: "Would you like to save \(String(describing: frenchTextField.text))?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { action in
+            self.parseVerbConjugationFromDataString(dataString)
+        }))
+        self.present(alert, animated: true)
+    }
     
 }
 
-extension AddVerbViewController {
+extension AddVerbViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        guard  let sections = dataResultsController.sections else {
+            return 0
+        }
+        
+        return sections.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        guard let sectionInfo = dataResultsController.sections?[section] else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        
+        return sectionInfo.numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "verbCell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: constants.tableViewCellIdentifier, for: indexPath) as! VerbCell
         
-        cell.textLabel?.text = "test"
+        if let verb = dataResultsController.object(at: indexPath) as? Verbs {
+            cell.englishVerbLabel.text = verb.english
+            cell.frenchVerbLabel.text = verb.french
+        }
         
         return cell
     }
     
     
+}
+
+extension AddVerbViewController {
+    enum constants {
+        static let tableViewCellIdentifier = "verbCell"
+    }
 }
