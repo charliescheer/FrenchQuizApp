@@ -4,7 +4,7 @@ class VerbEditViewController: UIViewController {
     
     var verb : Verbs?
     var conjugationDictionary : [String : [String : String]] = [ : ]
-    var tenseDictionary = ["Présent", "Imparfait", "Futur", "Passé", "Passé simple"]
+    var tenseArray = ["Présent", "Imparfait", "Futur", "Passé", "Passé simple"]
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var englishTextLabel: UILabel!
@@ -20,9 +20,7 @@ class VerbEditViewController: UIViewController {
             return
         }
         
-        if let conjugationData = currentVerb.conjugationDictionary {
-            conjugationDictionary = NSKeyedUnarchiver.unarchiveObject(with: conjugationData) as! [String : [String : String]]
-        }
+        conjugationDictionary = currentVerb.unarchiveDictionary()
         
         englishTextLabel.text = currentVerb.english
         frenchTextLabel.text = currentVerb.french
@@ -33,12 +31,12 @@ class VerbEditViewController: UIViewController {
 extension VerbEditViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tenseDictionary.count
+        return tenseArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tenseCell = tableView.dequeueReusableCell(withIdentifier: constants.tableViewCellIdentifier, for: indexPath) as! TenseCell
-        tenseCell.tenseTextLabel.text = tenseDictionary[indexPath.row]
+        tenseCell.tenseTextLabel.text = tenseArray[indexPath.row]
         
         
         return tenseCell
@@ -48,19 +46,6 @@ extension VerbEditViewController: UITableViewDelegate, UITableViewDataSource {
         performSegue(withIdentifier: constants.showVerbArticleVC, sender: nil)
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == constants.showNounVC {
-//            let nounVC = segue.destination as? NounEditViewController
-//
-//            guard let nounCell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: nounCell) else {
-//                return
-//            }
-//
-//            if let noun  = dataResultsController.object(at: indexPath) as? Nouns {
-//                nounVC?.noun = noun
-//            }
-//        }
-//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == constants.showVerbArticleVC {
@@ -76,7 +61,7 @@ extension VerbEditViewController: UITableViewDelegate, UITableViewDataSource {
             let articleVC = segue.destination as? VerbConjugationViewController
             
             articleVC?.verb = currentVerb
-            articleVC?.tense = tenseDictionary[indexPath.row]
+            articleVC?.tense = tenseArray[indexPath.row]
         
         }
             

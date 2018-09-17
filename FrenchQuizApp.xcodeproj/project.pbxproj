@@ -32,6 +32,7 @@
 		BA8B4DC6213F383E00AFFFD9 /* VerbCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B4DC5213F383E00AFFFD9 /* VerbCell.swift */; };
 		BA96465A20AA270400BE33E1 /* PhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA96465920AA270400BE33E1 /* PhraseCell.swift */; };
 		BA9B4541215055AC00197E54 /* TenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9B4540215055AC00197E54 /* TenseCell.swift */; };
+		BA9B45432150629C00197E54 /* articleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9B45422150629C00197E54 /* articleCell.swift */; };
 		BA9F7F1F213DDECB00AB5B54 /* NounCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9F7F1E213DDECB00AB5B54 /* NounCell.swift */; };
 		BA9F7F21213DE0ED00AB5B54 /* NounEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9F7F20213DE0ED00AB5B54 /* NounEditViewController.swift */; };
 		BAADADC220A520CB00F96018 /* QuizObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAADADC120A520CB00F96018 /* QuizObject.swift */; };
@@ -88,6 +89,7 @@
 		BA8B4DC5213F383E00AFFFD9 /* VerbCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbCell.swift; sourceTree = "<group>"; };
 		BA96465920AA270400BE33E1 /* PhraseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhraseCell.swift; sourceTree = "<group>"; };
 		BA9B4540215055AC00197E54 /* TenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenseCell.swift; sourceTree = "<group>"; };
+		BA9B45422150629C00197E54 /* articleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = articleCell.swift; sourceTree = "<group>"; };
 		BA9F7F1E213DDECB00AB5B54 /* NounCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NounCell.swift; sourceTree = "<group>"; };
 		BA9F7F20213DE0ED00AB5B54 /* NounEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NounEditViewController.swift; sourceTree = "<group>"; };
 		BAADADC120A520CB00F96018 /* QuizObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizObject.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				BA883FA6214C836100B146FC /* VerbConjugationViewController.swift */,
 				BA8B4DC5213F383E00AFFFD9 /* VerbCell.swift */,
 				BA9B4540215055AC00197E54 /* TenseCell.swift */,
+				BA9B45422150629C00197E54 /* articleCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA9B45432150629C00197E54 /* articleCell.swift in Sources */,
 				BA00DB7220D867DA008635FE /* VerbQuizViewController.swift in Sources */,
 				BA9F7F21213DE0ED00AB5B54 /* NounEditViewController.swift in Sources */,
 				BA3E7E601FE476D300C606AC /* FrenchQuizApp.xcdatamodeld in Sources */,
