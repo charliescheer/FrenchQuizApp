@@ -4,18 +4,16 @@ class VerbEditViewController: UIViewController {
     
     var verb : Verbs?
     var conjugationDictionary : [String : [String : String]] = [ : ]
-    enum TableSection : Int {
-        case Présent = 0, Imparfait, simple, Passé, Futur, total
-    }
-    let SectionHeaderHeight: CGFloat = 25
+    var tenseDictionary = ["Présent", "Imparfait", "Futur", "Passé", "Passé simple"]
     
-    var data = [TableSection: [[String: String]]]()
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var englishTextLabel: UILabel!
+    @IBOutlet weak var frenchTextLabel: UILabel!
     
     
     @IBAction func backTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
     
     override func viewDidLoad() {
         guard let currentVerb = verb else {
@@ -26,7 +24,8 @@ class VerbEditViewController: UIViewController {
             conjugationDictionary = NSKeyedUnarchiver.unarchiveObject(with: conjugationData) as! [String : [String : String]]
         }
         
-        print(conjugationDictionary.keys)
+        englishTextLabel.text = currentVerb.english
+        frenchTextLabel.text = currentVerb.french
     }
     
 }
@@ -34,20 +33,69 @@ class VerbEditViewController: UIViewController {
 extension VerbEditViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return tenseDictionary.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let articleCell = UITableViewCell(style: .default, reuseIdentifier: "article")
-        articleCell.textLabel?.text = "article"
+        let tenseCell = tableView.dequeueReusableCell(withIdentifier: constants.tableViewCellIdentifier, for: indexPath) as! TenseCell
+        tenseCell.tenseTextLabel.text = tenseDictionary[indexPath.row]
         
-        let conjugationCell =  UITableViewCell(style: .default, reuseIdentifier: "conjugation")
         
-        return articleCell
+        return tenseCell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: constants.showVerbArticleVC, sender: nil)
+    }
     
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == constants.showNounVC {
+//            let nounVC = segue.destination as? NounEditViewController
+//
+//            guard let nounCell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: nounCell) else {
+//                return
+//            }
+//
+//            if let noun  = dataResultsController.object(at: indexPath) as? Nouns {
+//                nounVC?.noun = noun
+//            }
+//        }
+//    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == constants.showVerbArticleVC {
+            
+            guard let tenseCell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: tenseCell) else {
+                return
+            }
+            
+            guard let currentVerb = verb else {
+                return
+            }
+            
+            let articleVC = segue.destination as? VerbConjugationViewController
+            
+            articleVC?.verb = currentVerb
+            articleVC?.tense = tenseDictionary[indexPath.row]
+        
+        }
+            
+    }
     
 }
 
+extension VerbEditViewController {
+    enum constants {
+        static let showVerbArticleVC = "showArticle"
+        static let tableViewCellIdentifier = "tenseCell"
+    }
+    
+    enum tenses {
+        static let present = "Présent"
+        static let imparfait = "Imparfait"
+        static let futur = "Futur"
+        static let passe = "Passé"
+        static let simple = "Passé simple"
+    }
+}
 
