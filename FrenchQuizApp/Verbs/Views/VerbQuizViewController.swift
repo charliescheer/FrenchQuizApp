@@ -15,7 +15,7 @@ class VerbQuizViewController: UIViewController {
     @IBOutlet weak var quizLearnButton: UIToolbar!
     @IBOutlet weak var currentModeLabel: UILabel!
     @IBOutlet weak var currentQuizLabel: UILabel!
-    @IBOutlet weak var userAnswerLabel: UITextField!
+    @IBOutlet weak var userAnswerTextField: UITextField!
     @IBOutlet weak var correctMessageLabel: UILabel!
     @IBOutlet weak var currentArticleLabel: UILabel!
     @IBOutlet weak var currentTenseLabel: UILabel!
@@ -24,6 +24,15 @@ class VerbQuizViewController: UIViewController {
     }
     
     @IBAction func answerWasPressed(_ sender: Any) {
+        guard let currentVerb = verb else {
+            return
+        }
+        
+        guard let currentQuizAnswer = quizVerbConjugation else {
+            return
+        }
+        
+        print(currentVerb.compareUserAnswerToVerbQuiz(userAnswer: getUserAnswer(), conjugatedQuiz: currentQuizAnswer))
     }
     
     @IBAction func backWasPressed(_ sender: Any) {
@@ -104,6 +113,25 @@ class VerbQuizViewController: UIViewController {
                 
             }
         }
+    }
+
+    func getUserAnswer() -> String {
+        var setAnswer: String = ""
+        
+        guard let userAnswer = userAnswerTextField.text else {
+            setAnswer = "NO ANSWER"
+            return setAnswer
+        }
+        
+        if userAnswer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != "" {
+            setAnswer = userAnswer
+            setAnswer = setAnswer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            setAnswer = setAnswer.lowercased()
+        } else {
+            setAnswer = "NO ANSWER"
+        }
+        
+        return setAnswer
     }
 
     

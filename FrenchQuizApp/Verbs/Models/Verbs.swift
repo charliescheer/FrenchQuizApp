@@ -12,5 +12,24 @@ extension Verbs {
         return unarchivedDictionary
     }
     
+    func compareUserAnswerToVerbQuiz (userAnswer: String, conjugatedQuiz: String) -> String {
+        
+        let result = getVerbCompareResult(userAnswer: userAnswer, conjugatedQuiz: conjugatedQuiz)
+        
+        let stringResult = getStringResult(result)
+        
+        return stringResult
+    }
+    
+    func getVerbCompareResult(userAnswer: String, conjugatedQuiz: String) -> Double {
+        let ldDistance = Double(levenshtein(aStr: userAnswer, bStr: conjugatedQuiz))
+        let answerLength = Double(conjugatedQuiz.count)
+        
+        let result = (answerLength - ldDistance) / answerLength
+        
+        return result
+    }
+    
+    
 }
 

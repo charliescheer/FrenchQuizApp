@@ -413,7 +413,7 @@
                         <outlet property="currentQuizLabel" destination="24G-Ot-Kb2" id="xeV-fN-nbf"/>
                         <outlet property="currentTenseLabel" destination="bzz-g9-9Sy" id="lN8-6N-L8h"/>
                         <outlet property="quizLearnButton" destination="CAw-oL-z1B" id="EU0-SG-RiT"/>
-                        <outlet property="userAnswerLabel" destination="gwA-F2-EIt" id="qO4-fn-yOq"/>
+                        <outlet property="userAnswerTextField" destination="gwA-F2-EIt" id="Rr9-Fh-lWK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="anT-lU-ddS" userLabel="First Responder" sceneMemberID="firstResponder"/>
