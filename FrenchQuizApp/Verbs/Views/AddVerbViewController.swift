@@ -155,8 +155,6 @@ class AddVerbViewController: UIViewController {
         let isolateHighRange = currentArticle.range(of: "</i>")
         currentArticle = currentArticle.substring(to: isolateHighRange.lowerBound) as NSString
         
-        
-        
         return currentArticle as String
     }
     
