@@ -393,12 +393,19 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <connections>
+                                    <action selector="enterWasPressed:" destination="eSE-RG-ZtN" eventType="editingDidEnd" id="IsS-0c-HT3"/>
+                                </connections>
                             </textField>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CAw-oL-z1B" userLabel="Page Tools">
                                 <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <barButtonItem title="Quiz" id="pLE-uY-G9a"/>
+                                    <barButtonItem title="Quiz" id="pLE-uY-G9a">
+                                        <connections>
+                                            <action selector="quizButtonWasPressed:" destination="eSE-RG-ZtN" id="9ef-EF-1is"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="qx6-CS-3nk"/>
                                     <barButtonItem title="New Quiz" id="ONx-xJ-K9B">
                                         <connections>
@@ -474,6 +481,7 @@
                         <outlet property="currentQuizLabel" destination="24G-Ot-Kb2" id="xeV-fN-nbf"/>
                         <outlet property="currentTenseLabel" destination="bzz-g9-9Sy" id="lN8-6N-L8h"/>
                         <outlet property="quizLearnButton" destination="CAw-oL-z1B" id="EU0-SG-RiT"/>
+                        <outlet property="quizStateButton" destination="pLE-uY-G9a" id="yMo-pc-wvw"/>
                         <outlet property="userAnswerTextField" destination="gwA-F2-EIt" id="Rr9-Fh-lWK"/>
                     </connections>
                 </viewController>

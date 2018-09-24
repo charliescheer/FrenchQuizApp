@@ -20,10 +20,24 @@ class VerbQuizViewController: UIViewController {
     @IBOutlet weak var correctMessageLabel: UILabel!
     @IBOutlet weak var currentArticleLabel: UILabel!
     @IBOutlet weak var currentTenseLabel: UILabel!
+    @IBOutlet weak var quizStateButton: UIBarButtonItem!
+    
+    @IBAction func quizButtonWasPressed(_ sender: Any) {
+        guard let modeState = currentMode else {
+            return
+        }
+        
+        if modeState == mode.quiz {
+            setModeToLearn()
+        } else {
+            setModeToQuiz()
+        }
+    }
     
     @IBAction func newQuizWasPressed(_ sender: Any) {
         getQuizVerb()
         setAndDisplayQuizAnswer()
+        correctMessageLabel.text = " "
     }
     
     @IBAction func answerWasPressed(_ sender: Any) {
@@ -36,18 +50,49 @@ class VerbQuizViewController: UIViewController {
         present(vc, animated: true, completion: nil)
     }
     
+    @IBAction func enterWasPressed(_ sender: Any) {
+        doQuiz()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(currentMode)
         
         getMemoryStore()
-        
+        setupTapDismissOfKeyboard()
         if savedMemory!.count > 0 {
             getQuizVerb()
-            
             setAndDisplayQuizAnswer()
+        } else {
+            currentQuizLabel.text = " "
+            userAnswerTextField.isUserInteractionEnabled = false
+            displayNoAvailableQuizPairsAlert()
         }
-        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        ManagedData.saveContext()
+    }
+    
+    func setupTapDismissOfKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func setModeToQuiz() {
+        currentModeLabel.text = mode.quiz
+        quizStateButton.title = mode.learn
+        currentMode = mode.quiz
+    }
+    
+    func setModeToLearn() {
+        currentModeLabel.text = mode.learn
+        quizStateButton.title = mode.quiz
+        currentMode = mode.learn
     }
     
     func doQuiz() {
@@ -61,31 +106,36 @@ class VerbQuizViewController: UIViewController {
             return
         }
         
-        let compareResult = currentVerb.compareUserAnswerToVerbQuiz(userAnswer: getUserAnswer(), conjugatedQuiz: currentQuizAnswer)
-        print(compareResult)
-        
-        if quizCount < 6 {
-            //Several chances to get the answer correct
-            if compareResult == QuizObject.compareResult.correct {
-                compareIsCorrect()
-                quizCount = 1
-            } else if compareResult == QuizObject.compareResult.close {
-                compareIsclose()
+        if userAnswerTextField.text != "" {
+            let compareResult = currentVerb.compareUserAnswerToVerbQuiz(userAnswer: getUserAnswer(), conjugatedQuiz: currentQuizAnswer)
+            print(compareResult)
+            
+            if quizCount < 6 {
+                //Several chances to get the answer correct
+                if compareResult == QuizObject.compareResult.correct {
+                    compareIsCorrect()
+                    quizCount = 1
+                } else if compareResult == QuizObject.compareResult.close {
+                    compareIsclose()
+                } else {
+                    compareIsWrong()
+                }
             } else {
-                compareIsWrong()
+                //When chances have run out
+                correctMessageLabel.text = "Incorrect, the answer was: \(String(describing: quizVerbConjugation))"
+                if currentMode == "Quiz" {
+                    currentVerb.addPointToPhraseIncorrectCount()
+                }
+                getQuizVerb()
+                setAndDisplayQuizAnswer()
+                quizCount = 1
+                clearUserAnswer()
             }
         } else {
-            //When chances have run out
-            correctMessageLabel.text = "Incorrect, the answer was: \(String(describing: quizVerbConjugation))"
-            if currentMode == "Quiz" {
-                currentVerb.addPointToPhraseIncorrectCount()
-            }
-            getQuizVerb()
-            setAndDisplayQuizAnswer()
-            quizCount = 1
+            displayNoAnswerAlert()
         }
         
-         UIView.animate(withDuration: 2, animations: {self.correctMessageLabel.alpha = 0})
+        UIView.animate(withDuration: 2, animations: {self.correctMessageLabel.alpha = 0})
     }
     
     func getQuizVerb() {
@@ -131,7 +181,7 @@ class VerbQuizViewController: UIViewController {
         }
     }
     
-
+    
     
     func getMemoryStore() {
         let request: NSFetchRequest<Verbs> = Verbs.fetchRequest()
@@ -152,7 +202,7 @@ class VerbQuizViewController: UIViewController {
             }
         }
     }
-
+    
     func getUserAnswer() -> String {
         var setAnswer: String = ""
         
@@ -176,15 +226,16 @@ class VerbQuizViewController: UIViewController {
         correctMessageLabel.text = "Correct!!!"
         
         if currentMode == "Quiz" {
-             verb?.addPointtoPhraseCorrectCount()
+            verb?.addPointtoPhraseCorrectCount()
         }
         
         if verb!.learned == true && verb!.correctInARow == 10 {
             displayLearnedAlert()
         }
-
+        
         getQuizVerb()
         setAndDisplayQuizAnswer()
+        clearUserAnswer()
     }
     
     func compareIsclose() {
@@ -197,16 +248,31 @@ class VerbQuizViewController: UIViewController {
         quizCount += 1
     }
     
+    func clearUserAnswer() {
+        userAnswerTextField.text = " "
+    }
     
-
+    
+    
     
     //MARK: - Alert Functions
+    func displayNoAnswerAlert () {
+        let alert = UIAlertController(title: "No Answer", message: "Please enter an answer.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
     func displayLearnedAlert () {
         let alert = UIAlertController(title: "Learned!", message: "You've gotten \(verb!.english ?? "No verb Selected") correct 10 times in a row", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
     
+    func displayNoAvailableQuizPairsAlert () {
+        let alert = UIAlertController(title: "There are no available verbs", message: "Please add more verbs to learn!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
 }
 
 
@@ -223,5 +289,10 @@ extension VerbQuizViewController {
     enum constants {
         static let introStoryboard = "Intro"
         static let introViewController = "Start"
+    }
+    
+    enum mode {
+        static let quiz = "quiz"
+        static let learn = "Learn"
     }
 }
