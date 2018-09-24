@@ -9,6 +9,12 @@ class VerbEditViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var englishTextLabel: UILabel!
     @IBOutlet weak var frenchTextLabel: UILabel!
+    @IBOutlet weak var timesCorrectLabel: UILabel!
+    @IBOutlet weak var timesIncorrectLabel: UILabel!
+    @IBOutlet weak var correctInARowLabel: UILabel!
+    @IBOutlet weak var learnedLabel: UILabel!
+    
+    
     
     
     @IBAction func backTapped(_ sender: Any) {
@@ -22,8 +28,24 @@ class VerbEditViewController: UIViewController {
         
         conjugationDictionary = currentVerb.unarchiveDictionary()
         
-        englishTextLabel.text = currentVerb.english
-        frenchTextLabel.text = currentVerb.french
+        setupView()
+    }
+    
+    func setupView() {
+        if let currentVerb = verb {
+            englishTextLabel.text = currentVerb.english
+            frenchTextLabel.text = currentVerb.french
+            timesCorrectLabel.text = String(currentVerb.timesCorrect)
+            timesIncorrectLabel.text = String(currentVerb.timesIncorrect)
+            correctInARowLabel.text = String(currentVerb.correctInARow)
+            
+            if currentVerb.learned {
+                learnedLabel.text = "Learned"
+            } else {
+                learnedLabel.text = "Not Learned"
+            }
+        
+        }
     }
     
 }
