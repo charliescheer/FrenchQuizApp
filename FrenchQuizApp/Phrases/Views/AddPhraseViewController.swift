@@ -20,13 +20,8 @@ class AddPhraseViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
-//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-//        view.addGestureRecognizer(tap)
+        
     }
-//    
-//    @objc func dismissKeyboard() {
-//        view.endEditing(true)
-//    }
     
     override func viewDidAppear(_ animated: Bool) {
         do {

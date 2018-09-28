@@ -56,7 +56,7 @@ class VerbQuizViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(currentMode)
+        currentModeLabel.text = currentMode
         
         getMemoryStore()
         setupTapDismissOfKeyboard()

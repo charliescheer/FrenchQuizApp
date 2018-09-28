@@ -101,15 +101,6 @@
                                     <outlet property="delegate" destination="2cw-XK-POj" id="YmX-0p-1mK"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ULg-wf-FK6">
-                                <rect key="frame" x="274" y="258" width="32" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="print"/>
-                                <connections>
-                                    <action selector="printVerbDictionary:" destination="2cw-XK-POj" eventType="touchUpInside" id="Y1N-rE-Mdl"/>
-                                    <action selector="searchWasPressed:" destination="2cw-XK-POj" eventType="touchUpInside" id="wih-qB-yJO"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Swl-GD-4hp"/>
