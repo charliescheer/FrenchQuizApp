@@ -122,7 +122,7 @@ class VerbQuizViewController: UIViewController {
                 }
             } else {
                 //When chances have run out
-                correctMessageLabel.text = "Incorrect, the answer was: \(String(describing: quizVerbConjugation))"
+                correctMessageLabel.text = "Incorrect, the answer was: \(String(describing: quizVerbConjugation!))"
                 if currentMode == "Quiz" {
                     currentVerb.addPointToPhraseIncorrectCount()
                 }
@@ -292,7 +292,7 @@ extension VerbQuizViewController {
     }
     
     enum mode {
-        static let quiz = "quiz"
+        static let quiz = "Quiz"
         static let learn = "Learn"
     }
 }
