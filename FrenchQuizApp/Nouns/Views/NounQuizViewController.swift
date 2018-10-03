@@ -61,7 +61,6 @@ class NounQuizViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func enterWasPressed(_ sender: Any) {
         doTest()
-        print(currentMode)
     }
     
     
@@ -208,7 +207,8 @@ func compareCurrentAnswerWithQuiz(answer: String) {
             }
         } else {
             //When chances have run out
-            correctMessageLabel.text = "Incorrect, the answer was: \(currentQuiz.returnQuizAnswer(quizState: quizState)) and the gender was \(String(describing: currentQuiz.gender))"
+            
+            correctMessageLabel.text = "Incorrect, the answer was: \(currentQuiz.returnQuizAnswer(quizState: quizState)) and the gender was \(currentQuiz.gender!)"
             if currentMode == "Quiz" {
                 currentQuiz.addPointToPhraseIncorrectCount()
             }
