@@ -12,8 +12,6 @@ class VerbConjugationViewController: UIViewController {
     
     @IBOutlet weak var frenchTextLabel: UILabel!
     @IBOutlet weak var tenseTextLabel: UILabel!
-    
-    
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func backTapped(_ sender: Any) {

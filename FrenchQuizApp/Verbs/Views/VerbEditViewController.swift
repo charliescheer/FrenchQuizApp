@@ -15,24 +15,13 @@ class VerbEditViewController: UIViewController {
     @IBOutlet weak var correctInARowLabel: UILabel!
     @IBOutlet weak var learnedLabel: UILabel!
     @IBOutlet weak var deleteSaveButton: UIBarButtonItem!
-    @IBOutlet weak var editViewButton: UIBarButtonItem!
+
     
     
     
     
     @IBAction func backTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func editTapped(_ sender: Any) {
-        if mode == "View" {
-            enterEdit()
-        } else if mode == "Edit" {
-            updatePhrase()
-            enterView()
-        } else {
-            print("The mode is out of range")
-        }
     }
     
     @IBAction func resetTapped(_ sender: Any) {
@@ -54,34 +43,6 @@ class VerbEditViewController: UIViewController {
         conjugationDictionary = currentVerb.unarchiveDictionary()
         
         setupView()
-    }
-    
-    func enterView() {
-        mode = "View"
-        editViewButton.title = "Edit"
-        deleteSaveButton.title = "Delete"
-        
-        
-        englishTextLabel?.isUserInteractionEnabled = false
-        frenchTextLabel?.isUserInteractionEnabled = false
-    }
-    
-    func enterEdit() {
-        mode = "Edit"
-        editViewButton.title = "View"
-        deleteSaveButton?.title = "Save"
-        
-        
-        englishTextLabel?.isUserInteractionEnabled = true
-        frenchTextLabel?.isUserInteractionEnabled = true
-    }
-    
-    
-    func updatePhrase() {
-        if verb != nil {
-            verb?.english = englishTextLabel.text
-            verb?.french = frenchTextLabel.text
-        }
     }
     
     func setupView() {
