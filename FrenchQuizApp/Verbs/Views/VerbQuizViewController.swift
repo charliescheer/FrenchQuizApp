@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class VerbQuizViewController: UIViewController {
+class VerbQuizViewController: UIViewController, UITextFieldDelegate {
     
     var currentMode : String?
     var verb : Verbs?
@@ -59,6 +59,7 @@ class VerbQuizViewController: UIViewController {
         currentModeLabel.text = currentMode
         
         getMemoryStore()
+        print(savedMemory?.count)
         setupTapDismissOfKeyboard()
         if savedMemory!.count > 0 {
             getQuizVerb()
@@ -166,9 +167,9 @@ class VerbQuizViewController: UIViewController {
         
         let quizTense = tenses[Int(arc4random_uniform(UInt32(tenses.count)))]
         let quizArticle = articles[Int(arc4random_uniform(UInt32(articles.count)))]
-        print(quizTense)
-        print(quizArticle)
-        
+//        print(quizTense)
+//        print(quizArticle)
+//        print(verbDictionary)
         currentArticleLabel.text = quizArticle
         currentTenseLabel.text = quizTense
         currentQuizLabel.text = currentVerb.english
@@ -184,6 +185,24 @@ class VerbQuizViewController: UIViewController {
     
     
     func getMemoryStore() {
+//        let request: NSFetchRequest<Verbs> = Verbs.fetchRequest()
+//        var results = [Verbs]()
+//
+//        do {
+//            results = try ManagedData.getContext().fetch(request)
+//            print(results.count)
+//        }
+//        catch {
+//            print(error)
+//        }
+//
+//        for verb in results {
+//            if verb.learned == false {
+//                savedMemory?.append(verb)
+//
+//            }
+//        }
+        
         let request: NSFetchRequest<Verbs> = Verbs.fetchRequest()
         var results = [Verbs]()
         
@@ -198,10 +217,11 @@ class VerbQuizViewController: UIViewController {
         for verb in results {
             if verb.learned == false {
                 savedMemory?.append(verb)
-                
             }
         }
     }
+    
+    
     
     func getUserAnswer() -> String {
         var setAnswer: String = ""

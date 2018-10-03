@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class AddVerbViewController: UIViewController {
+class AddVerbViewController: UIViewController, UITextFieldDelegate {
     
     var tenses = ["Présent", "Imparfait", "Futur", "Passé", "Passé simple"]
     var articles = ["je", "tu", "il", "nous", "vous", "ils"]
@@ -57,6 +57,10 @@ class AddVerbViewController: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        clearNewInputTextFields()
+        fetchSavedVerbs()
+    }
     
     func getVerbDescriptionStringFromURL(from URLString: String) {
         
@@ -178,6 +182,11 @@ class AddVerbViewController: UIViewController {
             print("couldn't create new object")
         }
         
+        fetchSavedVerbs()
+        clearNewInputTextFields()
+    }
+    
+    func fetchSavedVerbs() {
         do {
             try dataResultsController.performFetch()
         } catch {
@@ -185,6 +194,11 @@ class AddVerbViewController: UIViewController {
         }
         
         tableView.reloadData()
+    }
+    
+    func clearNewInputTextFields() {
+        englishTextField.text = ""
+        frenchTextField.text = ""
     }
     
     func displayEmptyVerbAlert () {

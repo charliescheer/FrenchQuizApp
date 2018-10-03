@@ -42,14 +42,7 @@ class VerbEditViewController: UIViewController {
     }
     
     @IBAction func deleteSaveTapped(_ sender: Any) {
-        if mode == "View" {
             displayDeleteAlert()
-        } else if mode == "Edit" {
-            updatePhrase()
-            enterView()
-        } else {
-            print("Error: The mode is not correct")
-        }
     }
 
     
@@ -139,15 +132,18 @@ class VerbEditViewController: UIViewController {
         
         if let currentVerb = verb {
             context.delete(currentVerb)
+            do {
+                try context.save()
+            } catch {
+                print(error)
+            }
+            
             returnsToList()
         }
     }
     
     func returnsToList () {
-        let storyboard = UIStoryboard(name: "Nouns", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "addNoun")
         self.dismiss(animated: true, completion: nil)
-        self.present(controller, animated: true, completion: nil)
     }
     
 }

@@ -53,6 +53,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <connections>
+                                    <action selector="searchWasPressed:" destination="2cw-XK-POj" eventType="primaryActionTriggered" id="04u-2h-R6j"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="French" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v6u-Vr-0PJ">
                                 <rect key="frame" x="16" y="177" width="343" height="21"/>
@@ -249,7 +252,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="0y0-ze-ylO"/>
-                                    <barButtonItem title="Delete/save" id="1Pu-mn-7Ht">
+                                    <barButtonItem title="Delete" id="1Pu-mn-7Ht">
                                         <connections>
                                             <action selector="deleteSaveTapped:" destination="IUV-hp-G3q" id="QG7-G2-LQG"/>
                                         </connections>
@@ -407,7 +410,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <connections>
-                                    <action selector="enterWasPressed:" destination="eSE-RG-ZtN" eventType="editingDidEnd" id="IsS-0c-HT3"/>
+                                    <action selector="enterWasPressed:" destination="eSE-RG-ZtN" eventType="primaryActionTriggered" id="bFi-da-nNI"/>
                                 </connections>
                             </textField>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CAw-oL-z1B" userLabel="Page Tools">

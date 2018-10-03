@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class NounQuizViewController: UIViewController {
+class NounQuizViewController: UIViewController, UITextFieldDelegate {
     
     var currentMode : String?
     var quizPair: Nouns?
@@ -118,6 +118,7 @@ func setModeToQuiz() {
 
 func setModeToLearn() {
     currentModeLabel.text = mode.learn
+
     quizStateButton.title = mode.quiz
     currentMode = mode.learn
 }

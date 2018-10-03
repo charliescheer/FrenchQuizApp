@@ -102,4 +102,5 @@ extension ManagedData {
         static let sortDescriptor = "creationDate"
         static let persistantContainerName = "FrenchQuizApp"
     }
+
 }
