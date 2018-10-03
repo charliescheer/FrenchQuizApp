@@ -108,7 +108,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Swl-GD-4hp"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="tQf-md-THs"/>
+                    <tabBarItem key="tabBarItem" title="Add Verb" id="tQf-md-THs"/>
                     <connections>
                         <outlet property="englishTextField" destination="Zag-2d-Raq" id="4ZM-mH-PON"/>
                         <outlet property="frenchTextField" destination="2xM-ex-g6T" id="Nwm-eW-1hT"/>
@@ -489,7 +489,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ZF0-lh-jVx"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="eSU-Vx-UQ7"/>
+                    <tabBarItem key="tabBarItem" title="Quiz" id="eSU-Vx-UQ7"/>
                     <connections>
                         <outlet property="correctMessageLabel" destination="3q5-yI-57W" id="DU4-9S-lh2"/>
                         <outlet property="currentArticleLabel" destination="xAj-Hk-Hsf" id="ASs-SF-CEd"/>
