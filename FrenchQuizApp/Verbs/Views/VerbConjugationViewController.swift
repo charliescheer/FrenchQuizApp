@@ -10,6 +10,10 @@ class VerbConjugationViewController: UIViewController {
     var mode = "View"
     var hasChanged = false
     
+    @IBOutlet weak var frenchTextLabel: UILabel!
+    @IBOutlet weak var tenseTextLabel: UILabel!
+    
+    
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func backTapped(_ sender: Any) {
@@ -21,11 +25,17 @@ class VerbConjugationViewController: UIViewController {
             return
         }
         
+        frenchTextLabel.text = currentVerb.french
+        if let currentTense = tense {
+            tenseTextLabel.text = currentTense
+        }
         conjugationDictionary = currentVerb.unarchiveDictionary()
         for article in conjugationDictionary[currentTense]! {
             tenseDictionary[article.key] = article.value
             print(tenseDictionary)
         }
+        
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {

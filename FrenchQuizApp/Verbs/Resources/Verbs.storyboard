@@ -452,7 +452,9 @@
                         <viewLayoutGuide key="safeArea" id="0s6-nI-ztH"/>
                     </view>
                     <connections>
+                        <outlet property="frenchTextLabel" destination="L9G-da-m6B" id="SHe-pJ-hHq"/>
                         <outlet property="tableView" destination="TaI-bz-FXX" id="JBV-s0-exr"/>
+                        <outlet property="tenseTextLabel" destination="Dcw-T1-NKc" id="Teg-kg-0I8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBU-vE-Ioy" userLabel="First Responder" sceneMemberID="firstResponder"/>
