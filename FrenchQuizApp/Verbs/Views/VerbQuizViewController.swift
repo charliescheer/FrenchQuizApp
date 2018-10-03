@@ -36,7 +36,7 @@ class VerbQuizViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func newQuizWasPressed(_ sender: Any) {
         getQuizVerb()
-        setAndDisplayQuizAnswer()
+        setAndDisplayQuizQuestion()
         correctMessageLabel.text = " "
     }
     
@@ -56,23 +56,26 @@ class VerbQuizViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currentModeLabel.text = currentMode
-        
         getMemoryStore()
-        print(savedMemory?.count)
+        setupInitialView()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        ManagedData.saveContext()
+    }
+    
+    func setupInitialView() {
+        currentModeLabel.text = currentMode
         setupTapDismissOfKeyboard()
+        
         if savedMemory!.count > 0 {
             getQuizVerb()
-            setAndDisplayQuizAnswer()
+            setAndDisplayQuizQuestion()
         } else {
             currentQuizLabel.text = " "
             userAnswerTextField.isUserInteractionEnabled = false
             displayNoAvailableQuizPairsAlert()
         }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        ManagedData.saveContext()
     }
     
     func setupTapDismissOfKeyboard() {
@@ -128,7 +131,7 @@ class VerbQuizViewController: UIViewController, UITextFieldDelegate {
                     currentVerb.addPointToPhraseIncorrectCount()
                 }
                 getQuizVerb()
-                setAndDisplayQuizAnswer()
+                setAndDisplayQuizQuestion()
                 quizCount = 1
                 clearUserAnswer()
             }
@@ -138,90 +141,6 @@ class VerbQuizViewController: UIViewController, UITextFieldDelegate {
         
         UIView.animate(withDuration: 2, animations: {self.correctMessageLabel.alpha = 0})
     }
-    
-    func getQuizVerb() {
-        guard let memory = savedMemory else {
-            return
-        }
-        
-        guard memory.count > 0 else {
-            displayNoAvailableVerbsAlert()
-            return
-        }
-        
-        let randomIndex = Int(arc4random_uniform(UInt32(memory.count)))
-        verb = memory[randomIndex]
-        
-        verbDictionary = verb!.unarchiveDictionary()
-    }
-    
-    func setAndDisplayQuizAnswer() {
-        
-        guard let dictionary = verbDictionary else {
-            return
-        }
-        
-        guard let currentVerb = verb else {
-            return
-        }
-        
-        let quizTense = tenses[Int(arc4random_uniform(UInt32(tenses.count)))]
-        let quizArticle = articles[Int(arc4random_uniform(UInt32(articles.count)))]
-//        print(quizTense)
-//        print(quizArticle)
-//        print(verbDictionary)
-        currentArticleLabel.text = quizArticle
-        currentTenseLabel.text = quizTense
-        currentQuizLabel.text = currentVerb.english
-        
-        quizVerbConjugation = dictionary[quizTense]![quizArticle]! as String
-        
-        //remove for production
-        if let verbConjugation = quizVerbConjugation {
-            print(verbConjugation)
-        }
-    }
-    
-    
-    
-    func getMemoryStore() {
-//        let request: NSFetchRequest<Verbs> = Verbs.fetchRequest()
-//        var results = [Verbs]()
-//
-//        do {
-//            results = try ManagedData.getContext().fetch(request)
-//            print(results.count)
-//        }
-//        catch {
-//            print(error)
-//        }
-//
-//        for verb in results {
-//            if verb.learned == false {
-//                savedMemory?.append(verb)
-//
-//            }
-//        }
-        
-        let request: NSFetchRequest<Verbs> = Verbs.fetchRequest()
-        var results = [Verbs]()
-        
-        do {
-            results = try ManagedData.getContext().fetch(request)
-            print(results.count)
-        }
-        catch {
-            print(error)
-        }
-        
-        for verb in results {
-            if verb.learned == false {
-                savedMemory?.append(verb)
-            }
-        }
-    }
-    
-    
     
     func getUserAnswer() -> String {
         var setAnswer: String = ""
@@ -254,7 +173,7 @@ class VerbQuizViewController: UIViewController, UITextFieldDelegate {
         }
         
         getQuizVerb()
-        setAndDisplayQuizAnswer()
+        setAndDisplayQuizQuestion()
         clearUserAnswer()
     }
     
@@ -272,6 +191,62 @@ class VerbQuizViewController: UIViewController, UITextFieldDelegate {
         userAnswerTextField.text = " "
     }
     
+    func getQuizVerb() {
+        guard let memory = savedMemory else {
+            return
+        }
+        
+        guard memory.count > 0 else {
+            displayNoAvailableVerbsAlert()
+            return
+        }
+        
+        let randomIndex = Int(arc4random_uniform(UInt32(memory.count)))
+        verb = memory[randomIndex]
+        
+        verbDictionary = verb!.unarchiveDictionary()
+    }
+    
+    func setAndDisplayQuizQuestion() {
+        
+        guard let dictionary = verbDictionary else {
+            return
+        }
+        
+        guard let currentVerb = verb else {
+            return
+        }
+        
+        let quizTense = tenses[Int(arc4random_uniform(UInt32(tenses.count)))]
+        let quizArticle = articles[Int(arc4random_uniform(UInt32(articles.count)))]
+
+        currentArticleLabel.text = quizArticle
+        currentTenseLabel.text = quizTense
+        currentQuizLabel.text = currentVerb.english
+        
+        quizVerbConjugation = dictionary[quizTense]![quizArticle]! as String
+    }
+    
+    
+    func getMemoryStore() {
+        
+        let request: NSFetchRequest<Verbs> = Verbs.fetchRequest()
+        var results = [Verbs]()
+        
+        do {
+            results = try ManagedData.getContext().fetch(request)
+            print(results.count)
+        }
+        catch {
+            print(error)
+        }
+        
+        for verb in results {
+            if verb.learned == false {
+                savedMemory?.append(verb)
+            }
+        }
+    }
     
     
     

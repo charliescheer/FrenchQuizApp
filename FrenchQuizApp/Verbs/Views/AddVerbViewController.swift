@@ -15,10 +15,6 @@ class AddVerbViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var frenchTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     
-    @IBAction func printVerbDictionary(_ sender: Any) {
-        printDictionary()
-    }
-    
     @IBAction func searchWasPressed(_ sender: Any) {
         if englishTextField.text == "" || frenchTextField.text == "" {
             displayEmptyVerbAlert()
@@ -51,11 +47,7 @@ class AddVerbViewController: UIViewController, UITextFieldDelegate {
         }
         return string
     }
-    
-    func printDictionary() {
-        print(newVerbDictionary)
-        
-    }
+
     
     override func viewDidAppear(_ animated: Bool) {
         clearNewInputTextFields()
@@ -120,7 +112,6 @@ class AddVerbViewController: UIViewController, UITextFieldDelegate {
         for tense in self.tenses {
             let currentTense = self.isolateTense(currentString: indicatif, tense: tense)
             var tempDictionary : [String : String] = [:]
-            //                        print(currentTense)
             
             for article in self.articles {
                 let verbConjugation = self.getVerbConjugations(currentTense: currentTense, article: article)
