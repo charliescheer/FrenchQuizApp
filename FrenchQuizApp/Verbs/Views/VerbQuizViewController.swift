@@ -56,12 +56,15 @@ class VerbQuizViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getMemoryStore()
-        setupInitialView()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         ManagedData.saveContext()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        getMemoryStore()
+        setupInitialView()
     }
     
     func setupInitialView() {
@@ -216,6 +219,7 @@ class VerbQuizViewController: UIViewController, UITextFieldDelegate {
         guard let currentVerb = verb else {
             return
         }
+        
         let tenses = currentVerb.returnTenseArray()
         let articles = currentVerb.returnArticleArray()
         
@@ -226,9 +230,19 @@ class VerbQuizViewController: UIViewController, UITextFieldDelegate {
         currentTenseLabel.text = quizTense
         currentQuizLabel.text = currentVerb.english
         
-        quizVerbConjugation = dictionary[quizTense]![quizArticle]! as String
+        if dictionary.count > 0 {
+            quizVerbConjugation = dictionary[quizTense]![quizArticle]! as String
+        } else {
+            clearQuiz()
+            displayNoAvailableQuizPairsAlert()
+        }
     }
     
+    func clearQuiz() {
+        currentQuizLabel.text = ""
+        currentArticleLabel.text = ""
+        currentTenseLabel.text = ""
+    }
     
     func getMemoryStore() {
         
