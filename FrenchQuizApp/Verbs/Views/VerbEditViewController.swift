@@ -4,7 +4,6 @@ class VerbEditViewController: UIViewController {
     
     var verb : Verbs?
     var conjugationDictionary : [String : [String : String]] = [ : ]
-    var mode = "View"
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var englishTextLabel: UILabel!
@@ -129,7 +128,6 @@ extension VerbEditViewController: UITableViewDelegate, UITableViewDataSource {
         
         let tenseCell = tableView.dequeueReusableCell(withIdentifier: constants.tableViewCellIdentifier, for: indexPath) as! TenseCell
         tenseCell.tenseTextLabel.text = tenseArray[indexPath.row]
-        
         
         return tenseCell
     }

@@ -6,7 +6,7 @@ class VerbConjugationViewController: UIViewController {
     var tense : String?
     var conjugationDictionary : [String : [String : String]] = [ : ]
     var tenseDictionary : [String : String] = [ : ]
-    var mode = "View"
+
     var hasChanged = false
     
     @IBOutlet weak var frenchTextLabel: UILabel!
@@ -51,6 +51,12 @@ class VerbConjugationViewController: UIViewController {
         }
     }
     
+    func mutateDictionaryToData() -> Data {
+        let data: Data = NSKeyedArchiver.archivedData(withRootObject: conjugationDictionary)
+        
+        return data
+    }
+    
     func displayEditAlert(sender: ArticleCell) {
         let alert = UIAlertController(title: "Enter Conjugation", message: "Enter a new conjugation for \(sender.conjugationTextLabel.text ?? "current conjugation")", preferredStyle: .alert)
         
@@ -79,13 +85,6 @@ class VerbConjugationViewController: UIViewController {
     
         
         self.present(alert, animated: true, completion: nil)
-    }
-    
-    
-    func mutateDictionaryToData() -> Data {
-        let data: Data = NSKeyedArchiver.archivedData(withRootObject: conjugationDictionary)
-        
-        return data
     }
 
 }

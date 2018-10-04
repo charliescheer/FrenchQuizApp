@@ -43,7 +43,7 @@ class AddVerbViewController: UIViewController, UITextFieldDelegate {
     func getURL() -> String {
         var string = ""
         if let frenchStr = frenchTextField.text{
-            string = "http://conjugator.reverso.net/conjugation-french-verb-" + frenchStr.lowercased() + ".html"
+            string = constants.reversoRootURL + frenchStr.lowercased() + ".html"
         }
         return string
     }
@@ -104,14 +104,6 @@ class AddVerbViewController: UIViewController, UITextFieldDelegate {
         indicatif = indicatif.substring(to: endRange.upperBound) as NSString
         
         return indicatif
-    }
-    
-    func newParseConjugationsFromString(_ dataString: NSString) {
-        let indicatif = dataString
-        
-        let futurTense = isolateIndicatif(isolateTense(currentString: indicatif, tense: "futur"))
-        print(futurTense)
-        
     }
     
     func parseVerbConjugationFromDataString(_ dataString : NSString) {
@@ -183,7 +175,7 @@ class AddVerbViewController: UIViewController, UITextFieldDelegate {
             
             ManagedData.saveContext()
         } else {
-            print("couldn't create new object")
+            print("Couldn't create new object")
         }
         
         fetchSavedVerbs()
@@ -194,7 +186,7 @@ class AddVerbViewController: UIViewController, UITextFieldDelegate {
         do {
             try dataResultsController.performFetch()
         } catch {
-            print("fetch failed")
+            print("Fetch failed")
         }
         
         tableView.reloadData()
@@ -277,5 +269,6 @@ extension AddVerbViewController {
         static let showVerbVC = "showVerbSegue"
         static let tenses = ["Présent", "Imparfait", "Futur", "Passé", "Passé simple"]
         static let articles = ["je", "tu", "il", "nous", "vous", "ils"]
+        static let reversoRootURL = "http://conjugator.reverso.net/conjugation-french-verb-"
     }
 }
