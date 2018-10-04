@@ -7,8 +7,6 @@ class VerbQuizViewController: UIViewController, UITextFieldDelegate {
     var verb : Verbs?
     var savedMemory : [Verbs]? = []
     var verbDictionary : [String : [String : String]]?
-    var tenses = ["Présent", "Imparfait", "Futur", "Passé", "Passé simple"]
-    var articles = ["je", "tu", "il", "nous", "vous", "ils"]
     var quizVerbConjugation : String?
     var quizCount = 1
     
@@ -26,6 +24,8 @@ class VerbQuizViewController: UIViewController, UITextFieldDelegate {
         guard let modeState = currentMode else {
             return
         }
+        
+        
         
         if modeState == mode.quiz {
             setModeToLearn()
@@ -57,7 +57,7 @@ class VerbQuizViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         getMemoryStore()
-//        setupInitialView()
+        setupInitialView()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -216,6 +216,8 @@ class VerbQuizViewController: UIViewController, UITextFieldDelegate {
         guard let currentVerb = verb else {
             return
         }
+        let tenses = currentVerb.returnTenseArray()
+        let articles = currentVerb.returnArticleArray()
         
         let quizTense = tenses[Int(arc4random_uniform(UInt32(tenses.count)))]
         let quizArticle = articles[Int(arc4random_uniform(UInt32(articles.count)))]

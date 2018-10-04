@@ -2,7 +2,6 @@ import UIKit
 
 extension Verbs {
     
-    
     func unarchiveDictionary() -> [String : [String : String]] {
         var unarchivedDictionary : [String : [String : String]] = [ : ]
         
@@ -30,6 +29,17 @@ extension Verbs {
         return result
     }
     
+    func returnArticleArray() -> [String] {
+        let articleArray = ["je", "tu", "il", "nous", "vous", "ils"]
+        
+        return articleArray
+    }
     
+    func returnTenseArray() -> [String] {
+        let tenseArray = ["Présent", "Imparfait", "Futur", "Passé", "Passé simple"]
+        
+        return tenseArray 
+    }
 }
+
 

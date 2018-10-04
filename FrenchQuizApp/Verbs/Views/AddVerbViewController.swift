@@ -3,8 +3,6 @@ import CoreData
 
 class AddVerbViewController: UIViewController, UITextFieldDelegate {
     
-    var tenses = ["Présent", "Imparfait", "Futur", "Passé", "Passé simple"]
-    var articles = ["je", "tu", "il", "nous", "vous", "ils"]
     var dataResultsController = ManagedData.verbResultsController
     var managedObjectContext = ManagedData.persistentContainer.viewContext
     var newVerbDictionary : [String : [String : String]] = [ : ]
@@ -19,6 +17,7 @@ class AddVerbViewController: UIViewController, UITextFieldDelegate {
         if englishTextField.text == "" || frenchTextField.text == "" {
             displayEmptyVerbAlert()
         } else {
+            
             //get the URL data
             let verbURLString = getURL()
             
@@ -117,12 +116,14 @@ class AddVerbViewController: UIViewController, UITextFieldDelegate {
     
     func parseVerbConjugationFromDataString(_ dataString : NSString) {
         let indicatif = dataString
+        let tenses = constants.tenses
+        let articles = constants.articles
         
-        for tense in self.tenses {
+        for tense in tenses {
             let currentTense = self.isolateTense(currentString: indicatif, tense: tense)
             var tempDictionary : [String : String] = [:]
             
-            for article in self.articles {
+            for article in articles {
                 let verbConjugation = self.getVerbConjugations(currentTense: currentTense, article: article)
                 tempDictionary[article as String] = verbConjugation
             }
@@ -274,5 +275,7 @@ extension AddVerbViewController {
     enum constants {
         static let tableViewCellIdentifier = "verbCell"
         static let showVerbVC = "showVerbSegue"
+        static let tenses = ["Présent", "Imparfait", "Futur", "Passé", "Passé simple"]
+        static let articles = ["je", "tu", "il", "nous", "vous", "ils"]
     }
 }

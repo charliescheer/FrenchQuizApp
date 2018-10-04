@@ -4,7 +4,6 @@ class VerbEditViewController: UIViewController {
     
     var verb : Verbs?
     var conjugationDictionary : [String : [String : String]] = [ : ]
-    var tenseArray = ["Présent", "Imparfait", "Futur", "Passé", "Passé simple"]
     var mode = "View"
     
     @IBOutlet weak var tableView: UITableView!
@@ -112,10 +111,22 @@ class VerbEditViewController: UIViewController {
 extension VerbEditViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let currentVerb = verb else {
+            return 0
+        }
+        
+        let tenseArray = currentVerb.returnTenseArray()
         return tenseArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let currentVerb = verb else {
+            let cell = UITableViewCell.init(style: .default, reuseIdentifier: constants.tableViewCellIdentifier)
+            return cell
+        }
+        
+        let tenseArray = currentVerb.returnTenseArray()
+        
         let tenseCell = tableView.dequeueReusableCell(withIdentifier: constants.tableViewCellIdentifier, for: indexPath) as! TenseCell
         tenseCell.tenseTextLabel.text = tenseArray[indexPath.row]
         
@@ -139,6 +150,7 @@ extension VerbEditViewController: UITableViewDelegate, UITableViewDataSource {
                 return
             }
             
+            let tenseArray = currentVerb.returnTenseArray()
             let articleVC = segue.destination as? VerbConjugationViewController
             
             articleVC?.verb = currentVerb

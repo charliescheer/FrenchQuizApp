@@ -6,7 +6,6 @@ class VerbConjugationViewController: UIViewController {
     var tense : String?
     var conjugationDictionary : [String : [String : String]] = [ : ]
     var tenseDictionary : [String : String] = [ : ]
-    var articleArray = ["je", "tu", "il", "nous", "vous", "ils"]
     var mode = "View"
     var hasChanged = false
     
@@ -93,11 +92,22 @@ class VerbConjugationViewController: UIViewController {
 
 extension VerbConjugationViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let currentVerb = verb else {
+            return 0
+        }
+        
+        let articleArray = currentVerb.returnArticleArray()
+        
         return articleArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let currentVerb = verb else {
+            let cell = UITableViewCell.init(style: .default, reuseIdentifier: constants.tableViewCellIdentifier)
+            return cell
+        }
         let articleCell = tableView.dequeueReusableCell(withIdentifier: constants.tableViewCellIdentifier, for: indexPath) as! ArticleCell
+        let articleArray = currentVerb.returnArticleArray()
         
         articleCell.articleTextLabel.text = articleArray[indexPath.row]
         articleCell.conjugationTextLabel.text = tenseDictionary[articleArray[indexPath.row]]
