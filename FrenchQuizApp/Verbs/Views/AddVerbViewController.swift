@@ -35,6 +35,7 @@ class AddVerbViewController: UIViewController, UITextFieldDelegate {
             createNewVerb(english: englishTextField.text!, french: frenchTextField.text!, dictionaryData: mutatedDictionary)
         }
     }
+
     
     override func viewDidLoad() {
         
@@ -106,6 +107,14 @@ class AddVerbViewController: UIViewController, UITextFieldDelegate {
         return indicatif
     }
     
+    func newParseConjugationsFromString(_ dataString: NSString) {
+        let indicatif = dataString
+        
+        let futurTense = isolateIndicatif(isolateTense(currentString: indicatif, tense: "futur"))
+        print(futurTense)
+        
+    }
+    
     func parseVerbConjugationFromDataString(_ dataString : NSString) {
         let indicatif = dataString
         
@@ -134,22 +143,25 @@ class AddVerbViewController: UIViewController, UITextFieldDelegate {
     
     func getVerbConjugations(currentTense: NSString, article: String) -> String {
         var currentArticle = currentTense
-        var tempArticle = article
+        var tempArticle = "graytxt\">"
         
         if article == "je" {
-            tempArticle = "j"
+            tempArticle = tempArticle + "j"
+        } else {
+            tempArticle = tempArticle + article
         }
         
         let articleLowRange = currentArticle.range(of: tempArticle)
         currentArticle = currentArticle.substring(from: articleLowRange.lowerBound) as NSString
+
         let articleUpperRange = currentArticle.range(of: "</li>")
         currentArticle = currentArticle.substring(to: articleUpperRange.lowerBound) as NSString
-        
+
         let isolateLowRange = currentArticle.range(of: "verbtxt\">")
         currentArticle = currentArticle.substring(from: isolateLowRange.upperBound) as NSString
         let isolateHighRange = currentArticle.range(of: "</i>")
         currentArticle = currentArticle.substring(to: isolateHighRange.lowerBound) as NSString
-        
+
         return currentArticle as String
     }
     

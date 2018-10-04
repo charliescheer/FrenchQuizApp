@@ -57,7 +57,7 @@ class VerbQuizViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         getMemoryStore()
-        setupInitialView()
+//        setupInitialView()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
