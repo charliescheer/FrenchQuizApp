@@ -43,7 +43,7 @@ class VerbConjugationViewController: UIViewController {
         if verb != nil {
             if hasChanged == true {
                 conjugationDictionary[currentTense] = tenseDictionary
-                let mutatedDictionary = mutateDictionaryToData()
+                let mutatedDictionary = verb!.mutateDictionaryToData(conjugationDictionary)
                 
                 verb!.conjugationDictionary = mutatedDictionary
                 ManagedData.saveContext()

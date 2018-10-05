@@ -30,8 +30,7 @@ class AddVerbViewController: UIViewController, UITextFieldDelegate {
             //save dictionary to new object
             //add to coredata
             //reset the tableview
-            let mutatedDictionary = mutateDictionaryToData()
-            createNewVerb(english: englishTextField.text!, french: frenchTextField.text!, dictionaryData: mutatedDictionary)
+            createNewVerb()
         }
     }
 
@@ -158,20 +157,12 @@ class AddVerbViewController: UIViewController, UITextFieldDelegate {
         return currentArticle as String
     }
     
-    
-    
-    func mutateDictionaryToData() -> Data {
-        let data: Data = NSKeyedArchiver.archivedData(withRootObject: newVerbDictionary)
-        
-        return data
-    }
-    
-    func createNewVerb(english : String, french : String, dictionaryData: Data) {
+    func createNewVerb() {
         if let newVerb = NSEntityDescription.insertNewObject(forEntityName: "Verbs", into: managedObjectContext) as? Verbs {
-            newVerb.english = english
-            newVerb.french = french
-            newVerb.creationDate = NSDate() as Date
-            newVerb.conjugationDictionary = dictionaryData
+            
+            newVerb.setEnglishandFrench(english: englishTextField.text!, french: frenchTextField.text!)
+            let mutatedDictionary = newVerb.mutateDictionaryToData(newVerbDictionary)
+            newVerb.setDictionaryData(mutatedDictionary)
             
             ManagedData.saveContext()
         } else {

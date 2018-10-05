@@ -40,6 +40,24 @@ extension Verbs {
         
         return tenseArray 
     }
+    
+    
+    func mutateDictionaryToData(_ dictionary: [String : [String : String]]) -> Data {
+        let data: Data = NSKeyedArchiver.archivedData(withRootObject: dictionary)
+        
+        return data
+    }
+    
+    func setEnglishandFrench(english : String, french : String) {
+        
+            self.english = english
+            self.french = french
+            self.creationDate = NSDate() as Date
+    }
+    
+    func setDictionaryData(_ data: Data) {
+        self.conjugationDictionary = data
+    }
 }
 
 
