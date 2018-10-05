@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class NounQuizViewController: UIViewController {
+class NounQuizViewController: UIViewController, UITextFieldDelegate {
     
     var currentMode : String?
     var quizPair: Nouns?
@@ -67,6 +67,7 @@ class NounQuizViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         getMemoryStore()
         setupTapDismissOfKeyboard()
         if savedMemory!.count > 0 {
@@ -83,7 +84,19 @@ class NounQuizViewController: UIViewController {
         }
     }
     
-        override func viewDidDisappear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
+        getMemoryStore()
+        if savedMemory!.count > 0 {
+            getQuizPair()
+        } else {
+            currentQuizLabel.text = " "
+            userAnswerTextField.isUserInteractionEnabled = false
+            displayNoAvailableQuizPairsAlert()
+        }
+
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
     ManagedData.saveContext()
 }
 
@@ -104,6 +117,7 @@ func setModeToQuiz() {
 
 func setModeToLearn() {
     currentModeLabel.text = mode.learn
+
     quizStateButton.title = mode.quiz
     currentMode = mode.learn
 }
@@ -193,7 +207,8 @@ func compareCurrentAnswerWithQuiz(answer: String) {
             }
         } else {
             //When chances have run out
-            correctMessageLabel.text = "Incorrect, the answer was: \(currentQuiz.returnQuizAnswer(quizState: quizState))"
+            
+            correctMessageLabel.text = "Incorrect, the answer was: \(currentQuiz.returnQuizAnswer(quizState: quizState)) and the gender was \(currentQuiz.gender!)"
             if currentMode == "Quiz" {
                 currentQuiz.addPointToPhraseIncorrectCount()
             }
@@ -210,7 +225,7 @@ func compareIsCorrect() {
     correctMessageLabel.text = "Correct!!!"
     
     if currentMode == "Quiz" {
-        quizPair?.addPointtoPhraseCorrectCount()
+        quizPair!.addPointtoPhraseCorrectCount()
     }
     
     if quizPair!.learned == true && quizPair!.correctInARow == 10 {
@@ -246,15 +261,18 @@ func getMemoryStore() {
     
     do {
         results = try ManagedData.getContext().fetch(request)
-        print(results.count)
+        print("in getMemoryStore  \(results.count)")
     }
     catch {
         print(error)
     }
-    
-    for noun in results {
-        if noun.learned == false {
-            savedMemory?.append(noun)
+    if results.count == 0 {
+        savedMemory = []
+    } else {
+        for noun in results {
+            if noun.learned == false {
+                savedMemory?.append(noun)
+            }
         }
     }
 }
@@ -296,7 +314,7 @@ extension NounQuizViewController {
     }
     
     enum mode {
-        static let quiz = "quiz"
+        static let quiz = "Quiz"
         static let learn = "Learn"
     }
 }

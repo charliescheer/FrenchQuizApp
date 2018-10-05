@@ -14,7 +14,7 @@ extension QuizObject {
         self.timesCorrect = 0
         self.timesIncorrect = 0
         self.correctInARow = 0
-        self.learned = false
+        self.setAsNotLearned()
     }
     
     func addPointToPhraseIncorrectCount() {
@@ -24,7 +24,7 @@ extension QuizObject {
     
     func checkIfLearned() {
         if correctInARow == 10 {
-            self.learned = true
+            self.setAsLearned()
         }
     }
     
@@ -158,6 +158,14 @@ extension QuizObject {
         }
         
         return answer
+    }
+    
+    func setAsLearned(){
+       self.learned = true
+    }
+    
+    func setAsNotLearned(){
+        self.learned = false
     }
     
     

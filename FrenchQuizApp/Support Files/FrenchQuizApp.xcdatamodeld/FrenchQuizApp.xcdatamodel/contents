@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Nouns" representedClassName="Nouns" parentEntity="QuizObject" syncable="YES" codeGenerationType="class">
         <attribute name="gender" attributeType="String" defaultValueString="male" syncable="YES"/>
     </entity>
@@ -13,9 +13,13 @@
         <attribute name="timesCorrect" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="timesIncorrect" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
+    <entity name="Verbs" representedClassName="Verbs" parentEntity="QuizObject" syncable="YES" codeGenerationType="class">
+        <attribute name="conjugationDictionary" optional="YES" attributeType="Binary" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Nouns" positionX="-54" positionY="54" width="128" height="60"/>
         <element name="Phrases" positionX="-54" positionY="-9" width="128" height="45"/>
         <element name="QuizObject" positionX="-54" positionY="36" width="128" height="150"/>
+        <element name="Verbs" positionX="-54" positionY="63" width="128" height="60"/>
     </elements>
 </model>

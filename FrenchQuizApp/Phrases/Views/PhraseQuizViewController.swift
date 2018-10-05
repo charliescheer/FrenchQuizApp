@@ -76,6 +76,18 @@ class PhraseQuizViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        getMemoryStore()
+        if savedMemory!.count > 0 {
+            getQuizPair()
+        } else {
+            currentQuizLabel.text = " "
+            answerTextField.isUserInteractionEnabled = false
+            displayNoAvailableQuizPairsAlert()
+        }
+        
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         ManagedData.saveContext()
     }
@@ -125,9 +137,13 @@ class PhraseQuizViewController: UIViewController {
             print(error)
         }
         
-        for phrase in results {
-            if phrase.learned == false {
-                savedMemory?.append(phrase)
+        if results.count == 0 {
+            savedMemory = []
+        } else {
+            for phrase in results {
+                if phrase.learned == false {
+                    savedMemory?.append(phrase)
+                }
             }
         }
     }

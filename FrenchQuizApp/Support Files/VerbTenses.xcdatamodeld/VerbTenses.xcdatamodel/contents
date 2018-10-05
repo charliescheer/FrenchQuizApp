@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Futur" representedClassName="Futur" parentEntity="Tense" syncable="YES" codeGenerationType="class"/>
+    <entity name="Imparfait" representedClassName="Imparfait" parentEntity="Tense" syncable="YES" codeGenerationType="class"/>
+    <entity name="Passe" representedClassName="Passe" parentEntity="Tense" syncable="YES" codeGenerationType="class"/>
+    <entity name="PasseSimple" representedClassName="PasseSimple" parentEntity="Tense" syncable="YES" codeGenerationType="class"/>
+    <entity name="Present" representedClassName="Present" parentEntity="Tense" syncable="YES" codeGenerationType="class"/>
+    <entity name="Tense" representedClassName="Tense" syncable="YES" codeGenerationType="class">
+        <attribute name="il" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ils" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="je" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nous" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tu" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vous" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Tense" positionX="-45" positionY="0" width="128" height="135"/>
+        <element name="Present" positionX="-18" positionY="72" width="128" height="45"/>
+        <element name="Futur" positionX="9" positionY="81" width="128" height="45"/>
+        <element name="Imparfait" positionX="27" positionY="90" width="128" height="45"/>
+        <element name="Passe" positionX="45" positionY="99" width="128" height="45"/>
+        <element name="PasseSimple" positionX="0" positionY="54" width="128" height="45"/>
+    </elements>
+</model>
